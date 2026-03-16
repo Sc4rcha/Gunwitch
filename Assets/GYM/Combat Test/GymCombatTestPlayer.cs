@@ -1,4 +1,3 @@
-using GymCombat;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,16 +12,19 @@ namespace GymCombat
         public LayerMask GunLayerCollision;
         public GymBullet[] BulletsReference;
         [Space]
-        public Sprite CharacterAim;
-        public Sprite CharacterShoot;
-        public Sprite CharacterReload;
+        public Sprite GunOpen;
+        public Sprite GunClose;
 
         [Space]
+        public RectTransform Crosshair;
         public Image CharacterImage;
-        public SpriteRenderer[] BulletsRenderers;
+        public Image Gun;
+        public Image[] BulletsRenderers;
         public GameObject BulletSelector;
         public Image BarHealth;
         public Image BarMana;
+        public Animator CharacterAnimator;
+        public Transform DrumTransform;
 
         private GymBullet[] bullets;
         private int bulletsIndex;
@@ -43,7 +45,7 @@ namespace GymCombat
 
             // setup bullets
             bullets = new GymBullet[3];
-            bulletsIndex = 0;
+            bulletsIndex = 3;
             foreach (var bullet in BulletsRenderers)
                 bullet.color = Color.grey;
 
@@ -53,6 +55,11 @@ namespace GymCombat
 
         public void Damage(int value)
         {
+            CharacterAnimator.Play("Hurt");
+
+            // start Cooldown
+            StartCoroutine(HurtCooldown());
+
             Player.HealthChange(-value);
             BarHealth.fillAmount = (float)Player.HealthCurrent / (float)Player.HealthMax;
         }
@@ -69,10 +76,10 @@ namespace GymCombat
 
         public void Shoot()
         {
-            if (isReloading || bulletsIndex == 0 || isOnCooldown)
+            if (isReloading || bulletsIndex == 3 || isOnCooldown)
                 return;
 
-            bulletsIndex--;
+            DrumTransform.localRotation = Quaternion.Euler(0, 0, GetDrumRotation(bulletsIndex));
 
             if (bullets[bulletsIndex].BulletType == GymBullet.Type.Heal)
             {
@@ -102,22 +109,36 @@ namespace GymCombat
 
             BulletsRenderers[bulletsIndex].color = Color.gray;
 
+            bulletsIndex++;
+
+            CharacterAnimator.Play("Shoot");
+
             // start Cooldown
             StartCoroutine(ShootCooldown());
         }
 
 
+        private void Update()
+        {
+            RectTransformUtility.ScreenPointToWorldPointInRectangle((RectTransform)Crosshair.parent, Mouse.current.position.ReadValue(), Camera.main, out var p);
+            Crosshair.position = p;
+        }
+
+
+
         #region RELOAD
         public void ReloadStart()
         {
-            if (bulletsIndex != 0 || !manager.IsEnemyRoundEnd)
+            if (bulletsIndex != 3 || !manager.IsEnemyRoundEnd)
                 return;
+
+            bulletsIndex = 0;
 
             BulletSelector.gameObject.SetActive(true);
             isReloading = true;
 
-            CharacterImage.sprite = CharacterReload;
-
+            CharacterAnimator.Play("Reload");
+            Gun.sprite = GunOpen;
         }
         public void LoadBullet(int bulletType)
         {
@@ -127,9 +148,10 @@ namespace GymCombat
 
             UseMana(BulletsReference[bulletType].Mana);
 
-            bullets[2 - bulletsIndex] = BulletsReference[bulletType];
-            BulletsRenderers[2 - bulletsIndex].color = bullets[2 - bulletsIndex].BulletColor;
+            bullets[bulletsIndex] = BulletsReference[bulletType];
+            BulletsRenderers[bulletsIndex].color = bullets[bulletsIndex].BulletColor;
 
+            DrumTransform.localRotation = Quaternion.Euler(0, 0, GetDrumRotation(bulletsIndex + 1));
 
             bulletsIndex++;
 
@@ -139,7 +161,10 @@ namespace GymCombat
         }
         public void ReloadFinish()
         {
-            CharacterImage.sprite = CharacterAim;
+            bulletsIndex = 0;
+
+            CharacterAnimator.Play("Aim");
+            Gun.sprite = GunClose;
 
             BulletSelector.gameObject.SetActive(false);
             isReloading = false;
@@ -150,16 +175,31 @@ namespace GymCombat
 
         private IEnumerator ShootCooldown()
         {
-            CharacterImage.sprite = CharacterShoot;
+            DrumTransform.localRotation = Quaternion.Euler(0, 0, GetDrumRotation(bulletsIndex - 1));
 
             isOnCooldown = true;
             yield return new WaitForSeconds(GunCooldown);
             isOnCooldown = false;
 
-            CharacterImage.sprite = CharacterAim;
+            DrumTransform.localRotation = Quaternion.Euler(0, 0, GetDrumRotation(bulletsIndex));
 
-            if (bulletsIndex == 0)
+            if (bulletsIndex == 3)
                 ReloadStart();
         }
+        private IEnumerator HurtCooldown()
+        {
+            isOnCooldown = true;
+            yield return new WaitForSeconds(GunCooldown);
+            isOnCooldown = false;
+        }
+
+
+
+        float GetDrumRotation(int holeIndex, int chambers = 3)
+        {
+            float holeSpacing = 360f / chambers;
+            return holeIndex * holeSpacing;
+        }
+
     }
 }

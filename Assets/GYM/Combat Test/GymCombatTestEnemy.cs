@@ -7,6 +7,7 @@ namespace GymCombat
     {
         public GymCharacterEnemy Enemy;
         public SpriteRenderer Renderer;
+
         private Animator animator;
 
         GymCombatTest manager;
@@ -48,9 +49,11 @@ namespace GymCombat
         }
         private IEnumerator TurnBehaviour()
         {
+            yield return new WaitForSeconds(Enemy.TurnCooldown / 2);
+
             Act();
 
-            yield return new WaitForSeconds(Enemy.TurnCooldown);
+            yield return new WaitForSeconds(Enemy.TurnCooldown / 2);
 
             TurnEnd();
         }
@@ -59,7 +62,7 @@ namespace GymCombat
             TurnFinish();
         }
         #endregion
-        
+
         protected virtual void Act() 
         {
             animator.Play("Attack");
