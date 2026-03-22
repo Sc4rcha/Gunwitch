@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6900161caff9a44a806f3e89c38de9, type: 3}
-  m_Name: EventDebug
-  m_EditorClassIdentifier: Assembly-CSharp::SOEvent
-  Name: Debug
-  EventLocation: {fileID: 11400000, guid: 47d55a4f8a4608146a524b53aa5bb36e, type: 2}
+  m_Script: {fileID: 11500000, guid: 42ef25dc9a7fbbb43946672cc9c47202, type: 3}
+  m_Name: Debug Starting Events
+  m_EditorClassIdentifier: Assembly-CSharp::SOEventList
+  Events:
+  - {fileID: 11400000, guid: 69102a56f756e1040afa13e654d3c1ca, type: 2}

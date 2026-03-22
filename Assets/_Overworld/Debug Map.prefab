@@ -88,9 +88,9 @@ GameObject:
   - component: {fileID: 5057727192281955835}
   - component: {fileID: 5944817720591336133}
   m_Layer: 5
-  m_Name: Map Debug
+  m_Name: Debug Map
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2800000, guid: 74ca0e825cfdbc34e8081bcf49e997e6, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OverworldMap
   Name: Map Debug
+  MapEvents: {fileID: 0}
   Locations:
   - {fileID: 695713441020294745}
   - {fileID: 4710952666279537788}

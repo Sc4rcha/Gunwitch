@@ -36,6 +36,6 @@ public class OverworldLocationButton : Button
         base.OnPointerClick(eventData);
 
         // enter location
-        Manager.Instance.ManagerOverworld.ButtonLocation(info.LocationInfo);
+        ManagerGameElements.Instance.ManagerOverworld.ButtonLocation(info.LocationInfo);
     }
 }

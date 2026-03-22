@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class Manager : MonoBehaviour
+public class ManagerGameElements : MonoBehaviour
 {
-    private static Manager _instance;
-    public static Manager Instance { get { return _instance; } }
+    private static ManagerGameElements _instance;
+    public static ManagerGameElements Instance { get { return _instance; } }
 
     private void Awake()
     {

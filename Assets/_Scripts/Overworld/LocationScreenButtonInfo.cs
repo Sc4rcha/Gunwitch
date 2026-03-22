@@ -36,6 +36,6 @@ public class LocationScreenButtonInfo : MonoBehaviour
         screen.Exit();
 
         // start event
-        Manager.Instance.ManagerEvents.EventStart(eventInfo);
+        ManagerGameElements.Instance.ManagerEvents.EventStart(eventInfo);
     }
 }

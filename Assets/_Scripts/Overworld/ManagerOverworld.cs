@@ -39,14 +39,14 @@ public class ManagerOverworld : MonoBehaviour
 
         // add map events
         if (map.MapEvents != null)
-            Manager.Instance.ManagerEvents.EventAddList(map.MapEvents.Events);
+            ManagerGameElements.Instance.ManagerEvents.EventAddList(map.MapEvents.Events);
     }
 
     // refresh map (check location availability)
     public void Refresh() 
     {
         // get list of active events
-        SOEvent[] activeEvents = Manager.Instance.ManagerEvents.ActiveEvents.ToArray();
+        SOEvent[] activeEvents = ManagerGameElements.Instance.ManagerEvents.ActiveEvents.ToArray();
 
         foreach (var location in map.Locations)
         {

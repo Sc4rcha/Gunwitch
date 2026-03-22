@@ -28,7 +28,7 @@ public class LocationScreen : MonoBehaviour
     public void Enter() 
     {
         // get all events in location
-        SOEvent[] locationEvents = Manager.Instance.ManagerEvents.GetLocationEvents(locationInfo);
+        SOEvent[] locationEvents = ManagerGameElements.Instance.ManagerEvents.GetLocationEvents(locationInfo);
 
         // set location event buttons
         for (int i = 0; i < EventButtons.Length; i++)
