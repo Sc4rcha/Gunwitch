@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f33887e5cac3343bfa4e4dd70c9c8a, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: Assembly-CSharp::SODialogueCharacter
+  CharacterName: Player
+  Portrait: {fileID: 21300000, guid: 3bf3d53ea7f70e04191985e46c387a9f, type: 3}
+  ExpressionNeutral: {fileID: 21300000, guid: 737e33bf3a6b7d04ca5bb2e88b7fb8ee, type: 3}
+  ExpressionHappy: {fileID: 21300000, guid: 6bb682aebe91664488b4a95f2ca10199, type: 3}
+  ExpressionAngry: {fileID: 21300000, guid: 0ea77b0129449cf4c977fd92b69f1e4b, type: 3}
+  ExpressionSad: {fileID: 21300000, guid: 6b2f2f0ea94f8eb4fa771906f148b79f, type: 3}
+  ExpressionSurprised: {fileID: 21300000, guid: 83aa0123dd245064bbfebdda455e87fd, type: 3}

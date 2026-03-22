@@ -24,9 +24,13 @@ public class ManagerGameElements : MonoBehaviour
     [Space]
     public ManagerEvents ManagerEvents;
     public ManagerOverworld ManagerOverworld;
+    public ManagerDialogue ManagerDialogue;
 
     private void Start()
     {
+        // setup dialogue
+        ManagerDialogue.Setup();
+
         // setup event manager
         ManagerEvents.Setup();
         ManagerEvents.EventAddList(StartingEvents.Events);
@@ -35,5 +39,7 @@ public class ManagerGameElements : MonoBehaviour
         ManagerOverworld.Setup();
         ManagerOverworld.OpenNewMap(StartingMap);
         ManagerOverworld.Refresh();
+
+
     }
 }

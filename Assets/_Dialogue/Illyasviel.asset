@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f33887e5cac3343bfa4e4dd70c9c8a, type: 3}
+  m_Name: Illyasviel
+  m_EditorClassIdentifier: Assembly-CSharp::SODialogueCharacter
+  CharacterName: Illyasviel
+  Portrait: {fileID: 21300000, guid: 8fe22d23caf737745b49fc2292d2140f, type: 3}
+  ExpressionNeutral: {fileID: 21300000, guid: 7f6f28b5e399f624daa786475a7564aa, type: 3}
+  ExpressionHappy: {fileID: 21300000, guid: 00b57e3aa8a605d4180fbbb0b0187886, type: 3}
+  ExpressionAngry: {fileID: 21300000, guid: 0052e79a73f195e4193938a1425014f4, type: 3}
+  ExpressionSad: {fileID: 21300000, guid: a4a5ee14634064a409ff23e1ea61e340, type: 3}
+  ExpressionSurprised: {fileID: 21300000, guid: 7197514281f71f241942529557731a6a, type: 3}

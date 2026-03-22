@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f33887e5cac3343bfa4e4dd70c9c8a, type: 3}
+  m_Name: Saber
+  m_EditorClassIdentifier: Assembly-CSharp::SODialogueCharacter
+  CharacterName: Saber
+  Portrait: {fileID: 21300000, guid: 32d9a0b7c30b311419fa049253a39a95, type: 3}
+  ExpressionNeutral: {fileID: 21300000, guid: 388580fc7839d314cbe1ba1d4153a1c5, type: 3}
+  ExpressionHappy: {fileID: 21300000, guid: ac95ab3c74cb88342962bd49ecb48adb, type: 3}
+  ExpressionAngry: {fileID: 21300000, guid: 0d8e433c6eea82d4c93604f693c57342, type: 3}
+  ExpressionSad: {fileID: 21300000, guid: 37afbfdd5596fd44ba163b84078a3fe7, type: 3}
+  ExpressionSurprised: {fileID: 21300000, guid: 5292e9ae70d760640b9a1e06a770dd78, type: 3}

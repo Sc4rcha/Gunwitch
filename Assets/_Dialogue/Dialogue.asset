@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 227a819172f1b7040ab509841b30715c, type: 3}
+  m_Name: Dialogue
+  m_EditorClassIdentifier: Assembly-CSharp::SODialogue
+  Characters:
+  - {fileID: 11400000, guid: 7016e54e9cdb442449e66abef9f27533, type: 2}
+  - {fileID: 11400000, guid: 3ba9a724f48a151428c71bdaf9739736, type: 2}
+  - {fileID: 11400000, guid: 0305b4d149112d94ca1cda461c45c307, type: 2}
+  Nodes:
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: Narration no characters
+  - IndexCharacterRight: 2
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 2
+    IndexExpression: 1
+    IndexEmotion: 0
+    Text: Character Speaks Happy
+  - IndexCharacterRight: 2
+    IndexCharacterLeft: 3
+    IndexCharacterFocus: 3
+    IndexExpression: 2
+    IndexEmotion: 0
+    Text: Second Character joing and Speaks Angry
+  - IndexCharacterRight: 2
+    IndexCharacterLeft: 3
+    IndexCharacterFocus: 1
+    IndexExpression: 3
+    IndexEmotion: 0
+    Text: Player Speaks Sad
+  - IndexCharacterRight: 2
+    IndexCharacterLeft: 3
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: Narration with characters talking
+  - IndexCharacterRight: 2
+    IndexCharacterLeft: 3
+    IndexCharacterFocus: 4
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: Third character speaks Neutral from off screen
+  - IndexCharacterRight: 2
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 3
+    IndexExpression: 4
+    IndexEmotion: 0
+    Text: Second Character speaks Surprised while offscreen
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 1
+    IndexExpression: 4
+    IndexEmotion: 0
+    Text: Player Speaks Surprised by themselves
