@@ -10,18 +10,17 @@ namespace GymCombat
 
         public bool IsEnemyRoundEnd;
 
-        private int enemyTurnIndex;
-        private bool allEnemiesDead => Enemies.All(x => x.Enemy.IsDead);
+        protected int enemyTurnIndex;
+        protected bool allEnemiesDead => Enemies.All(x => x.Enemy.IsDead);
+
 
         private void Start()
         {
             Setup();
         }
 
-        public void Setup() 
+        public virtual void Setup() 
         {
-            IsEnemyRoundEnd = true;
-
             // setup player
             Player.Setup(this);
 
@@ -29,27 +28,45 @@ namespace GymCombat
             foreach (var enemy in Enemies)
                 enemy.Setup(this);
 
+            RoundEnemyFinish();
         }
 
 
-        public void RoundEnemyStart() 
+
+        public virtual void RoundEnemyStart() 
         {
             IsEnemyRoundEnd = false;
 
             enemyTurnIndex = -1;
-            EnemyTurnNext();
+            EnemyTurnStart();
         }
-        public void RoundEnemyEnd() 
+        public virtual void RoundEnemyFinish() 
         {
             IsEnemyRoundEnd = true;
 
             Player.ReloadStart();
         }
-        public void EnemyTurnNext()
+        public virtual void EnemyTurnStart()
         {
             // advance index
             enemyTurnIndex++;
 
+            // end enemy round
+            if (enemyTurnIndex == Enemies.Length)
+            {
+                RoundEnemyFinish();
+                return;
+            }
+
+            // enemy take turn
+            if (!Enemies[enemyTurnIndex].Enemy.IsDead)
+                Enemies[enemyTurnIndex].TurnStart();
+            else
+                Enemies[enemyTurnIndex].TurnFinish();
+
+        }
+        public virtual void EnemyTurnEnd()
+        {
             // if all enemies dead player won the combat
             if (allEnemiesDead)
             {
@@ -57,16 +74,21 @@ namespace GymCombat
                 return;
             }
 
-            // end enemy round
-            if (enemyTurnIndex == Enemies.Length)
-            {
-                RoundEnemyEnd();
-                return;
-            }
-
-            // enemy take turn
-            Enemies[enemyTurnIndex].TurnStart();
+            EnemyTurnStart();
         }
+
+
+
+        public virtual void PlayerShoot() 
+        {
+            if (Player.bulletsIndex == 3)
+                Player.ReloadStart();
+        }
+        public virtual void PlayerReloadEnd()
+        {
+            RoundEnemyStart();
+        }
+
 
 
         public void CombatOver(bool isWin) 

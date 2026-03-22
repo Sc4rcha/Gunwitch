@@ -21,14 +21,11 @@ namespace GymCombat
 
         public void TurnStart() 
         {
-            if (!Enemy.IsDead)
-                TurnBegin();
-            else
-                TurnFinish();
+            TurnBegin();
         }
         public void TurnFinish()
         {
-            manager.EnemyTurnNext();
+            manager.EnemyTurnEnd();
         }
 
 

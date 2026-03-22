@@ -27,9 +27,12 @@ namespace GymCombat
         public Transform DrumTransform;
 
         private GymBullet[] bullets;
-        private int bulletsIndex;
+        [HideInInspector]
+        public int bulletsIndex;
         private bool isReloading;
         private bool isOnCooldown;
+        [HideInInspector]
+        public bool isLocked;
 
         private GymCombatTest manager;
         private GymInput gymInput;
@@ -48,8 +51,6 @@ namespace GymCombat
             bulletsIndex = 3;
             foreach (var bullet in BulletsRenderers)
                 bullet.color = Color.grey;
-
-            ReloadStart();
         }
 
 
@@ -76,7 +77,7 @@ namespace GymCombat
 
         public void Shoot()
         {
-            if (isReloading || bulletsIndex == 3 || isOnCooldown)
+            if (isReloading || bulletsIndex == 3 || isOnCooldown || isLocked)
                 return;
 
             DrumTransform.localRotation = Quaternion.Euler(0, 0, GetDrumRotation(bulletsIndex));
@@ -113,7 +114,6 @@ namespace GymCombat
 
             CharacterAnimator.Play("Shoot");
 
-            // start Cooldown
             StartCoroutine(ShootCooldown());
         }
 
@@ -169,7 +169,7 @@ namespace GymCombat
             BulletSelector.gameObject.SetActive(false);
             isReloading = false;
 
-            manager.RoundEnemyStart();
+            manager.PlayerReloadEnd();
         }
         #endregion
 
@@ -183,8 +183,8 @@ namespace GymCombat
 
             DrumTransform.localRotation = Quaternion.Euler(0, 0, GetDrumRotation(bulletsIndex));
 
-            if (bulletsIndex == 3)
-                ReloadStart();
+            // send shoot message
+            manager.PlayerShoot();
         }
         private IEnumerator HurtCooldown()
         {
@@ -192,7 +192,6 @@ namespace GymCombat
             yield return new WaitForSeconds(GunCooldown);
             isOnCooldown = false;
         }
-
 
 
         float GetDrumRotation(int holeIndex, int chambers = 3)
