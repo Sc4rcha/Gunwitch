@@ -1,5 +1,7 @@
+using EasyTextEffects;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class ManagerDialogue : MonoBehaviour
@@ -17,6 +19,9 @@ public class ManagerDialogue : MonoBehaviour
     public Image CharacterPortraitLeft;
     [Space]
     public TMPro.TMP_Text DialogueText;
+    public TextEffect DialogueTextEffects;
+    [Space]
+    public DialogueSFXBeep SFXBeep;
 
     [Header("Variables")]
     public Vector2 OffsetCharacterRight;
@@ -53,6 +58,13 @@ public class ManagerDialogue : MonoBehaviour
 
     public void DialogueNext() 
     {
+        if (!DialogueTextEffects.QueryEffectStatuses(TextEffectType.Global, TextEffectEntry.TriggerWhen.Manual)[1].IsComplete)
+        {
+            DialogueTextEffects.StopAllEffects();
+            SFXBeep.BeepingFinish();
+            return;
+        }
+
         dialogueIndex++;
 
         // dialogue end if no more nodes
@@ -88,7 +100,12 @@ public class ManagerDialogue : MonoBehaviour
         TransformExpression.gameObject.SetActive(node.IndexCharacterFocus > 0);
         // set character expression
         if (node.IndexCharacterFocus > 0)
+        {
             CharacterExpression.Expression.sprite = dialogueSelected.Characters[node.IndexCharacterFocus].Expressions[node.IndexExpression];
+            // set emotion
+            for (int i = 0; i < 3; i++)
+                CharacterExpression.Emotions[i].gameObject.SetActive(i+1 == node.IndexEmotion);
+        }
 
         // set expression and text position
         if (node.IndexCharacterFocus == 0)
@@ -127,6 +144,16 @@ public class ManagerDialogue : MonoBehaviour
 
         // set text
         DialogueText.text = node.Text;
+
+        // start text effects
+        DialogueTextEffects.Refresh();
+        DialogueTextEffects.StartManualEffects();
+
+        // start beep SFX
+        if (node.IndexCharacterFocus != 0)
+            SFXBeep.BeepingStart(dialogueSelected.Characters[node.IndexCharacterFocus].Beep, node.Text.Length);
+        else
+            SFXBeep.BeepingStart(node.Text.Length);
     }
 
 
@@ -135,6 +162,7 @@ public class ManagerDialogue : MonoBehaviour
         public string Name;
         public Sprite Portrait;
         public Sprite[] Expressions;
+        public AudioResource Beep;
 
         public void SetExpressions(Sprite neutral, Sprite happy, Sprite angry, Sprite sad, Sprite surprised) 
         {

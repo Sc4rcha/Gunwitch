@@ -33,14 +33,14 @@ MonoBehaviour:
     IndexCharacterLeft: 3
     IndexCharacterFocus: 3
     IndexExpression: 2
-    IndexEmotion: 0
-    Text: Second Character joing and Speaks Angry
+    IndexEmotion: 1
+    Text: Second Character joing and Speaks Exasperated
   - IndexCharacterRight: 2
     IndexCharacterLeft: 3
     IndexCharacterFocus: 1
     IndexExpression: 3
-    IndexEmotion: 0
-    Text: Player Speaks Sad
+    IndexEmotion: 2
+    Text: Player Speaks Flustered
   - IndexCharacterRight: 2
     IndexCharacterLeft: 3
     IndexCharacterFocus: 0
@@ -51,8 +51,8 @@ MonoBehaviour:
     IndexCharacterLeft: 3
     IndexCharacterFocus: 4
     IndexExpression: 0
-    IndexEmotion: 0
-    Text: Third character speaks Neutral from off screen
+    IndexEmotion: 3
+    Text: Third character speaks Thinking from off screen
   - IndexCharacterRight: 2
     IndexCharacterLeft: 0
     IndexCharacterFocus: 3
@@ -62,6 +62,6 @@ MonoBehaviour:
   - IndexCharacterRight: 0
     IndexCharacterLeft: 0
     IndexCharacterFocus: 1
-    IndexExpression: 4
-    IndexEmotion: 0
-    Text: Player Speaks Surprised by themselves
+    IndexExpression: 1
+    IndexEmotion: 2
+    Text: Player Speaks Forced Smile by themselves

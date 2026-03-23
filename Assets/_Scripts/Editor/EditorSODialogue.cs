@@ -49,6 +49,7 @@ public class EditorSODialogue : Editor
         // setup speaker dropdown
         UpdateCharacterFocusDropdown();
         UpdateExpressionDropdown();
+        UpdateEmotionDropdown();
 
         // setup text area size
         textAreaHeight = (EditorGUIUtility.singleLineHeight * 4) + (EditorGUIUtility.standardVerticalSpacing * 3);
@@ -130,6 +131,7 @@ public class EditorSODialogue : Editor
         indexcharacterLeft = dialogueNodes.GetArrayElementAtIndex(index).FindPropertyRelative("IndexCharacterLeft");
         indexCharacter = dialogueNodes.GetArrayElementAtIndex(index).FindPropertyRelative("IndexCharacterFocus");
         indexExpression = dialogueNodes.GetArrayElementAtIndex(index).FindPropertyRelative("IndexExpression");
+        indexEmotion = dialogueNodes.GetArrayElementAtIndex(index).FindPropertyRelative("IndexEmotion");
         text = dialogueNodes.GetArrayElementAtIndex(index).FindPropertyRelative("Text");
 
         // Move Node UP AND DOWN
@@ -160,7 +162,12 @@ public class EditorSODialogue : Editor
 
         // Set Expression if focus is not on None
         if (indexCharacter.intValue != 0)
+        {
+            EditorGUILayout.BeginHorizontal();
             indexExpression.intValue = EditorGUILayout.IntPopup(indexExpression.intValue, expressionNames, expressionNamesInt, GUILayout.Height(20));
+            indexEmotion.intValue = EditorGUILayout.IntPopup(indexEmotion.intValue, emotionNames, emotionNamesInt, GUILayout.Height(20));
+            EditorGUILayout.EndHorizontal();
+        }
 
         // set text
         text.stringValue = EditorGUILayout.TextArea(text.stringValue, textAreaStyle, GUILayout.Width(textAreaWidth), GUILayout.Height(textAreaHeight));
@@ -207,5 +214,20 @@ public class EditorSODialogue : Editor
         expressionNames[2] = "Angry";
         expressionNames[3] = "Sad";
         expressionNames[4] = "Surprised";
+    }
+
+    private void UpdateEmotionDropdown()
+    {
+        emotionNames = new string[4];
+        emotionNamesInt = new int[4];
+
+        // set index of dropdown menu
+        for (int i = 0; i < emotionNamesInt.Length; i++)
+            emotionNamesInt[i] = i;
+
+        emotionNames[0] = "None";
+        emotionNames[1] = "SweatDrop";
+        emotionNames[2] = "Veins";
+        emotionNames[3] = "Dots";
     }
 }

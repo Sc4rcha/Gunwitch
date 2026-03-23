@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 [CreateAssetMenu(fileName = "Character", menuName = "Dialogue/Character")]
 public class SODialogueCharacter : ScriptableObject
@@ -12,6 +13,8 @@ public class SODialogueCharacter : ScriptableObject
     public Sprite ExpressionAngry;
     public Sprite ExpressionSad;
     public Sprite ExpressionSurprised;
+    [Space]
+    public AudioResource Beep;
 
     public ManagerDialogue.Character GetCharacter() 
     {
@@ -26,6 +29,7 @@ public class SODialogueCharacter : ScriptableObject
             ExpressionSad,
             ExpressionSurprised
             );
+        character.Beep = Beep;
 
         return character;
     }

@@ -19,3 +19,4 @@ MonoBehaviour:
   ExpressionAngry: {fileID: 21300000, guid: 0ea77b0129449cf4c977fd92b69f1e4b, type: 3}
   ExpressionSad: {fileID: 21300000, guid: 6b2f2f0ea94f8eb4fa771906f148b79f, type: 3}
   ExpressionSurprised: {fileID: 21300000, guid: 83aa0123dd245064bbfebdda455e87fd, type: 3}
+  Beep: {fileID: 6418180475301049370, guid: 1046f58f269c3f44f82eb455a78c615b, type: 2}
