@@ -66,7 +66,7 @@ public class EditorSODialogue : Editor
         if (textAreaStyle == null)
         {
             textAreaStyle = new GUIStyle(EditorStyles.textArea);
-            textAreaStyle.padding = new RectOffset(10, 5, 10, 5);
+            textAreaStyle.padding = new RectOffset(15, 15, 8, 8);
         }
 
         base.OnInspectorGUI();
@@ -218,8 +218,8 @@ public class EditorSODialogue : Editor
 
     private void UpdateEmotionDropdown()
     {
-        emotionNames = new string[4];
-        emotionNamesInt = new int[4];
+        emotionNames = new string[3];
+        emotionNamesInt = new int[3];
 
         // set index of dropdown menu
         for (int i = 0; i < emotionNamesInt.Length; i++)
@@ -228,6 +228,5 @@ public class EditorSODialogue : Editor
         emotionNames[0] = "None";
         emotionNames[1] = "SweatDrop";
         emotionNames[2] = "Veins";
-        emotionNames[3] = "Dots";
     }
 }

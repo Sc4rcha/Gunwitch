@@ -6,6 +6,8 @@ public class ManagerEvents : MonoBehaviour
 {
     public List<SOEvent> ActiveEvents { get; private set; }
 
+    private SOEvent eventSelected;
+
     public void Setup() 
     {
         // setup active events list
@@ -25,7 +27,7 @@ public class ManagerEvents : MonoBehaviour
 
 
     /// <summary>
-    /// Get activa events for a specific location
+    /// Get active events for a specific location
     /// </summary>
     /// <param name="location"></param>
     /// <returns></returns>
@@ -37,6 +39,10 @@ public class ManagerEvents : MonoBehaviour
 
     public void EventStart(SOEvent eventToStart) 
     {
-
+        eventSelected = eventToStart;
+    }
+    public void EventEnd() 
+    {
+        Debug.Log("Event End");
     }
 }

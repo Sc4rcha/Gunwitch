@@ -15,6 +15,7 @@ public class ManagerGameElements : MonoBehaviour
         else
         {
             _instance = this;
+            Setup();
         }
     }
 
@@ -26,7 +27,7 @@ public class ManagerGameElements : MonoBehaviour
     public ManagerOverworld ManagerOverworld;
     public ManagerDialogue ManagerDialogue;
 
-    private void Start()
+    private void Setup()
     {
         // setup dialogue
         ManagerDialogue.Setup();

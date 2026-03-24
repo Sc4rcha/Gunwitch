@@ -9,10 +9,8 @@ public class DialogueSFXBeep : MonoBehaviour
     [Space]
     public AudioResource NarratorBeep;
 
-    private float timeToFinishCurrent;
     private float timeToFinish;
-    private float timeToNextBeepCurrent;
-    private float timeToNextBeep;
+    private float timeToFinishCurrent;
 
     private bool isPlaying;
     
@@ -22,9 +20,7 @@ public class DialogueSFXBeep : MonoBehaviour
         AudioSource.resource = characterBeep;
 
         // set timer variables
-        timeToNextBeep = TypeWriter.timeBetweenChars;
-        timeToNextBeepCurrent = 0;
-        timeToFinish = timeToNextBeep * textLength;
+        timeToFinish = TypeWriter.timeBetweenChars * textLength;
         timeToFinishCurrent = 0;
 
         // set is plating to true
@@ -32,13 +28,14 @@ public class DialogueSFXBeep : MonoBehaviour
     }
     public void BeepingStart (int textLength)
     {
+        // beep start with narrator beep
         BeepingStart(NarratorBeep, textLength);
     }
 
-    public void BeepingFinish() 
+    public void BeepingForceStop() 
     {
-        isPlaying = false;
-        AudioSource.Stop();
+        // set time to finish
+        timeToFinishCurrent = timeToFinish;
     }
 
 
@@ -48,15 +45,18 @@ public class DialogueSFXBeep : MonoBehaviour
         if (!isPlaying)
             return;
 
-        timeToNextBeepCurrent += Time.deltaTime;
-        if (timeToNextBeepCurrent > timeToNextBeep && !AudioSource.isPlaying)
+        // stop beeping
+        timeToFinishCurrent += Time.deltaTime;
+        if (timeToFinishCurrent > timeToFinish && !AudioSource.isPlaying)
         {
-            timeToNextBeepCurrent = 0;
-            AudioSource.Play();
+            AudioSource.Stop();
+            isPlaying = false;
+            return;
         }
 
-        timeToFinishCurrent += Time.deltaTime;
-        if (timeToFinishCurrent > timeToFinish)
-            BeepingFinish();
+        // do beep again if the beep has already finishing playing
+        if (!AudioSource.isPlaying)
+            AudioSource.Play();
+
     }
 }

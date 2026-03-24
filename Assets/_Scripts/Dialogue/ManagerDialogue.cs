@@ -1,3 +1,4 @@
+using System;
 using EasyTextEffects;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +7,6 @@ using UnityEngine.UI;
 
 public class ManagerDialogue : MonoBehaviour
 {
-    public SODialogue dialogueTest;
-
     [Header ("Scene References")]
     public RectTransform TransformCharacterRight;
     public RectTransform TransformCharacterLeft;
@@ -17,34 +16,56 @@ public class ManagerDialogue : MonoBehaviour
     public DialogueExpression CharacterExpression;
     public Image CharacterPortraitRight;
     public Image CharacterPortraitLeft;
+    public Image CharacterPortraitPlayer;
     [Space]
+    public GameObject TextNextHint;
     public TMPro.TMP_Text DialogueText;
     public TextEffect DialogueTextEffects;
+    public DialogueDecisionButton[] DecisionButtons;
     [Space]
     public DialogueSFXBeep SFXBeep;
 
     [Header("Variables")]
     public Vector2 OffsetCharacterRight;
     public Vector2 OffsetCharacterCentre;
+    public Vector2 OffsetCharacterLeft;
     [Space]
     public Vector2 OffsetTextRight;
     public Vector2 OffsetTextLeft;
     public Vector2 OffsetTextCentre;
 
+    // dialogue finished action
+    public event Action OnDialogueFinished;
+    public event Action<DecisionOption> OnDialogueDecision;
 
     private Dialogue dialogueSelected;
     private int dialogueIndex;
 
     public void Setup() 
     {
-        DialogueStart(dialogueTest);
+        // hide dialogue screen
+        gameObject.SetActive(false);
+
+        // setup dialogue options
+        for (int i = 0; i < DecisionButtons.Length;i++)
+            DecisionButtons[i].Setup((DecisionOption)i);
+    }
+
+
+    private void Update()
+    {
+        // activate next hint when dialogue text has stopped appearing
+        TextNextHint.SetActive(DialogueTextEffects.QueryEffectStatuses(TextEffectType.Global, TextEffectEntry.TriggerWhen.Manual)[1].IsComplete);
     }
 
 
     public void DialogueStart(SODialogue dialogueReference) 
     {
+
+        // show dialogue screen
         gameObject.SetActive(true);
 
+        // set dialogue selected
         dialogueSelected = dialogueReference.GetDialogue();
         dialogueIndex = 0;
 
@@ -53,18 +74,24 @@ public class ManagerDialogue : MonoBehaviour
     }
     public void DialogueEnd() 
     {
+        // hide dialogue
         gameObject.SetActive(false);
+
+        // call action
+        OnDialogueFinished?.Invoke();
     }
 
     public void DialogueNext() 
     {
+        // skip animation and skip dialogue Next
         if (!DialogueTextEffects.QueryEffectStatuses(TextEffectType.Global, TextEffectEntry.TriggerWhen.Manual)[1].IsComplete)
         {
             DialogueTextEffects.StopAllEffects();
-            SFXBeep.BeepingFinish();
+            SFXBeep.BeepingForceStop();
             return;
         }
 
+        // add to dialogue index
         dialogueIndex++;
 
         // dialogue end if no more nodes
@@ -77,24 +104,54 @@ public class ManagerDialogue : MonoBehaviour
         // render dialogue node
         RenderDialogueNode(dialogueSelected.Nodes[dialogueIndex]);
     }
+    public void DialogueDecisionSetup(string[] options) 
+    {
+        // show dialogue
+        gameObject.SetActive(true);
 
-    private void RenderDialogueNode(DialogueNode node) 
+        // show buttons
+        for (int i = 0; i < DecisionButtons.Length; i++)
+            DecisionButtons[i].SetupDecisionButton(options[i]);
+    }
+    public void DialogueDecisionPick(DecisionOption option)
+    {
+        // hide buttons
+        for (int i = 0; i < DecisionButtons.Length; i++)
+            DecisionButtons[i].SetupDecisionButton("");
+
+        // call action
+        OnDialogueDecision?.Invoke(option);
+    }
+
+    private void RenderDialogueNode(DialogueNode node)
     {
         // activate or deactivate characters
         TransformCharacterRight.gameObject.SetActive(node.IndexCharacterRight > 0);
         TransformCharacterLeft.gameObject.SetActive(node.IndexCharacterLeft > 0);
 
-        // set characters portraits
+        // set characters portrait sprites
         if (node.IndexCharacterRight > 0)
             CharacterPortraitRight.sprite = dialogueSelected.Characters[node.IndexCharacterRight].Portrait;
         if (node.IndexCharacterLeft > 0)
             CharacterPortraitLeft.sprite = dialogueSelected.Characters[node.IndexCharacterLeft].Portrait;
 
-        // set right character position
+        // set character positions
         if (node.IndexCharacterRight > 0 && node.IndexCharacterLeft > 0)
+        {
+            // each to one side
             TransformCharacterRight.anchoredPosition = OffsetCharacterRight;
-        else
+            TransformCharacterLeft.anchoredPosition = OffsetCharacterLeft;
+        }
+        else if (node.IndexCharacterRight > 0)
+        {
+            // right centre
             TransformCharacterRight.anchoredPosition = OffsetCharacterCentre;
+        }
+        else if (node.IndexCharacterLeft > 0)
+        {
+            // left centre
+            TransformCharacterLeft.anchoredPosition = OffsetCharacterCentre;
+        }
 
         // activate or deactivate expression
         TransformExpression.gameObject.SetActive(node.IndexCharacterFocus > 0);
@@ -103,7 +160,7 @@ public class ManagerDialogue : MonoBehaviour
         {
             CharacterExpression.Expression.sprite = dialogueSelected.Characters[node.IndexCharacterFocus].Expressions[node.IndexExpression];
             // set emotion
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
                 CharacterExpression.Emotions[i].gameObject.SetActive(i+1 == node.IndexEmotion);
         }
 
@@ -117,29 +174,37 @@ public class ManagerDialogue : MonoBehaviour
         {
             // Left character or player talking
             TransformText.anchoredPosition = OffsetTextRight;
-            CharacterExpression.SetSide(-1);
+            CharacterExpression.SetSideLeft(true);
         }
         else
         {
             // right character talking
             TransformText.anchoredPosition = OffsetTextLeft;
-            CharacterExpression.SetSide(1);
+            CharacterExpression.SetSideLeft(false);
         }
 
         // set focus to nothing
-        CharacterPortraitRight.color = Color.gray8;
-        CharacterPortraitLeft.color = Color.gray8;
+        CharacterPortraitPlayer.color = Color.gray7;
+        CharacterPortraitRight.color = Color.gray7;
+        CharacterPortraitLeft.color = Color.gray7;
 
         // set focus to correct character
         if (node.IndexCharacterFocus == node.IndexCharacterRight)
         {
+            //right
             CharacterPortraitRight.color = Color.white;
             TransformCharacterRight.SetAsLastSibling();
         }
         else if (node.IndexCharacterFocus == node.IndexCharacterLeft)
         {
+            //left
             CharacterPortraitLeft.color = Color.white;
             TransformCharacterLeft.SetAsLastSibling();
+        }
+        else if (node.IndexCharacterFocus == 1)
+        {
+            //player
+            CharacterPortraitPlayer.color = Color.white;
         }
 
         // set text
@@ -157,6 +222,7 @@ public class ManagerDialogue : MonoBehaviour
     }
 
 
+    public enum DecisionOption { OptionA, OptionB, OptionC }
     public class Character
     {
         public string Name;
@@ -174,8 +240,7 @@ public class ManagerDialogue : MonoBehaviour
             Expressions[4] = surprised;
         }
     }
-
-    [System.Serializable]
+    [Serializable]
     public class DialogueNode 
     {
         // 0:player | 1+:other characters
@@ -191,13 +256,14 @@ public class ManagerDialogue : MonoBehaviour
 
         public string Text;
     }
-
     public class Dialogue 
     {
+        // variables for dialogue section
         public Character[] Characters;
         public DialogueNode[] Nodes;
 
-        public Dialogue(List <Character> characters, List <DialogueNode> nodes ) 
+        // constructors
+        public Dialogue(List<Character> characters, List<DialogueNode> nodes)
         {
             Characters = characters.ToArray();
             Nodes = nodes.ToArray();

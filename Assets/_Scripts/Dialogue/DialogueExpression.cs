@@ -22,14 +22,16 @@ public class DialogueExpression : MonoBehaviour
 
     private Vector3 flippedScale = new Vector3(-1, 1, 1);
 
+
     /// <summary>
     /// set side of extression
     /// </summary>
     /// <param name="position">-1 : left | 1 : right </param>
-    public void SetSide (int position)
+    public void SetSideLeft (bool isLeft)
     {
-        if (position == -1)
+        if (isLeft)
         {
+            // expression move left
             TransformHolder.anchoredPosition = OffsetHolderLeft;
             TransformExpression.anchoredPosition = OffsetExpressionLeft;
             TransformEmotions.anchoredPosition = OffsetExpressionDetailLeft;
@@ -38,6 +40,7 @@ public class DialogueExpression : MonoBehaviour
         }
         else
         {
+            // expression move right
             TransformHolder.anchoredPosition = OffsetHolderRight;
             TransformExpression.anchoredPosition = OffsetExpressionRight;
             TransformEmotions.anchoredPosition = OffsetExpressionDetailRight;
