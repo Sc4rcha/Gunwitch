@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Debug Starting Events
   m_EditorClassIdentifier: Assembly-CSharp::SOEventList
   Events:
-  - {fileID: 11400000, guid: 69102a56f756e1040afa13e654d3c1ca, type: 2}
-  - {fileID: 11400000, guid: 219c8a48ed14e9e49a1dc20048bcf094, type: 2}
+  - {fileID: 11400000, guid: 643e7dfa9e812bc40b9b9a739cb70b29, type: 2}
+  - {fileID: 11400000, guid: f1898fb3766e7cb4b8a4100828c9ae7b, type: 2}

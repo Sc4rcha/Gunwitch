@@ -22,11 +22,7 @@ public class LocationScreen : MonoBehaviour
 
         // set screen background
         BackgroundImage.sprite = locationInfo.BackgroundSprite;
-    }
 
-    #region Enter/Exit
-    public void Enter() 
-    {
         // get all events in location
         SOEvent[] locationEvents = ManagerGameElements.Instance.ManagerEvents.GetLocationEvents(locationInfo);
 
@@ -39,8 +35,11 @@ public class LocationScreen : MonoBehaviour
             if (locationEvents.Length > i)
                 EventButtons[i].Show(locationEvents[i]);
         }
+    }
 
-        // show screen
+    #region Enter/Exit
+    public void Enter() 
+    {
         gameObject.SetActive(true);
     }
     public void Exit() 
@@ -48,4 +47,18 @@ public class LocationScreen : MonoBehaviour
         gameObject.SetActive(false);
     }
     #endregion
+
+    public void EventStart(SOEvent eventInfo) 
+    {
+        ManagerGameElements.Instance.ManagerEvents.OnEnventFinish += EventFinish;
+        ManagerGameElements.Instance.ManagerEvents.EventStart(eventInfo);
+    }
+    public void EventFinish()
+    {
+        // called by event manager when event finishes
+        ManagerGameElements.Instance.ManagerEvents.OnEnventFinish -= EventFinish;
+        // refres location screen
+        SetInfo(locationInfo);
+    }
+
 }

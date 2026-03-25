@@ -32,10 +32,7 @@ public class LocationScreenButtonInfo : MonoBehaviour
 
     public void ButtonInteract() 
     {
-        // close location screen
-        screen.Exit();
-
         // start event
-        ManagerGameElements.Instance.ManagerEvents.EventStart(eventInfo);
+        screen.EventStart(eventInfo);
     }
 }
