@@ -1,13 +1,12 @@
 using System;
 using EasyTextEffects;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
+using static GameInfo;
 
 public class ManagerDialogue : MonoBehaviour
 {
-    [Header ("Scene References")]
+    [Header("Scene References")]
     public RectTransform TransformCharacterRight;
     public RectTransform TransformCharacterLeft;
     public RectTransform TransformExpression;
@@ -41,13 +40,13 @@ public class ManagerDialogue : MonoBehaviour
     private Dialogue dialogueSelected;
     private int dialogueIndex;
 
-    public void Setup() 
+    public void Setup()
     {
         // hide dialogue screen
         gameObject.SetActive(false);
 
         // setup dialogue options
-        for (int i = 0; i < DecisionButtons.Length;i++)
+        for (int i = 0; i < DecisionButtons.Length; i++)
             DecisionButtons[i].Setup((DecisionOption)i);
     }
 
@@ -59,9 +58,8 @@ public class ManagerDialogue : MonoBehaviour
     }
 
 
-    public void DialogueStart(SODialogue dialogueReference) 
+    public void DialogueStart(SODialogue dialogueReference)
     {
-
         // show dialogue screen
         gameObject.SetActive(true);
 
@@ -72,7 +70,7 @@ public class ManagerDialogue : MonoBehaviour
         // display first node
         RenderDialogueNode(dialogueSelected.Nodes[0]);
     }
-    public void DialogueEnd() 
+    public void DialogueEnd()
     {
         // hide dialogue
         gameObject.SetActive(false);
@@ -81,7 +79,7 @@ public class ManagerDialogue : MonoBehaviour
         OnDialogueFinished?.Invoke();
     }
 
-    public void DialogueNext() 
+    public void DialogueNext()
     {
         // skip animation and skip dialogue Next
         if (!DialogueTextEffects.QueryEffectStatuses(TextEffectType.Global, TextEffectEntry.TriggerWhen.Manual)[1].IsComplete)
@@ -104,7 +102,7 @@ public class ManagerDialogue : MonoBehaviour
         // render dialogue node
         RenderDialogueNode(dialogueSelected.Nodes[dialogueIndex]);
     }
-    public void DialogueDecisionSetup(string[] options) 
+    public void DialogueDecisionSetup(string[] options)
     {
         // show dialogue
         gameObject.SetActive(true);
@@ -161,7 +159,7 @@ public class ManagerDialogue : MonoBehaviour
             CharacterExpression.Expression.sprite = dialogueSelected.Characters[node.IndexCharacterFocus].Expressions[node.IndexExpression];
             // set emotion
             for (int i = 0; i < 2; i++)
-                CharacterExpression.Emotions[i].gameObject.SetActive(i+1 == node.IndexEmotion);
+                CharacterExpression.Emotions[i].gameObject.SetActive(i + 1 == node.IndexEmotion);
         }
 
         // set expression and text position
@@ -219,54 +217,5 @@ public class ManagerDialogue : MonoBehaviour
             SFXBeep.BeepingStart(dialogueSelected.Characters[node.IndexCharacterFocus].Beep, node.Text.Length);
         else
             SFXBeep.BeepingStart(node.Text.Length);
-    }
-
-
-    public enum DecisionOption { OptionA, OptionB, OptionC }
-    public class Character
-    {
-        public string Name;
-        public Sprite Portrait;
-        public Sprite[] Expressions;
-        public AudioResource Beep;
-
-        public void SetExpressions(Sprite neutral, Sprite happy, Sprite angry, Sprite sad, Sprite surprised) 
-        {
-            Expressions = new Sprite[5];
-            Expressions[0] = neutral;
-            Expressions[1] = happy;
-            Expressions[2] = angry;
-            Expressions[3] = sad;
-            Expressions[4] = surprised;
-        }
-    }
-    [Serializable]
-    public class DialogueNode 
-    {
-        // 0:player | 1+:other characters
-        public int IndexCharacterRight;
-        public int IndexCharacterLeft;
-
-        // 0:none | 1:player | 2:characterRight | 3:characterLeft
-        public int IndexCharacterFocus;
-        // 0:Neutral | 1:Happy | 2:Angry | 3:Sad | 4:Surprised
-        public int IndexExpression;
-        // 0:none | 1:SweatDrop | 2:Veins | 3:Dots
-        public int IndexEmotion;
-
-        public string Text;
-    }
-    public class Dialogue 
-    {
-        // variables for dialogue section
-        public Character[] Characters;
-        public DialogueNode[] Nodes;
-
-        // constructors
-        public Dialogue(List<Character> characters, List<DialogueNode> nodes)
-        {
-            Characters = characters.ToArray();
-            Nodes = nodes.ToArray();
-        }
     }
 }

@@ -195,7 +195,7 @@ public class EditorSODialogue : Editor
         if (characterNames.Length > 1)
         {
             for (int i = 0; i < dialogueCharacters.arraySize; i++)
-                characterNames[i + 2] = dialogue.Characters[i].CharacterName;
+                characterNames[i + 2] = dialogue.Characters[i].Name;
             for (int i = 2; i < characterNamesInt.Length; i++)
                 characterNamesInt[i] = i;
         }

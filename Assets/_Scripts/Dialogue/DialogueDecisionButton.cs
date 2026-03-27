@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+using static GameInfo;
 public class DialogueDecisionButton : Button
 {
     private TMPro.TMP_Text buttonText;
-    private ManagerDialogue.DecisionOption option;
+    private DecisionOption option;
 
-    public void Setup(ManagerDialogue.DecisionOption option) 
+    public void Setup(DecisionOption option) 
     {
         // setup varialbes
         buttonText = GetComponentInChildren<TMPro.TMP_Text>();

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc04ff25f771d7642957da1a38d7fa74, type: 3}
   m_Name: EventFSM Dialogue
   m_EditorClassIdentifier: Assembly-CSharp::SOEventFSM
-  Name: 
-  EventLocation: {fileID: 0}
-  EventFSM: {fileID: 0}
+  Name: Debug Dialogue
+  EventLocation: {fileID: 11400000, guid: 604da9315810cf24fa8e7557e15047d7, type: 2}
+  EventFSM: {fileID: 4807789364032136366, guid: 08707962575011445a878ba499fe22aa, type: 3}

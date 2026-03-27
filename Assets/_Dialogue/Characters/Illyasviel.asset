@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f33887e5cac3343bfa4e4dd70c9c8a, type: 3}
   m_Name: Illyasviel
   m_EditorClassIdentifier: Assembly-CSharp::SODialogueCharacter
-  CharacterName: Illyasviel
+  Name: Illyasviel
   Portrait: {fileID: 21300000, guid: 8fe22d23caf737745b49fc2292d2140f, type: 3}
   ExpressionNeutral: {fileID: 21300000, guid: 7f6f28b5e399f624daa786475a7564aa, type: 3}
   ExpressionHappy: {fileID: 21300000, guid: 00b57e3aa8a605d4180fbbb0b0187886, type: 3}

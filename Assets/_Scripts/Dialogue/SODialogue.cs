@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static GameInfo;
 
 [CreateAssetMenu(fileName = "Dialogue", menuName = "Dialogue/Dialogue")]
 public class SODialogue : ScriptableObject
@@ -7,20 +8,11 @@ public class SODialogue : ScriptableObject
     public List<SODialogueCharacter> Characters;
 
     [HideInInspector]
-    public List<ManagerDialogue.DialogueNode> Nodes;
+    public List<DialogueNode> Nodes;
 
 
-    public ManagerDialogue.Dialogue GetDialogue() 
+    public Dialogue GetDialogue() 
     {
-        // create characters list and make first element player
-        List<ManagerDialogue.Character> characters = new List<ManagerDialogue.Character>
-        {
-            null,
-            Resources.Load<SODialogueCharacter>("Player").GetCharacter()
-        };
-        foreach (var character in Characters)
-            characters.Add(character.GetCharacter());
-
-        return new ManagerDialogue.Dialogue(characters, Nodes);
+        return new Dialogue(this);
     }
 }

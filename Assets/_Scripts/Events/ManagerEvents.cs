@@ -54,6 +54,11 @@ public class ManagerEvents : MonoBehaviour
 
     public void EventStart(SOEvent eventToStart) 
     {
+        // Game Setup
+        ManagerGameElements.Instance.Inventory.Open(false);
+        ManagerGameElements.Instance.Inventory.Lock(true);
+
+
         if (eventSelected != null)
             Debug.LogError("Event already selected. There cannot be two events active at the same time!");
 
@@ -74,6 +79,9 @@ public class ManagerEvents : MonoBehaviour
     }
     public void EventFinish() 
     {
+        // Game Setup
+        ManagerGameElements.Instance.Inventory.Lock(false);
+
         // hide event background
         EventScreen.SetActive(false);
 
@@ -89,7 +97,5 @@ public class ManagerEvents : MonoBehaviour
 
         // send event end trigger
         OnEnventFinish?.Invoke();
-
-        Debug.Log("Event End");
     }
 }

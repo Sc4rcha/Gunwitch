@@ -26,6 +26,9 @@ public class ManagerGameElements : MonoBehaviour
     public ManagerEvents ManagerEvents;
     public ManagerOverworld ManagerOverworld;
     public ManagerDialogue ManagerDialogue;
+    [Space]
+    public Inventory Inventory;
+    public Crafting Crafting;
 
     private void Setup()
     {
@@ -41,6 +44,8 @@ public class ManagerGameElements : MonoBehaviour
         ManagerOverworld.OpenNewMap(StartingMap);
         ManagerOverworld.Refresh();
 
-
+        // setup player
+        Inventory.Setup();
+        Crafting.Setup();
     }
 }

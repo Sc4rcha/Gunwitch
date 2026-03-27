@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f33887e5cac3343bfa4e4dd70c9c8a, type: 3}
   m_Name: Sakura
   m_EditorClassIdentifier: Assembly-CSharp::SODialogueCharacter
-  CharacterName: Sakura
+  Name: Sakura
   Portrait: {fileID: 21300000, guid: 6965ac92ccc66e844a7607b8fe776449, type: 3}
   ExpressionNeutral: {fileID: 21300000, guid: eacd72286f30c3c4db9fda018acb66e7, type: 3}
   ExpressionHappy: {fileID: 21300000, guid: d4b6c31175a8baa4eb9203ce05cef884, type: 3}

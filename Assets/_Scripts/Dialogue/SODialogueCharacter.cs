@@ -4,7 +4,7 @@ using UnityEngine.Audio;
 [CreateAssetMenu(fileName = "Character", menuName = "Dialogue/Character")]
 public class SODialogueCharacter : ScriptableObject
 {
-    public string CharacterName;
+    public string Name;
     [Space]
     public Sprite Portrait;
     [Space]
@@ -16,21 +16,8 @@ public class SODialogueCharacter : ScriptableObject
     [Space]
     public AudioResource Beep;
 
-    public ManagerDialogue.Character GetCharacter() 
+    public GameInfo.Character GetCharacter() 
     {
-        ManagerDialogue.Character character = new ManagerDialogue.Character();
-
-        character.Name = CharacterName;
-        character.Portrait = Portrait;
-        character.SetExpressions(
-            ExpressionNeutral,
-            ExpressionHappy,
-            ExpressionAngry,
-            ExpressionSad,
-            ExpressionSurprised
-            );
-        character.Beep = Beep;
-
-        return character;
+        return new GameInfo.Character(this);
     }
 }

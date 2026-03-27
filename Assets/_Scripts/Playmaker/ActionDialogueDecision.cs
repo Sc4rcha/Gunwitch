@@ -1,6 +1,4 @@
-using System.Linq;
-using Unity.VisualScripting;
-using UnityEngine;
+using static GameInfo;
 
 namespace HutongGames.PlayMaker.Actions
 {
@@ -26,19 +24,19 @@ namespace HutongGames.PlayMaker.Actions
             ManagerGameElements.Instance.ManagerDialogue.OnDialogueDecision += TakeDecision;
         }
 
-        public void TakeDecision(ManagerDialogue.DecisionOption option)
+        public void TakeDecision(DecisionOption option)
         {
             ManagerGameElements.Instance.ManagerDialogue.OnDialogueDecision -= TakeDecision;
 
             switch (option)
             {
-                case ManagerDialogue.DecisionOption.OptionA:
+                case DecisionOption.OptionA:
                     Fsm.Event("DIALOGUE_OPTION_A");
                     break;
-                case ManagerDialogue.DecisionOption.OptionB:
+                case DecisionOption.OptionB:
                     Fsm.Event("DIALOGUE_OPTION_B");
                     break;
-                case ManagerDialogue.DecisionOption.OptionC:
+                case DecisionOption.OptionC:
                     Fsm.Event("DIALOGUE_OPTION_C");
                     break;
             }

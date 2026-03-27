@@ -20,14 +20,10 @@ public class OverworldLocationButton : Button
     public override void OnPointerEnter(PointerEventData eventData)
     {
         base.OnPointerEnter(eventData);
-
-        Debug.Log(info.LocationInfo.Name + " Enter");
     }
     public override void OnPointerExit(PointerEventData eventData)
     {
         base.OnPointerExit(eventData);
-
-        Debug.Log(info.LocationInfo.Name + " Exit");
     }
 
     // mouse interact with button
