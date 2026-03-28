@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static GameInfo;
+using GameInfo;
 public class DialogueDecisionButton : Button
 {
     private TMPro.TMP_Text buttonText;

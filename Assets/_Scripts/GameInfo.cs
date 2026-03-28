@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
-using static GameInfo;
 
-public static class GameInfo
+namespace GameInfo
 {
 
     #region ACTORS
@@ -27,6 +26,56 @@ public static class GameInfo
     }
 
     public enum ActorStat { BODY, MAGIC, DEX, LUCK, CHAR }
+    #endregion
+
+    #region COMBAT
+    public class CombatActor : Actor
+    {
+        public int HealthCurrent;
+        public int ManaCurrent;
+
+        public bool IsDead => HealthCurrent <= 0;
+
+        // constructor
+        public CombatActor(SOCombatEnemy enemy) 
+        {
+            Name = enemy.Name;
+            Health = enemy.Health;
+            Mana = enemy.Mana;
+
+            Body = enemy.Body;
+            Magic = enemy.Magic;
+            Dexterity = enemy.Dexterity;
+            Luck = enemy.Luck;
+            Charisma = enemy.Charisma;
+        }
+
+        // set actor ready for combat
+        public void Startcombat() 
+        {
+            HealthCurrent = Health;
+            ManaCurrent = Mana;
+        }
+
+        // damage or heal actor
+        public void HealthChange(int value) 
+        {
+            HealthCurrent = Mathf.Clamp(HealthCurrent + value, 0, Health);
+        }
+    }
+
+    public class Bullet
+    {
+        public InventoryItem ItemInfo;
+
+        public int Damage;
+
+        public Bullet(SOInventoryItemBullet bullet) 
+        {
+            ItemInfo = new InventoryItem(bullet);
+            Damage = bullet.Damage;
+        }
+    }
     #endregion
 
     #region INVENTORY

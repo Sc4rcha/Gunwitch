@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static GameInfo;
-using static UnityEditor.Progress;
+using GameInfo;
 
 public class Crafting : MonoBehaviour
 {
@@ -89,10 +88,11 @@ public class Crafting : MonoBehaviour
 
     private void ShowRecipe(int index) 
     {
+        // Recipes names
         NameRecipe.text = KnownRecipes[index].Name;
         NameBullet.text = KnownRecipes[index].Bullet.Name;
 
-
+        // ingredient list
         for (int i = 0; i < IngredientList.Length; i++)
         {
             IngredientList[i].gameObject.SetActive(false);

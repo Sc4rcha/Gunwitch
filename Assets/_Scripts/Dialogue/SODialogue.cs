@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static GameInfo;
+using GameInfo;
 
 [CreateAssetMenu(fileName = "Dialogue", menuName = "Dialogue/Dialogue")]
 public class SODialogue : ScriptableObject

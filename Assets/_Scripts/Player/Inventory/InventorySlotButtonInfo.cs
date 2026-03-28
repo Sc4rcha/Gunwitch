@@ -1,5 +1,5 @@
 using UnityEngine;
-using static GameInfo;
+using GameInfo;
 
 public class InventorySlotButtonInfo : MonoBehaviour
 {

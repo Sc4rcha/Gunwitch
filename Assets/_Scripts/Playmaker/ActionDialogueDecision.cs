@@ -1,4 +1,4 @@
-using static GameInfo;
+using GameInfo;
 
 namespace HutongGames.PlayMaker.Actions
 {

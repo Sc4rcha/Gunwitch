@@ -17,4 +17,4 @@ MonoBehaviour:
   Ingredients:
   - {fileID: 11400000, guid: 756f9291a8cbc5b43b6727e04c542225, type: 2}
   - {fileID: 11400000, guid: 756f9291a8cbc5b43b6727e04c542225, type: 2}
-  Bullet: {fileID: 11400000, guid: 885ffb359f6d14c40bf04bc67851af7e, type: 2}
+  Bullet: {fileID: 11400000, guid: 44b89b1254475b346aab20259c0676ae, type: 2}

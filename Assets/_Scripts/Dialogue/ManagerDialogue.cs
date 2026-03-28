@@ -2,7 +2,7 @@ using System;
 using EasyTextEffects;
 using UnityEngine;
 using UnityEngine.UI;
-using static GameInfo;
+using GameInfo;
 
 public class ManagerDialogue : MonoBehaviour
 {
