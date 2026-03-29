@@ -1,7 +1,8 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EventFSM", menuName = "Event/FSM")]
+[CreateAssetMenu(fileName = "Event FSM", menuName = "Overworld/Event FSM")]
 public class SOEventFSM : SOEvent
 {
-    public GameObject EventFSM;
+    [Space]
+    public GameObject FSM;
 }

@@ -3,15 +3,13 @@ using static ManagerDialogue;
 
 namespace HutongGames.PlayMaker.Actions
 {
-    [ActionCategory("Dialogue")]
+    [ActionCategory("Events")]
     public class ActionDialogue : FsmStateAction
     {
         public SODialogue Dialogue;
 
         public override void OnEnter()
         {
-            base.OnEnter();
-
             ManagerGameElements.Instance.ManagerDialogue.DialogueStart(Dialogue);
             ManagerGameElements.Instance.ManagerDialogue.OnDialogueFinished += DialogueEnd;
         }

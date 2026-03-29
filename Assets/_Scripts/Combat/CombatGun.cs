@@ -23,7 +23,7 @@ public class CombatGun : MonoBehaviour
     public enum GunState {Shooting, Locked, Reloading, Cooldown }
     private GunState State;
 
-    private Collider2D hit;
+    private Collider2D agentCollider;
     private int bulletIndex;
 
     private CombatPlayer player;
@@ -49,11 +49,12 @@ public class CombatGun : MonoBehaviour
     public void Shoot() 
     {
         // detect combat agents on crosshair
-        hit = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), CollisionLayer);
-        if (hit != null)
+        agentCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), CollisionLayer);
+        Debug.Log(agentCollider != null);
+        if (agentCollider != null)
         {
             // try to get an agent collider to deal damage
-            if (hit.GetComponent<CombatAgentCollider>() is CombatAgentCollider collider)
+            if (agentCollider.GetComponent<CombatAgentCollider>() is CombatAgentCollider collider)
             {
                 if (collider != null)
                 {

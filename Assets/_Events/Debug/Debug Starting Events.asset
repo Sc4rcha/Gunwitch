@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOEventList
   Events:
   - {fileID: 11400000, guid: 643e7dfa9e812bc40b9b9a739cb70b29, type: 2}
-  - {fileID: 11400000, guid: f1898fb3766e7cb4b8a4100828c9ae7b, type: 2}
+  - {fileID: 11400000, guid: ac22f3edd0ac1e342b8cd9ac1e091714, type: 2}

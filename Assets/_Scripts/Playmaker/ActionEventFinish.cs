@@ -8,7 +8,7 @@ namespace HutongGames.PlayMaker.Actions
 
         public override void OnEnter()
         {
-            ManagerGameElements.Instance.ManagerEvents.EventFinish();
+            ManagerGameElements.Instance.ManagerEvents.EventFinish(true);
             Finish();
         }
  

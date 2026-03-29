@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60cfacf8bea120740854645a8bfc055f, type: 3}
+  m_Name: EventCombat Debug
+  m_EditorClassIdentifier: Assembly-CSharp::SOEventCombat
+  Name: Combat
+  EventLocation: {fileID: 11400000, guid: 632698c8e0caf6146b684b8177d6c1d6, type: 2}
+  Encounter: {fileID: 6764114205206381537, guid: 43f9981d4d488964aa38165df36e406e, type: 3}

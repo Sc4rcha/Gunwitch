@@ -1,6 +1,35 @@
 {
-    "version": 0,
+    "version": 1,
     "name": "GameActions",
-    "maps": [],
+    "maps": [
+        {
+            "name": "Combat",
+            "id": "963348df-dcdc-4b98-a8de-8f91046595eb",
+            "actions": [
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "7f85bce5-d6e6-4dba-bd69-d64fc17cbb83",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d3fc9d8c-bf76-477f-a0de-42f03a7c770a",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
     "controlSchemes": []
 }

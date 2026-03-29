@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 695713441020294745}
   - component: {fileID: 8400402033579937156}
   m_Layer: 5
-  m_Name: Location A
+  m_Name: Location Castle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 5536676538554011624}
   - component: {fileID: 2562110555080186275}
   m_Layer: 5
-  m_Name: Location C
+  m_Name: Location City
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -468,7 +468,7 @@ GameObject:
   - component: {fileID: 4710952666279537788}
   - component: {fileID: 7269278827434343038}
   m_Layer: 5
-  m_Name: Location B
+  m_Name: Location Nature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

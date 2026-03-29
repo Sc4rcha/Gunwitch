@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ManagerEvents : MonoBehaviour
@@ -12,10 +14,10 @@ public class ManagerEvents : MonoBehaviour
 
     public List<SOEvent> ActiveEvents { get; private set; }
 
-    private SOEvent eventSelected;
     private PlayMakerFSM eventFSMInstance;
 
     public event Action OnEnventFinish;
+    public event Action<bool> OnCombatFinish;
 
     public void Setup() 
     {
@@ -40,7 +42,6 @@ public class ManagerEvents : MonoBehaviour
     }
     #endregion
 
-
     /// <summary>
     /// Get active events for a specific location
     /// </summary>
@@ -51,42 +52,37 @@ public class ManagerEvents : MonoBehaviour
         return ActiveEvents.Where(e => e.EventLocation == location).ToArray();
     }
 
-
-    public void EventStart(SOEvent eventToStart) 
+    public void EventStart(SOEvent eventSelected)
     {
         // Game Setup
         ManagerGameElements.Instance.Inventory.Open(false);
         ManagerGameElements.Instance.Inventory.Lock(true);
 
+        if (eventFSMInstance != null)
+            Debug.LogError("Event already instantiated. There cannot be two events active at the same time!");
 
-        if (eventSelected != null)
-            Debug.LogError("Event already selected. There cannot be two events active at the same time!");
-
-        eventSelected = eventToStart;
-
-        // FSM event
-        if (eventSelected is SOEventFSM eventFSM)
+        if (eventSelected is SOEventFSM eventFSM) 
         {
-            // instantiate event
-            eventFSMInstance = Instantiate(eventFSM.EventFSM, EventObjectParent).GetComponent<PlayMakerFSM>();
+            // instantiate event object
+            eventFSMInstance = Instantiate(eventFSM.FSM, EventObjectParent).GetComponent<PlayMakerFSM>();
             // start FSM
             eventFSMInstance.SendEvent("EVENT_START");
+        }
+        else if (eventSelected is SOEventCombat eventCombat)
+        {
+            // start combat
+            CombatStart(eventCombat.Encounter);
+            OnCombatFinish += EventFinish;
         }
 
         // show event background
         EventScreen.SetActive(true);
-        EventBackground.sprite = eventToStart.EventLocation.BackgroundSprite;
+        EventBackground.sprite = eventSelected.EventLocation.BackgroundSprite;
     }
-    public void EventFinish() 
+    public void EventFinish(bool isEventPass)
     {
-        // Game Setup
-        ManagerGameElements.Instance.Inventory.Lock(false);
-
         // hide event background
         EventScreen.SetActive(false);
-
-        // reset event selected reference
-        eventSelected = null;
 
         // reset event FSM instance reference and destroy
         if (eventFSMInstance != null)
@@ -97,5 +93,48 @@ public class ManagerEvents : MonoBehaviour
 
         // send event end trigger
         OnEnventFinish?.Invoke();
+
+        // UI
+        ManagerGameElements.Instance.Inventory.Lock(false);
+
+        // game over screen if player fails event
+        if (!isEventPass)
+        {
+        }
     }
+
+    #region Combat
+    private CombatEnounter encounterReference;
+    public void CombatStart(CombatEnounter encounterReference) 
+    {
+        // get combat start variables
+        this.encounterReference = encounterReference;
+
+        // load combat scene
+        SceneManager.LoadScene("Combat", LoadSceneMode.Additive);
+    }
+    public void CombatRegister(ManagerCombat combat) 
+    {
+        // start combat with stored variables
+        combat.CombatStart(encounterReference);
+    }
+    public void CombatEnd(bool isPlayerWin) 
+    {
+        // unload combat scene
+        StartCoroutine(ExitCombat());
+
+        // send event for player winning
+        OnCombatFinish?.Invoke(isPlayerWin);
+    }
+    private IEnumerator ExitCombat()
+    {
+        // wait for unload scene
+        yield return SceneManager.UnloadSceneAsync("Combat");
+
+        // wait for unload all assets unused by combat scene
+        yield return Resources.UnloadUnusedAssets();
+        // garbage colleciton
+        GC.Collect();
+    }
+    #endregion
 }

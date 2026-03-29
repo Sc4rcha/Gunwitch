@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 559890192054137798}
   - component: {fileID: 2698395352362041191}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Enemy Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e41f218151a45c4f951bb027552470f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatAgent
-  EnemyInfoReference: {fileID: 11400000, guid: 740be6154b07f984f96c68556ae2d1b9, type: 2}
+  EnemyStatsReference: {fileID: 11400000, guid: 740be6154b07f984f96c68556ae2d1b9, type: 2}
   Renderer: {fileID: 7688325322983987869}
   Colliders:
   - {fileID: 6558402506730635334}
@@ -59,7 +59,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 618516466007285376}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Agent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 626053130469101240}
   - component: {fileID: 352945229165258497}
   - component: {fileID: 7410926739945362294}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 330685164195559019}
   - component: {fileID: 7688325322983987869}
   - component: {fileID: 1015840603029825651}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 1848692756792026142}
   - component: {fileID: 6413048192005725200}
   - component: {fileID: 6558402506730635334}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Collider Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}

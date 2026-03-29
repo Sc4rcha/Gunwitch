@@ -2,7 +2,7 @@ using GameInfo;
 
 namespace HutongGames.PlayMaker.Actions
 {
-    [ActionCategory("Dialogue")]
+    [ActionCategory("Events")]
     public class ActionDialogueDecision : FsmStateAction
     {
         public string OptionA;
@@ -14,8 +14,6 @@ namespace HutongGames.PlayMaker.Actions
 
         public override void OnEnter()
         {
-            base.OnEnter();
-
             Options[0] = OptionA;
             Options[1] = OptionB;
             Options[2] = OptionC;

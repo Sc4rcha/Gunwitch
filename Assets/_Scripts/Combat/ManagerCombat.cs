@@ -4,32 +4,38 @@ using UnityEngine;
 public class ManagerCombat : MonoBehaviour
 {
     public CombatPlayer Player;
-    public CombatAgent[] Enemies;
+    public Transform EncounterParent;
 
-    protected bool allEnemiesDead => Enemies.All(x => x.Stats.IsDead);
+
+    protected CombatEnounter encounter;
     protected int enemyTurnIndex;
 
     private void Start()
     {
-        CombatStart(true);
+        // register combat on combat scene load
+        ManagerGameElements.Instance.ManagerEvents.CombatRegister(this);
     }
-
-    public void CombatStart(bool isPlayerFirst) 
+    public void CombatStart(CombatEnounter encounter) 
     {
-        // setup encounter enemies
-        foreach (var enemy in Enemies)
-            enemy.Setup(this);
+        // instantiate and setup encounter
+        this.encounter = Instantiate(encounter, EncounterParent);
+        this.encounter.Setup(this);
 
         // setup player
         Player.Setup(this);
 
         // start combat
-        if (isPlayerFirst)
+        if (Player.Stats.Dexterity >= this.encounter.Enemies[0].Stats.Dexterity)
             PlayerRoundStart();
         else
             EnemyRoundStart();
     }
+    public void CombatFinish(bool isWin)
+    {
+        ManagerGameElements.Instance.ManagerEvents.CombatEnd(isWin);
+    }
 
+    #region Player
     public void PlayerRoundStart() 
     {
         // send player event to start turn
@@ -40,6 +46,7 @@ public class ManagerCombat : MonoBehaviour
         // Start enemy round
         EnemyRoundStart();
     }
+    #endregion
 
     #region Enemies
     public void EnemyRoundStart() 
@@ -58,10 +65,10 @@ public class ManagerCombat : MonoBehaviour
     public void EnemyTurnStart() 
     {
         // enemy turn start, enemy turn end if they are dead
-        if (!Enemies[enemyTurnIndex].Stats.IsDead)
-            Enemies[enemyTurnIndex].TurnStart();
+        if (!encounter.Enemies[enemyTurnIndex].Stats.IsDead)
+            encounter.Enemies[enemyTurnIndex].TurnStart();
         else
-            Enemies[enemyTurnIndex].TurnFinish();
+            encounter.Enemies[enemyTurnIndex].TurnFinish();
     }
     public void EnemyTurnFinish() 
     {
@@ -70,7 +77,7 @@ public class ManagerCombat : MonoBehaviour
         CheckCombatOver();
 
         // if script has gone through all enemies end enemy round
-        if (enemyTurnIndex == Enemies.Length)
+        if (enemyTurnIndex == encounter.Enemies.Length)
             EnemyRoundFinish();
     }
     #endregion
@@ -78,18 +85,11 @@ public class ManagerCombat : MonoBehaviour
     public void CheckCombatOver() 
     {
         // check player win all enemies dead
-        if (allEnemiesDead)
-            CombatOver(true);
+        if (encounter.CheckEncounterFinished())
+            CombatFinish(true);
 
         // check player lose player is dead
         if (Player.Stats.IsDead)
-            CombatOver(false);
-    }
-    public void CombatOver(bool isWin)
-    {
-        if (isWin)
-            Debug.Log("Win");
-        else
-            Debug.Log("Lose");
+            CombatFinish(false);
     }
 }
