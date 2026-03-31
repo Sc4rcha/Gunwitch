@@ -94,10 +94,13 @@ public class CombatGun : MonoBehaviour
     }
     public void LoadBullet(Bullet bullet) 
     {
-        // load default bullet
-        bullets[bulletIndex] = bullet;
-
         // load bullet
+        bullets[bulletIndex] = bullet;
+        // pay mana
+        player.Actor.ManaChange(-bullet.ManaCost);
+        player.HUD.Refresh(player.Actor.Stats);
+
+        // Drum visuals load bullet
         Drum.LoadBullet(bulletIndex);
 
         bulletIndex++;

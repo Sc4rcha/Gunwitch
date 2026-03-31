@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7306aee722662ea49a71e433ac4819e5, type: 3}
+  m_Name: Player Initial State
+  m_EditorClassIdentifier: Assembly-CSharp::SOPlayerInitialState
+  Health: 100
+  Mana: 100
+  Body: 1
+  Magic: 1
+  Dexterity: 1
+  Luck: 1
+  Charisma: 1
+  StartingItems:
+  - {fileID: 11400000, guid: cd8a234a7cc4b5042a86da400de9643a, type: 2}
+  - {fileID: 11400000, guid: 58684ee692e6f1a4f99c1b9ad7bda028, type: 2}
+  - {fileID: 11400000, guid: 5a169be40c662134f999834687fa6b56, type: 2}
+  - {fileID: 11400000, guid: f89088d6182e82b4eab91625727cde23, type: 2}
+  - {fileID: 11400000, guid: 4bef006ac01bc3c45804cfaa4070e7bb, type: 2}
+  - {fileID: 11400000, guid: 3d7c09511604989458d8be1e3a6f4c98, type: 2}
+  - {fileID: 11400000, guid: 9583a785577c5c647a0607be111ca2b5, type: 2}
+  - {fileID: 11400000, guid: ea3e3986d2aac844383ba7a3144faa03, type: 2}
+  - {fileID: 11400000, guid: b7bfef551a91118458872e47625167e8, type: 2}
+  - {fileID: 11400000, guid: b8c25e744fd0c124bb500758c45e725c, type: 2}
+  - {fileID: 11400000, guid: 756f9291a8cbc5b43b6727e04c542225, type: 2}
+  - {fileID: 11400000, guid: 71c11b0dbc73c77499e350d5e4accd8a, type: 2}
+  - {fileID: 11400000, guid: 152be7f229970c64bbaa91949bfe684d, type: 2}
+  - {fileID: 11400000, guid: d2f35a00ceb2e5646bcf3e9f64618fe9, type: 2}
+  StartingBullets:
+  - {fileID: 11400000, guid: cf398d804dc143042a02d5cb6f8ac887, type: 2}
+  - {fileID: 11400000, guid: bb433fdc5fad4b643a40f905cadeac29, type: 2}
+  - {fileID: 11400000, guid: 19c5a402d0ee6bb4fb2df24e7ac3cf29, type: 2}

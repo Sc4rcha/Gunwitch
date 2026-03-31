@@ -17,6 +17,8 @@ public class InventoryMenuCombat : InventoryMenu
 
     public void Setup (Inventory inventory, ManagerCombat combat)
     {
+        this.combat = combat;
+
         // set inventory slot array
         inventorySlots = new InventorySlotButtonInfo[InventorySlotsRight.Length + InventorySlotsLeft.Length];
         for (int i = 0; i < InventorySlotsRight.Length; i++) 
@@ -30,8 +32,6 @@ public class InventoryMenuCombat : InventoryMenu
             slot.Setup(this);
 
         Setup(inventory);
-
-        this.combat = combat;
     }
 
 
@@ -52,8 +52,12 @@ public class InventoryMenuCombat : InventoryMenu
             case ItemType.BULLET:
                 for (int i = 0; i < inventory.Bullets.Count; i++)
                 {
+                    // show inventory slot
                     inventorySlots[i].SetItem(inventory.Bullets.ElementAt(i).Value);
                     inventorySlots[i].Show(true);
+
+                    // set interactable only if player has enough mana
+                    inventorySlots[i].SlotButton.interactable = combat.Player.Actor.CheckEnoughMana(inventory.Bullets.ElementAt(i).Value.ManaCost);
                 }
                 break;
             case ItemType.DRUM:
@@ -67,6 +71,7 @@ public class InventoryMenuCombat : InventoryMenu
                 {
                     inventorySlots[i].SetItem(inventory.Consumables[i]);
                     inventorySlots[i].Show(true);
+                    inventorySlots[i].SlotButton.interactable = true;
                 }
                 break;
         }
@@ -84,7 +89,7 @@ public class InventoryMenuCombat : InventoryMenu
 
         base.Lock(isLock);
     }
-    public override void LockSection(ItemType section)
+    public override void LockSection(ItemType section, bool isLocked)
     {
         switch (section)
         {
@@ -92,7 +97,7 @@ public class InventoryMenuCombat : InventoryMenu
                 Debug.LogError("This section is not available in Combat");
                 break;
             case ItemType.BULLET:
-                SectionBullets.interactable = false;
+                SectionBullets.interactable = !isLocked;
                 break;
             case ItemType.DRUM:
                 Debug.LogError("This section is not available in Combat");
@@ -101,7 +106,7 @@ public class InventoryMenuCombat : InventoryMenu
                 Debug.LogError("This section is not available in Combat");
                 break;
             case ItemType.CONSUMABLE:
-                SectionConsums.interactable = false;
+                SectionConsums.interactable = !isLocked;
                 break;
         }
     }

@@ -1,8 +1,5 @@
 using GameInfo;
-using System.Linq;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class InventoryMenu : MonoBehaviour
 {
@@ -37,7 +34,7 @@ public class InventoryMenu : MonoBehaviour
     /// Lock section button for a given section
     /// </summary>
     /// <param name="section"></param>
-    public virtual void LockSection(ItemType section) 
+    public virtual void LockSection(ItemType section, bool isLocked) 
     {
 
     }

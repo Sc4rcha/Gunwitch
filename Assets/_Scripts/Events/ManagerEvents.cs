@@ -54,9 +54,8 @@ public class ManagerEvents : MonoBehaviour
 
     public void EventStart(SOEvent eventSelected)
     {
-        // Game Setup
-        ManagerGameElements.Instance.Inventory.Menu.Open(false);
-        ManagerGameElements.Instance.Inventory.Menu.Lock(true);
+        // Player Setup
+        ManagerGameElements.Instance.Player.EventStart();
 
         if (eventFSMInstance != null)
             Debug.LogError("Event already instantiated. There cannot be two events active at the same time!");
@@ -94,8 +93,9 @@ public class ManagerEvents : MonoBehaviour
         // send event end trigger
         OnEnventFinish?.Invoke();
 
-        // UI
-        ManagerGameElements.Instance.Inventory.Menu.Lock(false);
+        // Player Setup
+        ManagerGameElements.Instance.Player.EventFinish();
+
 
         // game over screen if player fails event
         if (!isEventPass)
@@ -125,6 +125,7 @@ public class ManagerEvents : MonoBehaviour
 
         // send event for player winning
         OnCombatFinish?.Invoke(isPlayerWin);
+        // refresh PlayerHUD
     }
     private IEnumerator ExitCombat()
     {

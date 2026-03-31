@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GameInfo;
+using UnityEngine.UI;
 
 public class Crafting : MonoBehaviour
 {
     public SOCraftingRecipe[] DebugKnownRecipes;
 
     [Header("References UI")]
+    public Button CraftingButton;
     public GameObject CraftingUI;
     public TMPro.TMP_Text NameRecipe;
     public TMPro.TMP_Text NameBullet;
@@ -20,11 +22,11 @@ public class Crafting : MonoBehaviour
     private Inventory inventory;
     private InventoryMenuOverworld inventoryMenu;
 
-    public void Setup() 
+    public void Setup(ManagerPlayer player) 
     {
         // get reference to inventory
-        inventory = ManagerGameElements.Instance.Inventory;
-        inventoryMenu = ManagerGameElements.Instance.Inventory.Menu;
+        inventory = player.Info.Inventory;
+        inventoryMenu = player.InventoryMenu;
 
         // setup recipes known list
         KnownRecipes = new List<CraftingRecipe>();
@@ -53,26 +55,39 @@ public class Crafting : MonoBehaviour
     {
         Open(!isCraftingOpen);
     }
-    public void Open (bool isOpen)
+    public void Open(bool isOpen)
     {
         isCraftingOpen = isOpen;
 
         // show UI for crafting
         CraftingUI.SetActive(isCraftingOpen);
 
-        // stop if closing crafting menu
-        if (!isCraftingOpen)
-            return;
+        // open close inventory, 
+        inventoryMenu.Open(isCraftingOpen);
 
-        // open inventory, select ingredients and lock drums, bullets and keys
-        inventoryMenu.Open(true);
-        inventoryMenu.ShowSection(ItemType.INGREDIENT);
-        inventoryMenu.LockSection(ItemType.DRUM);
-        inventoryMenu.LockSection(ItemType.BULLET);
-        inventoryMenu.LockSection(ItemType.KEY);
+        if (isCraftingOpen)
+        {
+            // select ingredients and lock drums, bullets and keys
+            inventoryMenu.ShowSection(ItemType.INGREDIENT);
+            inventoryMenu.LockSection(ItemType.DRUM, true);
+            inventoryMenu.LockSection(ItemType.BULLET, true);
+            inventoryMenu.LockSection(ItemType.KEY, true);
 
-        // show selected recipe
-        ShowRecipe(recipeIndex);
+            // show selected recipe
+            ShowRecipe(recipeIndex);
+        }
+        else
+        {
+            // unlock drums, bullets and keys
+            inventoryMenu.LockSection(ItemType.DRUM, false);
+            inventoryMenu.LockSection(ItemType.BULLET, false);
+            inventoryMenu.LockSection(ItemType.KEY, false);
+        }
+
+    }
+    public void Lock (bool isLocked)
+    {
+        CraftingButton.interactable = !isLocked;
     }
 
     public void ButtonSelectNextRight(bool isRight) 

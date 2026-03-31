@@ -17,7 +17,7 @@ public class CombatEnounter : MonoBehaviour
         // check of all enemies are dead
         foreach(var enemy in Enemies)
         {
-            if (!enemy.Stats.IsDead)
+            if (!enemy.Actor.IsDead)
                 return false;
         }
 

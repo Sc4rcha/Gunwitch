@@ -15,7 +15,6 @@ public class ManagerDialogue : MonoBehaviour
     public DialogueExpression CharacterExpression;
     public Image CharacterPortraitRight;
     public Image CharacterPortraitLeft;
-    public Image CharacterPortraitPlayer;
     [Space]
     public GameObject TextNextHint;
     public TMPro.TMP_Text DialogueText;
@@ -32,10 +31,13 @@ public class ManagerDialogue : MonoBehaviour
     public Vector2 OffsetTextRight;
     public Vector2 OffsetTextLeft;
     public Vector2 OffsetTextCentre;
+    [Space]
+    public Color FocusOffColor;
 
     // dialogue finished action
     public event Action OnDialogueFinished;
     public event Action<DecisionOption> OnDialogueDecision;
+    public event Action<bool> OnPlayerFocus;
 
     private Dialogue dialogueSelected;
     private int dialogueIndex;
@@ -182,9 +184,9 @@ public class ManagerDialogue : MonoBehaviour
         }
 
         // set focus to nothing
-        CharacterPortraitPlayer.color = Color.gray7;
-        CharacterPortraitRight.color = Color.gray7;
-        CharacterPortraitLeft.color = Color.gray7;
+        OnPlayerFocus?.Invoke(false);
+        CharacterPortraitRight.color = FocusOffColor;
+        CharacterPortraitLeft.color = FocusOffColor;
 
         // set focus to correct character
         if (node.IndexCharacterFocus == node.IndexCharacterRight)
@@ -202,7 +204,7 @@ public class ManagerDialogue : MonoBehaviour
         else if (node.IndexCharacterFocus == 1)
         {
             //player
-            CharacterPortraitPlayer.color = Color.white;
+            OnPlayerFocus?.Invoke(true);
         }
 
         // set text

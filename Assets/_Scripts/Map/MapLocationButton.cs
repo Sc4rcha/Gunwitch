@@ -2,18 +2,18 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-[RequireComponent (typeof (OverworldLocationButtonInfo))]
-public class OverworldLocationButton : Button
+[RequireComponent (typeof (MapLocationButtonInfo))]
+public class MapLocationButton : Button
 {
     // Location Button Information
-    private OverworldLocationButtonInfo info;
+    private MapLocationButtonInfo info;
 
     protected override void Awake()
     {
         base.Awake();
 
         // set information reference
-        info = GetComponent<OverworldLocationButtonInfo>();
+        info = GetComponent<MapLocationButtonInfo>();
     }
 
     // mouse enter and exit button

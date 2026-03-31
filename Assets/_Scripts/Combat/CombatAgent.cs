@@ -1,11 +1,10 @@
 using System.Collections;
 using GameInfo;
-using GymCombat;
 using UnityEngine;
 
 public class CombatAgent : MonoBehaviour
 {
-    public CombatActor Stats { get; private set; }
+    public CombatActor Actor { get; private set; }
 
 
     [Header ("Enemy Info")]
@@ -31,8 +30,8 @@ public class CombatAgent : MonoBehaviour
             collider.Setup(this);
 
         // setup agent stats
-        Stats = EnemyStatsReference.GetCombatActor();
-        Stats.Startcombat();
+        Actor = EnemyStatsReference.GetCombatActor();
+        Actor.Startcombat();
     }
 
     public void TurnStart()
@@ -48,13 +47,13 @@ public class CombatAgent : MonoBehaviour
 
     public void Damage(int value)
     {
-        Stats.HealthChange(-value);
+        Actor.HealthChange(-value);
 
         // visual feedback for getting hurt
         animator.Play("Hurt");
 
         // kill enememy if it died
-        if (Stats.IsDead)
+        if (Actor.IsDead)
             Die();
     }
     private void Die() 

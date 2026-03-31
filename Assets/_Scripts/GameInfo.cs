@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -9,13 +10,15 @@ namespace GameInfo
 
     #region ACTORS
     [Serializable]
-    public class Actor
+    public class ActorStats
     {
         public string Name;
 
         // combat stats
         public int Health;
         public int Mana;
+        public int HealthCurrent;
+        public int ManaCurrent;
 
         // stats
         public int Body;
@@ -25,42 +28,103 @@ namespace GameInfo
         public int Charisma;
     }
 
-    public enum ActorStat { BODY, MAGIC, DEX, LUCK, CHAR }
+    public enum Ability { BODY, MAGIC, DEX, LUCK, CHAR }
+    #endregion
+
+    #region PLAYER
+    public class PlayerInfo
+    {
+        public ActorStats Stats;
+        public Inventory Inventory;
+
+        // create player from Initial State
+        public PlayerInfo (SOPlayerInitialState playerInitialState)
+        {
+            Stats = new ActorStats();
+
+            Stats.Name = "Player";
+
+            // set combat stats
+            Stats.Health = playerInitialState.Health;
+            Stats.Mana = playerInitialState.Mana;
+            Stats.HealthCurrent = Stats.Health;
+            Stats.ManaCurrent = Stats.Mana;
+
+            // set stats
+            Stats.Body = playerInitialState.Body;
+            Stats.Magic = playerInitialState.Magic;
+            Stats.Dexterity = playerInitialState.Dexterity;
+            Stats.Luck = playerInitialState.Luck;
+            Stats.Charisma = playerInitialState.Charisma;
+
+            // set inventory
+            Inventory = new Inventory();
+            foreach (var item in playerInitialState.StartingItems)
+                Inventory.AddItem(item.GetItem());
+            foreach (var bullet in playerInitialState.StartingBullets)
+                Inventory.AddItem(bullet.GetBullet());
+        }
+    }
     #endregion
 
     #region COMBAT
-    public class CombatActor : Actor
+    public class CombatActor
     {
-        public int HealthCurrent;
-        public int ManaCurrent;
+        public ActorStats Stats;
 
-        public bool IsDead => HealthCurrent <= 0;
+        public bool IsDead => Stats.HealthCurrent <= 0;
 
-        // constructor
+        // constructor for enemy
         public CombatActor(SOCombatEnemy enemy) 
         {
-            Name = enemy.Name;
-            Health = enemy.Health;
-            Mana = enemy.Mana;
+            Stats = new ActorStats();
 
-            Body = enemy.Body;
-            Magic = enemy.Magic;
-            Dexterity = enemy.Dexterity;
-            Luck = enemy.Luck;
-            Charisma = enemy.Charisma;
+            Stats.Health = enemy.Health;
+            Stats.Mana = enemy.Mana;
+
+            Stats.Body = enemy.Body;
+            Stats.Magic = enemy.Magic;
+            Stats.Dexterity = enemy.Dexterity;
+            Stats.Luck = enemy.Luck;
+            Stats.Charisma = enemy.Charisma;
+        }
+        // constructor for player
+        public CombatActor (PlayerInfo player) 
+        {
+            Stats = player.Stats;
         }
 
         // set actor ready for combat
         public void Startcombat() 
         {
-            HealthCurrent = Health;
-            ManaCurrent = Mana;
+            Stats.HealthCurrent = Stats.Health;
+            Stats.ManaCurrent = Stats.Mana;
         }
 
-        // damage or heal actor
+        /// <summary>
+        /// Change the current health of actor;
+        /// </summary>
+        /// <param name="value"></param>
         public void HealthChange(int value) 
         {
-            HealthCurrent = Mathf.Clamp(HealthCurrent + value, 0, Health);
+            Stats.HealthCurrent = Mathf.Clamp(Stats.HealthCurrent + value, 0, Stats.Health);
+        }
+        /// <summary>
+        /// Change the current mana of actor
+        /// </summary>
+        /// <param name="value"></param>
+        public void ManaChange (int value)
+        {
+            Stats.ManaCurrent = Mathf.Clamp(Stats.ManaCurrent + value, 0, Stats.Mana);
+        }
+        /// <summary>
+        /// Check if actor has enough mana to cast a spell
+        /// </summary>
+        /// <param name="cost"></param>
+        /// <returns></returns>
+        public bool CheckEnoughMana(int cost) 
+        {
+            return Stats.ManaCurrent >= cost;
         }
     }
 

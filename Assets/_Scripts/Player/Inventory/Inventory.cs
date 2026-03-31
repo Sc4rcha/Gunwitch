@@ -1,24 +1,17 @@
 using System.Collections.Generic;
-using UnityEngine;
 using GameInfo;
+using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class Inventory
 {
-    public SOInventoryItem[] DebugAddItems;
-    public SOBullet[] DebugAddBullets;
-
-    public int MaxConsums;
-
-    [Header("References UI")]
-    public InventoryMenuOverworld Menu;
-
+    public const int MaxConsums = 6;
     public Dictionary<string, InventoryItem> Ingredients;
     public Dictionary<string, Bullet> Bullets;
     public Dictionary<string, InventoryItem> Drums;
     public Dictionary<string, InventoryItem> KeyItems;
     public List<InventoryItem> Consumables;
 
-    public void Setup()
+    public Inventory()
     {
         // setup dictionaries and lists
         Ingredients = new Dictionary<string, InventoryItem>();
@@ -26,16 +19,6 @@ public class Inventory : MonoBehaviour
         Drums = new Dictionary<string, InventoryItem>();
         KeyItems = new Dictionary<string, InventoryItem>();
         Consumables = new List<InventoryItem>();
-
-        // setup menu
-        Menu.Setup(this);
-
-        // add debug items
-        foreach (var item in DebugAddItems)
-            AddItem(item.GetItem());
-        // add debug bullets
-        foreach (var item in DebugAddBullets)
-            AddItem(item.GetBullet());
     }
 
     public void AddItem(InventoryItem item)

@@ -23,6 +23,8 @@ public class InventoryMenuOverworld : InventoryMenu
     private Vector2 positionOpen = new Vector2(0, 0);
     private Vector2 positionClose = new Vector2(450, 0);
 
+    private ItemType lastSelectedSection;
+
     public override void Setup(Inventory inventory)
     {
         base.Setup(inventory);
@@ -30,6 +32,8 @@ public class InventoryMenuOverworld : InventoryMenu
         // setup slots
         foreach (var slot in InventorySlots)
             slot.Setup(this);
+
+        lastSelectedSection = ItemType.INGREDIENT;
 
         // Close inventory
         Open(false);
@@ -64,24 +68,24 @@ public class InventoryMenuOverworld : InventoryMenu
 
         base.Lock(isLock);
     }
-    public override void LockSection(ItemType section)
+    public override void LockSection(ItemType section, bool isLocked)
     {
         switch (section)
         {
             case ItemType.INGREDIENT:
-                SectionIngredients.interactable = false;
+                SectionIngredients.interactable = !isLocked;
                 break;
             case ItemType.BULLET:
-                SectionBullets.interactable = false;
+                SectionBullets.interactable = !isLocked;
                 break;
             case ItemType.DRUM:
-                SectionDrums.interactable = false;
+                SectionDrums.interactable = !isLocked;
                 break;
             case ItemType.KEY:
-                SectionKeyItems.interactable = false;
+                SectionKeyItems.interactable = !isLocked;
                 break;
             case ItemType.CONSUMABLE:
-                SectionConsums.interactable = false;
+                SectionConsums.interactable = !isLocked;
                 break;
         }
     }
@@ -101,15 +105,16 @@ public class InventoryMenuOverworld : InventoryMenu
 
         // hide item preview
         ItemInfo.gameObject.SetActive(false);
-        // hide section icon
-        InventorySectionIcon.gameObject.SetActive(false);
-        // hide section slots
-        foreach (var slot in InventorySlots)
-            slot.Show(false);
+
+        // show last selected section when opening the inventory
+        ShowSection(lastSelectedSection);
     }
     public override void ShowSection(ItemType section)
     {
         base.ShowSection(section);
+
+        // set last selected section
+        lastSelectedSection = section;
 
         // hide all slots
         foreach (var slot in InventorySlots)

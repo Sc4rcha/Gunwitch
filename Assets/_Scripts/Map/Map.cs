@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class OverworldMap : MonoBehaviour
+public class Map : MonoBehaviour
 {
     [Header ("Map Information")]
     public string Name;
     public SOEventList MapEvents;
 
     [Header ("Scene References")]
-    public OverworldLocationButtonInfo[] Locations;
+    public MapLocationButtonInfo[] Locations;
 }

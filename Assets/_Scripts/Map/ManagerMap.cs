@@ -2,7 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ManagerOverworld : MonoBehaviour
+public class ManagerMap : MonoBehaviour
 {
     [Header ("Scene References")]
     public ScrollRect MapScrollRect;
@@ -12,7 +12,7 @@ public class ManagerOverworld : MonoBehaviour
     public LocationScreen LocationScreen;
 
 
-    private OverworldMap map;
+    private Map map;
 
 
     public void Setup() 
@@ -23,14 +23,14 @@ public class ManagerOverworld : MonoBehaviour
     }
 
     // open a new overworld map
-    public void OpenNewMap(OverworldMap newMap) 
+    public void OpenNewMap(Map newMap) 
     {
         // destroy previous map
         if (map != null)
             Destroy(map.gameObject);
 
         // instantiate map
-        map = Instantiate(newMap, MapHolder).GetComponent<OverworldMap>();
+        map = Instantiate(newMap, MapHolder).GetComponent<Map>();
 
         // Set map movement scroll rect
         MapScrollRect.content = map.GetComponent<RectTransform>();

@@ -21,21 +21,22 @@ public class ManagerCombat : MonoBehaviour
         this.encounter = Instantiate(encounter, EncounterParent);
         this.encounter.Setup(this);
 
+        // setup player
+        Player.CombatStart(this);
+
         // setup combat inventory
-        InventoryMenu.Setup(ManagerGameElements.Instance.Inventory, this);
+        InventoryMenu.Setup(ManagerGameElements.Instance.Player.Info.Inventory, this);
         InventoryMenu.ShowSection(GameInfo.ItemType.BULLET);
 
-        // setup player
-        Player.Setup(this);
-
         // start combat
-        if (Player.Stats.Dexterity >= this.encounter.Enemies[0].Stats.Dexterity)
+        if (Player.Actor.Stats.Dexterity >= this.encounter.Enemies[0].Actor.Stats.Dexterity)
             PlayerRoundStart();
         else
             EnemyRoundStart();
     }
     public void CombatFinish(bool isWin)
     {
+        Player.CombatFinish();
         ManagerGameElements.Instance.ManagerEvents.CombatEnd(isWin);
     }
 
@@ -69,7 +70,7 @@ public class ManagerCombat : MonoBehaviour
     public void EnemyTurnStart() 
     {
         // enemy turn start, enemy turn end if they are dead
-        if (!encounter.Enemies[enemyTurnIndex].Stats.IsDead)
+        if (!encounter.Enemies[enemyTurnIndex].Actor.IsDead)
             encounter.Enemies[enemyTurnIndex].TurnStart();
         else
             encounter.Enemies[enemyTurnIndex].TurnFinish();
@@ -93,7 +94,7 @@ public class ManagerCombat : MonoBehaviour
             CombatFinish(true);
 
         // check player lose player is dead
-        if (Player.Stats.IsDead)
+        if (Player.Actor.IsDead)
             CombatFinish(false);
     }
 }

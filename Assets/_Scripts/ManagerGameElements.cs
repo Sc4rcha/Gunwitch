@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ManagerGameElements : MonoBehaviour
 {
@@ -21,15 +20,15 @@ public class ManagerGameElements : MonoBehaviour
     }
 
 
+    public SOPlayerInitialState StartingPlayer;
     public SOEventList StartingEvents;
-    public OverworldMap StartingMap;
+    public Map StartingMap;
     [Space]
     public ManagerEvents ManagerEvents;
-    public ManagerOverworld ManagerOverworld;
+    public ManagerMap ManagerOverworld;
     public ManagerDialogue ManagerDialogue;
     [Space]
-    public Inventory Inventory;
-    public Crafting Crafting;
+    public ManagerPlayer Player;
 
     private void Setup()
     {
@@ -46,7 +45,7 @@ public class ManagerGameElements : MonoBehaviour
         ManagerOverworld.Refresh();
 
         // setup player
-        Inventory.Setup();
-        Crafting.Setup();
+        Player.Info = StartingPlayer.GetPlayer();
+        Player.Setup();
     }
 }
