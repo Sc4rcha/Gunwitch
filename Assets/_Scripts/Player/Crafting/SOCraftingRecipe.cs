@@ -7,7 +7,7 @@ public class SOCraftingRecipe : ScriptableObject
     public string Name;
 
     public SOInventoryItem[] Ingredients;
-    public SOInventoryItem Bullet;
+    public SOInventoryItem Consumable;
 
     public GameInfo.CraftingRecipe GetRecipe() 
     {

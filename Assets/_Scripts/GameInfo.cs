@@ -64,15 +64,14 @@ namespace GameInfo
         }
     }
 
-    public class Bullet
+    public class Bullet : InventoryItem
     {
-        public InventoryItem ItemInfo;
-
+        public int ManaCost;
         public int Damage;
 
-        public Bullet(SOInventoryItemBullet bullet) 
+        public Bullet(SOBullet bullet) : base(bullet)
         {
-            ItemInfo = new InventoryItem(bullet);
+            ManaCost = bullet.ManaCost;
             Damage = bullet.Damage;
         }
     }
@@ -103,7 +102,7 @@ namespace GameInfo
         public int Quantity;
     }
 
-    public enum ItemType { INGREDIENT, BULLET, CONSUMABLE, DRUM, KEY}
+    public enum ItemType { INGREDIENT, BULLET, DRUM, KEY, CONSUMABLE}
     #endregion
 
     #region CRAFTING
@@ -114,13 +113,13 @@ namespace GameInfo
 
         public InventoryItem[] Ingredients;
         public InventoryItem[] IngredientsStacked;
-        public InventoryItem Bullet;
+        public InventoryItem Consumable;
 
         public CraftingRecipe (SOCraftingRecipe recipe)
         {
             Id = recipe.Id;
             Name = recipe.Name;
-            Bullet = recipe.Bullet.GetItem();
+            Consumable = recipe.Consumable.GetItem();
 
             // add ingredients not stacked
             Ingredients = new InventoryItem[recipe.Ingredients.Length];

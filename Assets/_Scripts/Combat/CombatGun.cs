@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class CombatGun : MonoBehaviour
 {
     [Header ("Gun Stats")]
-    public SOInventoryItemBullet BulletBase;
+    public SOBullet BulletBase;
     public int MagazineSize;
     public float ShootingCooldown;
     public LayerMask CollisionLayer;
@@ -50,7 +50,6 @@ public class CombatGun : MonoBehaviour
     {
         // detect combat agents on crosshair
         agentCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), CollisionLayer);
-        Debug.Log(agentCollider != null);
         if (agentCollider != null)
         {
             // try to get an agent collider to deal damage

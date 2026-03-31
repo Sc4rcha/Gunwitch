@@ -1,17 +1,23 @@
 using UnityEngine;
 using GameInfo;
+using UnityEngine.UI;
 
+[RequireComponent (typeof (Button))]
 public class InventorySlotButtonInfo : MonoBehaviour
 {
     public TMPro.TMP_Text ItemName;
 
-    private InventoryItem itemInfo;
-    private Inventory inventory;
+    public Button SlotButton { get; private set; }
 
-    public void Setup(Inventory inventory) 
+    private InventoryItem itemInfo;
+    private InventoryMenu inventoryMenu;
+
+    public void Setup(InventoryMenu inventoryMenu) 
     {
         // setup inventory reference
-        this.inventory = inventory;
+        this.inventoryMenu = inventoryMenu;
+        SlotButton = GetComponent<Button>();
+
         // hide button
         Show(false);
     }
@@ -32,6 +38,6 @@ public class InventorySlotButtonInfo : MonoBehaviour
 
     public void ButtonInteract() 
     {
-        inventory.ShowItem(itemInfo);
+        inventoryMenu.ShowItem(itemInfo);
     }
 }

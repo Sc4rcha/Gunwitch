@@ -1,8 +1,9 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Item", menuName = "Player/Bullet")]
-public class SOInventoryItemBullet : SOInventoryItem
+public class SOBullet : SOInventoryItem
 {
+    public int ManaCost;
     public int Damage;
 
     public GameInfo.Bullet GetBullet() 

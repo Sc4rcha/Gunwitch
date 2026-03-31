@@ -55,8 +55,8 @@ public class ManagerEvents : MonoBehaviour
     public void EventStart(SOEvent eventSelected)
     {
         // Game Setup
-        ManagerGameElements.Instance.Inventory.Open(false);
-        ManagerGameElements.Instance.Inventory.Lock(true);
+        ManagerGameElements.Instance.Inventory.Menu.Open(false);
+        ManagerGameElements.Instance.Inventory.Menu.Lock(true);
 
         if (eventFSMInstance != null)
             Debug.LogError("Event already instantiated. There cannot be two events active at the same time!");
@@ -95,7 +95,7 @@ public class ManagerEvents : MonoBehaviour
         OnEnventFinish?.Invoke();
 
         // UI
-        ManagerGameElements.Instance.Inventory.Lock(false);
+        ManagerGameElements.Instance.Inventory.Menu.Lock(false);
 
         // game over screen if player fails event
         if (!isEventPass)

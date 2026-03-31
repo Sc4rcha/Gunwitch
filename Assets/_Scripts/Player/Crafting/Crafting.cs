@@ -18,11 +18,13 @@ public class Crafting : MonoBehaviour
     private int recipeIndex;
 
     private Inventory inventory;
+    private InventoryMenu inventoryMenu;
 
     public void Setup() 
     {
         // get reference to inventory
         inventory = ManagerGameElements.Instance.Inventory;
+        inventoryMenu = ManagerGameElements.Instance.Inventory.Menu;
 
         // setup recipes known list
         KnownRecipes = new List<CraftingRecipe>();
@@ -62,9 +64,12 @@ public class Crafting : MonoBehaviour
         if (!isCraftingOpen)
             return;
 
-        // open inventory and select ingredients
-        inventory.Open(true);
-        inventory.ShowSection(ItemType.INGREDIENT);
+        // open inventory, select ingredients and lock drums, bullets and keys
+        inventoryMenu.Open(true);
+        inventoryMenu.ShowSection(ItemType.INGREDIENT);
+        inventoryMenu.LockSection(ItemType.DRUM);
+        inventoryMenu.LockSection(ItemType.BULLET);
+        inventoryMenu.LockSection(ItemType.KEY);
 
         // show selected recipe
         ShowRecipe(recipeIndex);
@@ -90,7 +95,7 @@ public class Crafting : MonoBehaviour
     {
         // Recipes names
         NameRecipe.text = KnownRecipes[index].Name;
-        NameBullet.text = KnownRecipes[index].Bullet.Name;
+        NameBullet.text = KnownRecipes[index].Consumable.Name;
 
         // ingredient list
         for (int i = 0; i < IngredientList.Length; i++)
@@ -117,10 +122,11 @@ public class Crafting : MonoBehaviour
                 inventory.RemoveItem(ingredient.Type, ingredient.Id);
         }
 
-        // add bullet to player inventory
-        inventory.AddItem(KnownRecipes[recipeIndex].Bullet);
-        // refresh inventory
-        inventory.ShowSection(ItemType.INGREDIENT);
+        // show consumable section
+        inventoryMenu.ShowSection(ItemType.CONSUMABLE);
+        // add consumable to player inventory
+        inventory.AddItem(KnownRecipes[recipeIndex].Consumable);
+
     }
     private bool IsCraftingPossible() 
     {

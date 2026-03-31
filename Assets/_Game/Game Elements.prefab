@@ -441,24 +441,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 71c11b0dbc73c77499e350d5e4accd8a, type: 2}
   - {fileID: 11400000, guid: 152be7f229970c64bbaa91949bfe684d, type: 2}
   - {fileID: 11400000, guid: d2f35a00ceb2e5646bcf3e9f64618fe9, type: 2}
-  MaxBullets: 6
   MaxConsums: 6
-  InventoryWindow: {fileID: 4022183694295207925}
-  InventoryBlocker: {fileID: 7749990071901130841}
-  InventoryButton: {fileID: 6733621985210148085}
-  InventorySectionIcon: {fileID: 7080610863963109002}
-  InventorySlots:
-  - {fileID: 6380425184401594831}
-  - {fileID: 620722910142504023}
-  - {fileID: 624901461313882219}
-  - {fileID: 3101193109454458976}
-  - {fileID: 1200099766964173071}
-  - {fileID: 7709266472959425516}
-  - {fileID: 8048100168889596303}
-  - {fileID: 3701731006572767649}
-  - {fileID: 3675644251424832855}
-  - {fileID: 1205072965833121964}
-  ItemPreview: {fileID: 3360450276073879357}
+  Menu: {fileID: 7367909988257821628}
 --- !u!1 &382537712405437495
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,7 +768,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 225, y: 0}
-  m_SizeDelta: {x: 1470, y: 300}
+  m_SizeDelta: {x: 1370, y: 300}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &674401780876303265
 GameObject:
@@ -983,6 +967,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3776164642861215666}
+  - component: {fileID: 7367909988257821628}
   m_Layer: 0
   m_Name: Inventory
   m_TagString: Untagged
@@ -1011,6 +996,39 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 0}
   m_Pivot: {x: 1, y: 0.5}
+--- !u!114 &7367909988257821628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135433013184970145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad851bd05096ab74abe8059d31edc6ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryMenu
+  InventoryWindow: {fileID: 4022183694295207925}
+  InventoryBlocker: {fileID: 7749990071901130841}
+  InventoryButton: {fileID: 6733621985210148085}
+  InventorySectionIcon: {fileID: 7080610863963109002}
+  SectionIngredients: {fileID: 3737011456734046252}
+  SectionConsums: {fileID: 3650736525268958414}
+  SectionBullets: {fileID: 6337826317276848918}
+  SectionDrums: {fileID: 6807058609661574357}
+  SectionKeyItems: {fileID: 2236318504324320239}
+  InventorySlots:
+  - {fileID: 6380425184401594831}
+  - {fileID: 620722910142504023}
+  - {fileID: 624901461313882219}
+  - {fileID: 3101193109454458976}
+  - {fileID: 1200099766964173071}
+  - {fileID: 7709266472959425516}
+  - {fileID: 8048100168889596303}
+  - {fileID: 3701731006572767649}
+  - {fileID: 3675644251424832855}
+  - {fileID: 1205072965833121964}
+  ItemPreview: {fileID: 3360450276073879357}
 --- !u!1 &1161503589849974791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1778,6 +1796,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2525992403440168360}
   - {fileID: 196721311666748263}
   - {fileID: 5395819711895316026}
   m_Father: {fileID: 6523363617494420486}
@@ -2487,8 +2506,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 316.66666, y: -40}
-  m_SizeDelta: {x: 126.666664, y: 80}
+  m_AnchoredPosition: {x: 285, y: -40}
+  m_SizeDelta: {x: 190, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5834862392614967780
 CanvasRenderer:
@@ -2572,10 +2591,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7953354096261455401}
-        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
-        m_MethodName: ButtonSectionSelect
-        m_Mode: 3
+      - m_Target: {fileID: 7367909988257821628}
+        m_TargetAssemblyTypeName: InventoryMenu, Assembly-CSharp
+        m_MethodName: ButtonOpenConsums
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3677,8 +3696,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -80}
-  m_SizeDelta: {x: 190, y: 80}
+  m_AnchoredPosition: {x: 126.666664, y: -80}
+  m_SizeDelta: {x: 126.666664, y: 80}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &8337153558697643809
 CanvasRenderer:
@@ -3762,10 +3781,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7953354096261455401}
-        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
-        m_MethodName: ButtonSectionSelect
-        m_Mode: 3
+      - m_Target: {fileID: 7367909988257821628}
+        m_TargetAssemblyTypeName: InventoryMenu, Assembly-CSharp
+        m_MethodName: ButtonOpenDrums
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4416,8 +4435,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7953354096261455401}
-        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
+      - m_Target: {fileID: 7367909988257821628}
+        m_TargetAssemblyTypeName: InventoryMenu, Assembly-CSharp
         m_MethodName: ButtonOpenClose
         m_Mode: 1
         m_Arguments:
@@ -4486,7 +4505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5593,8 +5612,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 63.333332, y: -40}
-  m_SizeDelta: {x: 126.666664, y: 80}
+  m_AnchoredPosition: {x: 95, y: -40}
+  m_SizeDelta: {x: 190, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7571979494007126882
 CanvasRenderer:
@@ -5678,10 +5697,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7953354096261455401}
-        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
-        m_MethodName: ButtonSectionSelect
-        m_Mode: 3
+      - m_Target: {fileID: 7367909988257821628}
+        m_TargetAssemblyTypeName: InventoryMenu, Assembly-CSharp
+        m_MethodName: ButtonOpenIngredients
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7067,7 +7086,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 380, y: -80}
-  m_SizeDelta: {x: 190, y: 80}
+  m_SizeDelta: {x: 126.666664, y: 80}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &1257865096069473486
 CanvasRenderer:
@@ -7151,10 +7170,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7953354096261455401}
-        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
-        m_MethodName: ButtonSectionSelect
-        m_Mode: 3
+      - m_Target: {fileID: 7367909988257821628}
+        m_TargetAssemblyTypeName: InventoryMenu, Assembly-CSharp
+        m_MethodName: ButtonOpenKeyItems
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7860,6 +7879,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5938855112065458735}
+  - component: {fileID: 4324842233988571130}
+  - component: {fileID: 8484842048036344852}
+  - component: {fileID: 1716568909020570640}
   m_Layer: 0
   m_Name: Portraits
   m_TagString: Untagged
@@ -7886,8 +7908,59 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 225, y: 300}
-  m_SizeDelta: {x: 800, y: 100}
+  m_SizeDelta: {x: 1370, y: 780}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &4324842233988571130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332863816104207008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8484842048036344852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332863816104207008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
+  m_ShowMaskGraphic: 0
+--- !u!222 &1716568909020570640
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332863816104207008}
+  m_CullTransparentMesh: 1
 --- !u!1 &8401207272757729844
 GameObject:
   m_ObjectHideFlags: 0
@@ -8099,7 +8172,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5391653980714061619}
-  - {fileID: 2525992403440168360}
   - {fileID: 8596057484610807956}
   m_Father: {fileID: 6523363617494420486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8648,11 +8720,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2287518789133833930}
-  m_Father: {fileID: 2983477391632944261}
+  m_Father: {fileID: 2039832455775962228}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 190, y: -40}
+  m_AnchoredPosition: {x: 63.333332, y: -40}
   m_SizeDelta: {x: 126.666664, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6846623525383989332
@@ -8737,10 +8809,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7953354096261455401}
-        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
-        m_MethodName: ButtonSectionSelect
-        m_Mode: 3
+      - m_Target: {fileID: 7367909988257821628}
+        m_TargetAssemblyTypeName: InventoryMenu, Assembly-CSharp
+        m_MethodName: ButtonOpenBullets
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8799,7 +8871,7 @@ Canvas:
   m_GameObject: {fileID: 8896269939400372741}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 2016223253640221391}
   m_PlaneDistance: 10
   m_PixelPerfect: 0
