@@ -1,20 +1,19 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 using GameInfo;
 
 public class Inventory : MonoBehaviour
 {
     public SOInventoryItem[] DebugAddItems;
+    public SOBullet[] DebugAddBullets;
 
     public int MaxConsums;
 
     [Header("References UI")]
-    public InventoryMenu Menu;
+    public InventoryMenuOverworld Menu;
 
     public Dictionary<string, InventoryItem> Ingredients;
-    public Dictionary<string, InventoryItem> Bullets;
+    public Dictionary<string, Bullet> Bullets;
     public Dictionary<string, InventoryItem> Drums;
     public Dictionary<string, InventoryItem> KeyItems;
     public List<InventoryItem> Consumables;
@@ -23,7 +22,7 @@ public class Inventory : MonoBehaviour
     {
         // setup dictionaries and lists
         Ingredients = new Dictionary<string, InventoryItem>();
-        Bullets = new Dictionary<string, InventoryItem>();
+        Bullets = new Dictionary<string, Bullet>();
         Drums = new Dictionary<string, InventoryItem>();
         KeyItems = new Dictionary<string, InventoryItem>();
         Consumables = new List<InventoryItem>();
@@ -34,6 +33,9 @@ public class Inventory : MonoBehaviour
         // add debug items
         foreach (var item in DebugAddItems)
             AddItem(item.GetItem());
+        // add debug bullets
+        foreach (var item in DebugAddBullets)
+            AddItem(item.GetBullet());
     }
 
     public void AddItem(InventoryItem item)
@@ -48,7 +50,7 @@ public class Inventory : MonoBehaviour
                 break;
             case ItemType.BULLET:
                 if (!Bullets.ContainsKey(item.Id))
-                    Bullets.Add(item.Id, item);
+                    Bullets.Add(item.Id, item as Bullet);
                 else
                     Debug.LogError("There can only be one bullet of each!");
                 break;

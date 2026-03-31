@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOInventoryItem
   Id: key_A
   Name: key_A
-  Type: 4
+  Type: 3

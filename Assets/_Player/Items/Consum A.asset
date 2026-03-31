@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOInventoryItem
   Id: consum_A
   Name: consum_A
-  Type: 2
+  Type: 4

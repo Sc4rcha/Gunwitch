@@ -18,7 +18,7 @@ public class Crafting : MonoBehaviour
     private int recipeIndex;
 
     private Inventory inventory;
-    private InventoryMenu inventoryMenu;
+    private InventoryMenuOverworld inventoryMenu;
 
     public void Setup() 
     {

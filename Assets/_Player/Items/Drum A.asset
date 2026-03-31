@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOInventoryItem
   Id: drum_A
   Name: drum_A
-  Type: 3
+  Type: 2

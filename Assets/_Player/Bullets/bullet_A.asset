@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5bd2317df8d48e47a995e211d225a2c, type: 3}
-  m_Name: Bullet B
-  m_EditorClassIdentifier: Assembly-CSharp::SOInventoryItemBullet
-  Id: bullet_B
-  Name: bullet_B
+  m_Name: bullet_A
+  m_EditorClassIdentifier: Assembly-CSharp::SOBullet
+  Id: bullet_A
+  Name: bullet_A
   Type: 1
-  Damage: 5
+  ManaCost: 10
+  Damage: 10

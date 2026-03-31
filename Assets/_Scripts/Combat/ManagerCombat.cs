@@ -5,7 +5,7 @@ public class ManagerCombat : MonoBehaviour
 {
     public CombatPlayer Player;
     public Transform EncounterParent;
-
+    public InventoryMenuCombat InventoryMenu;
 
     protected CombatEnounter encounter;
     protected int enemyTurnIndex;
@@ -20,6 +20,10 @@ public class ManagerCombat : MonoBehaviour
         // instantiate and setup encounter
         this.encounter = Instantiate(encounter, EncounterParent);
         this.encounter.Setup(this);
+
+        // setup combat inventory
+        InventoryMenu.Setup(ManagerGameElements.Instance.Inventory, this);
+        InventoryMenu.ShowSection(GameInfo.ItemType.BULLET);
 
         // setup player
         Player.Setup(this);

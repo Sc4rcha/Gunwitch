@@ -14,7 +14,7 @@ public class CombatGun : MonoBehaviour
     public float CritMultiplier;
 
     [Header ("References Scene")]
-    public Transform DrumTransform;
+    public CombatDrum Drum;
 
     // bullets in gun magazine
     private Bullet[] bullets;
@@ -37,6 +37,9 @@ public class CombatGun : MonoBehaviour
 
         // add shooting to input actions
         InputSystem.actions.FindAction("Shoot").performed += InputShoot;
+
+        // setup drum
+        Drum.Setup(MagazineSize);
     }
 
 
@@ -85,15 +88,22 @@ public class CombatGun : MonoBehaviour
         // reset bullet index for loading
         bulletIndex = 0;
     }
-    public void LoadBullet() 
+    public void LoadBulletDefault() 
+    {
+        LoadBullet(BulletBase.GetBullet());
+    }
+    public void LoadBullet(Bullet bullet) 
     {
         // load default bullet
-        bullets[bulletIndex] = BulletBase.GetBullet();
+        bullets[bulletIndex] = bullet;
+
+        // load bullet
+        Drum.LoadBullet(bulletIndex);
 
         bulletIndex++;
 
-        // rotate drum
-        DrumTransform.localRotation = Quaternion.Euler(0, 0, GetDrumRotation(bulletIndex));
+        // rotate bullet
+        Drum.RotateDrum(bulletIndex);
 
         // finish reaload if magazine fully loaded
         if (bulletIndex == MagazineSize)
@@ -116,8 +126,9 @@ public class CombatGun : MonoBehaviour
         yield return new WaitForSeconds(ShootingCooldown);
         SetState(GunState.Shooting);
 
-        // rotate drum
-        DrumTransform.localRotation = Quaternion.Euler(0, 0, GetDrumRotation(bulletIndex + 1));
+        // rotate drum and fire bullet
+        Drum.FireBullet(bulletIndex);
+        Drum.RotateDrum(bulletIndex + 1);
 
         // add bullet index and finish player turn if no more bullets on magazine
         bulletIndex++;
@@ -125,9 +136,4 @@ public class CombatGun : MonoBehaviour
             player.TurnFinish();
     }
 
-
-    float GetDrumRotation(int holeIndex)
-    {
-        return holeIndex * 360f / MagazineSize;
-    }
 }

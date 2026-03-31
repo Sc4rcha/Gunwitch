@@ -441,8 +441,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 71c11b0dbc73c77499e350d5e4accd8a, type: 2}
   - {fileID: 11400000, guid: 152be7f229970c64bbaa91949bfe684d, type: 2}
   - {fileID: 11400000, guid: d2f35a00ceb2e5646bcf3e9f64618fe9, type: 2}
+  DebugAddBullets:
+  - {fileID: 11400000, guid: cf398d804dc143042a02d5cb6f8ac887, type: 2}
+  - {fileID: 11400000, guid: bb433fdc5fad4b643a40f905cadeac29, type: 2}
+  - {fileID: 11400000, guid: 19c5a402d0ee6bb4fb2df24e7ac3cf29, type: 2}
   MaxConsums: 6
-  Menu: {fileID: 7367909988257821628}
+  Menu: {fileID: 8366046802973706827}
 --- !u!1 &382537712405437495
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,7 +971,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3776164642861215666}
-  - component: {fileID: 7367909988257821628}
+  - component: {fileID: 8366046802973706827}
   m_Layer: 0
   m_Name: Inventory
   m_TagString: Untagged
@@ -996,7 +1000,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 0}
   m_Pivot: {x: 1, y: 0.5}
---- !u!114 &7367909988257821628
+--- !u!114 &8366046802973706827
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1005,18 +1009,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1135433013184970145}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad851bd05096ab74abe8059d31edc6ae, type: 3}
+  m_Script: {fileID: 11500000, guid: a2336a9a727e56447a5ecb2073d31303, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventoryMenu
-  InventoryWindow: {fileID: 4022183694295207925}
-  InventoryBlocker: {fileID: 7749990071901130841}
-  InventoryButton: {fileID: 6733621985210148085}
-  InventorySectionIcon: {fileID: 7080610863963109002}
-  SectionIngredients: {fileID: 3737011456734046252}
-  SectionConsums: {fileID: 3650736525268958414}
-  SectionBullets: {fileID: 6337826317276848918}
-  SectionDrums: {fileID: 6807058609661574357}
-  SectionKeyItems: {fileID: 2236318504324320239}
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryMenuOverworld
+  ItemInfo: {fileID: 3360450276073879357}
   InventorySlots:
   - {fileID: 6380425184401594831}
   - {fileID: 620722910142504023}
@@ -1028,7 +1024,15 @@ MonoBehaviour:
   - {fileID: 3701731006572767649}
   - {fileID: 3675644251424832855}
   - {fileID: 1205072965833121964}
-  ItemPreview: {fileID: 3360450276073879357}
+  InventoryWindow: {fileID: 4022183694295207925}
+  InventoryBlocker: {fileID: 7749990071901130841}
+  InventoryButton: {fileID: 6733621985210148085}
+  InventorySectionIcon: {fileID: 7080610863963109002}
+  SectionIngredients: {fileID: 3737011456734046252}
+  SectionConsums: {fileID: 3650736525268958414}
+  SectionBullets: {fileID: 6337826317276848918}
+  SectionDrums: {fileID: 6807058609661574357}
+  SectionKeyItems: {fileID: 2236318504324320239}
 --- !u!1 &1161503589849974791
 GameObject:
   m_ObjectHideFlags: 0
@@ -2591,8 +2595,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7367909988257821628}
-        m_TargetAssemblyTypeName: InventoryMenu, Assembly-CSharp
+      - m_Target: {fileID: 8366046802973706827}
+        m_TargetAssemblyTypeName: InventoryMenuOverworld, Assembly-CSharp
         m_MethodName: ButtonOpenConsums
         m_Mode: 1
         m_Arguments:
@@ -3781,8 +3785,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7367909988257821628}
-        m_TargetAssemblyTypeName: InventoryMenu, Assembly-CSharp
+      - m_Target: {fileID: 8366046802973706827}
+        m_TargetAssemblyTypeName: InventoryMenuOverworld, Assembly-CSharp
         m_MethodName: ButtonOpenDrums
         m_Mode: 1
         m_Arguments:
@@ -4435,8 +4439,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7367909988257821628}
-        m_TargetAssemblyTypeName: InventoryMenu, Assembly-CSharp
+      - m_Target: {fileID: 8366046802973706827}
+        m_TargetAssemblyTypeName: InventoryMenuOverworld, Assembly-CSharp
         m_MethodName: ButtonOpenClose
         m_Mode: 1
         m_Arguments:
@@ -5697,8 +5701,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7367909988257821628}
-        m_TargetAssemblyTypeName: InventoryMenu, Assembly-CSharp
+      - m_Target: {fileID: 8366046802973706827}
+        m_TargetAssemblyTypeName: InventoryMenuOverworld, Assembly-CSharp
         m_MethodName: ButtonOpenIngredients
         m_Mode: 1
         m_Arguments:
@@ -7170,8 +7174,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7367909988257821628}
-        m_TargetAssemblyTypeName: InventoryMenu, Assembly-CSharp
+      - m_Target: {fileID: 8366046802973706827}
+        m_TargetAssemblyTypeName: InventoryMenuOverworld, Assembly-CSharp
         m_MethodName: ButtonOpenKeyItems
         m_Mode: 1
         m_Arguments:
@@ -8809,8 +8813,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7367909988257821628}
-        m_TargetAssemblyTypeName: InventoryMenu, Assembly-CSharp
+      - m_Target: {fileID: 8366046802973706827}
+        m_TargetAssemblyTypeName: InventoryMenuOverworld, Assembly-CSharp
         m_MethodName: ButtonOpenBullets
         m_Mode: 1
         m_Arguments:
