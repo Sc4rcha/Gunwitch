@@ -36,5 +36,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d2f35a00ceb2e5646bcf3e9f64618fe9, type: 2}
   StartingBullets:
   - {fileID: 11400000, guid: cf398d804dc143042a02d5cb6f8ac887, type: 2}
-  - {fileID: 11400000, guid: bb433fdc5fad4b643a40f905cadeac29, type: 2}
-  - {fileID: 11400000, guid: 19c5a402d0ee6bb4fb2df24e7ac3cf29, type: 2}
+  - {fileID: 11400000, guid: 61f801aaf48219c45b38e9b2227c3a7e, type: 2}
+  - {fileID: 11400000, guid: 3fe4b207a32fb574cb904870d063c110, type: 2}

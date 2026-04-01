@@ -15,7 +15,7 @@ public class SOPlayerInitialState : ScriptableObject
     public int Charisma;
 
     public SOInventoryItem[] StartingItems;
-    public SOBullet[] StartingBullets;
+    public SOInventoryItemBullet[] StartingBullets;
 
     public GameInfo.PlayerInfo GetPlayer() 
     {

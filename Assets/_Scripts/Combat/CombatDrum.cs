@@ -1,9 +1,13 @@
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CombatDrum : MonoBehaviour
 {
     public GameObject[] Bullets;
+    [Space]
+    public GameObject DrumButtonsHolder;
+    public Button Unload;
+    public Button LoadDefault;
 
     private int magazineSize;
     private RectTransform rectTransform;
@@ -27,19 +31,50 @@ public class CombatDrum : MonoBehaviour
     }
 
 
+    public void ReloadStart() 
+    {
+        // activate drum buttons
+        DrumButtonsHolder.SetActive(true);
+
+        // set drum buttons to interactable
+        Unload.interactable = true;
+        LoadDefault.interactable = true;
+    }
+    public void ReloadFinish() 
+    {
+        // some cool effect or something
+    }
+
+
     public void LoadBullet(int bulletIndex) 
     {
+        // unload button interactable when a bullet is loaded
+        Unload.interactable = true;
+        // load default button interactable when bullet is not last bullet on magazine
+        LoadDefault.interactable = bulletIndex < magazineSize - 1;
+
+        // activate loaded bullet
         Bullets[bulletIndex].gameObject.SetActive(true);
+    }
+    public void UnloadBullet(int bulletIndex) 
+    {
+        // load default button interactable since there is now a new space
+        LoadDefault.interactable = true;
+        // deactivate bullet unloaded
+        Bullets[bulletIndex].gameObject.SetActive(false);
     }
     public void FireBullet(int bulletIndex) 
     {
+        // once player has fired deactivate drum buttons, cannot unload anymore
+        DrumButtonsHolder.SetActive(false);
+
+        // deactivate bullet fired
         Bullets[bulletIndex].gameObject.SetActive(false);
     }
     public void RotateDrum(int bulletIndex) 
     {
         rectTransform.localRotation = Quaternion.Euler(0, 0, GetDrumRotation(bulletIndex));
     }
-
 
     private Vector2[] GetBulletPositions()
     {

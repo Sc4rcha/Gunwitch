@@ -15,7 +15,7 @@ public class ManagerCombat : MonoBehaviour
         // register combat on combat scene load
         ManagerGameElements.Instance.ManagerEvents.CombatRegister(this);
     }
-    public void CombatStart(CombatEnounter encounter) 
+    public void CombatStart(CombatEnounter encounter)
     {
         // instantiate and setup encounter
         this.encounter = Instantiate(encounter, EncounterParent);
@@ -25,14 +25,11 @@ public class ManagerCombat : MonoBehaviour
         Player.CombatStart(this);
 
         // setup combat inventory
-        InventoryMenu.Setup(ManagerGameElements.Instance.Player.Info.Inventory, this);
+        InventoryMenu.Setup(ManagerGameElements.Instance.Player.Info, this);
         InventoryMenu.ShowSection(GameInfo.ItemType.BULLET);
 
         // start combat
-        if (Player.Actor.Stats.Dexterity >= this.encounter.Enemies[0].Actor.Stats.Dexterity)
-            PlayerRoundStart();
-        else
-            EnemyRoundStart();
+        PlayerRoundStart();
     }
     public void CombatFinish(bool isWin)
     {
@@ -43,11 +40,17 @@ public class ManagerCombat : MonoBehaviour
     #region Player
     public void PlayerRoundStart() 
     {
+        // unlock inventory
+        InventoryMenu.Lock(false);
+
         // send player event to start turn
         Player.TurnStart();
     }
     public void PlayerRoundFinish() 
     {
+        // lock inventory
+        InventoryMenu.Lock(true);
+
         // Start enemy round
         EnemyRoundStart();
     }
@@ -94,7 +97,7 @@ public class ManagerCombat : MonoBehaviour
             CombatFinish(true);
 
         // check player lose player is dead
-        if (Player.Actor.IsDead)
+        if (Player.PlayerReference.Info.Actor.IsDead)
             CombatFinish(false);
     }
 }

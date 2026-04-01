@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class InventoryMenuCombat : InventoryMenu
 {
     [Header("Combat")]
-    public Button SectionConsums;
+    public GameObject ItemInfo;
+    [Space]
     public Button SectionBullets;
+    public Button SectionConsums;
     public InventorySlotButtonInfo[] InventorySlotsLeft;
     public InventorySlotButtonInfo[] InventorySlotsRight;
 
@@ -15,7 +17,7 @@ public class InventoryMenuCombat : InventoryMenu
 
     private ManagerCombat combat;
 
-    public void Setup (Inventory inventory, ManagerCombat combat)
+    public void Setup (PlayerInfo player, ManagerCombat combat)
     {
         this.combat = combat;
 
@@ -31,7 +33,7 @@ public class InventoryMenuCombat : InventoryMenu
         foreach (var slot in inventorySlots)
             slot.Setup(this);
 
-        Setup(inventory);
+        Setup(player);
     }
 
 
@@ -50,14 +52,14 @@ public class InventoryMenuCombat : InventoryMenu
                 Debug.LogError("This section is not available in Combat");
                 break;
             case ItemType.BULLET:
-                for (int i = 0; i < inventory.Bullets.Count; i++)
+                for (int i = 0; i < player.Inventory.Bullets.Count; i++)
                 {
                     // show inventory slot
-                    inventorySlots[i].SetItem(inventory.Bullets.ElementAt(i).Value);
+                    inventorySlots[i].SetItem(player.Inventory.Bullets.ElementAt(i).Value);
                     inventorySlots[i].Show(true);
 
                     // set interactable only if player has enough mana
-                    inventorySlots[i].SlotButton.interactable = combat.Player.Actor.CheckEnoughMana(inventory.Bullets.ElementAt(i).Value.ManaCost);
+                    inventorySlots[i].SlotButton.interactable = player.Actor.CheckEnoughMana(player.Inventory.Bullets.ElementAt(i).Value.ManaCost);
                 }
                 break;
             case ItemType.DRUM:
@@ -67,9 +69,9 @@ public class InventoryMenuCombat : InventoryMenu
                 Debug.LogError("This section is not available in Combat");
                 break;
             case ItemType.CONSUMABLE:
-                for (int i = 0; i < inventory.Consumables.Count; i++)
+                for (int i = 0; i < player.Inventory.Consumables.Count; i++)
                 {
-                    inventorySlots[i].SetItem(inventory.Consumables[i]);
+                    inventorySlots[i].SetItem(player.Inventory.Consumables[i]);
                     inventorySlots[i].Show(true);
                     inventorySlots[i].SlotButton.interactable = true;
                 }
@@ -111,9 +113,28 @@ public class InventoryMenuCombat : InventoryMenu
         }
     }
 
-    public override void SelectItem(InventoryItem item)
+    public override void ItemSelect(InventoryItem item)
     {
-        if (item is Bullet bullet)
-            combat.Player.Gun.LoadBullet(bullet);
+        base.ItemSelect(item);
+
+        ItemInfo.SetActive(true);
+    }
+    public override void ItemDelesect()
+    {
+        base.ItemDelesect();
+
+        ItemInfo.SetActive(false);
+    }
+    public override void ItemUse(InventoryItem item)
+    {
+        // load bullet
+        if (item.Type == ItemType.BULLET)
+            combat.Player.Gun.LoadBullet(item as Bullet);
+
+        // use consumable
+        if (item.Type == ItemType.CONSUMABLE)
+        {
+            ManagerGameElements.Instance.ItemReferences.GetItemReference(item.Id).ItemEffect();
+        }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CombatAgent : MonoBehaviour
 {
-    public CombatActor Actor { get; private set; }
+    public Actor Actor { get; private set; }
 
 
     [Header ("Enemy Info")]
@@ -99,6 +99,6 @@ public class CombatAgent : MonoBehaviour
         animator.Play("Attack");
 
         // do 2 damage to player by default
-        manager.Player.Damage(2);
+        manager.Player.PlayerReference.Damage(2);
     }
 }

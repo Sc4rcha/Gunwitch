@@ -37,7 +37,6 @@ public class ManagerDialogue : MonoBehaviour
     // dialogue finished action
     public event Action OnDialogueFinished;
     public event Action<DecisionOption> OnDialogueDecision;
-    public event Action<bool> OnPlayerFocus;
 
     private Dialogue dialogueSelected;
     private int dialogueIndex;
@@ -184,7 +183,7 @@ public class ManagerDialogue : MonoBehaviour
         }
 
         // set focus to nothing
-        OnPlayerFocus?.Invoke(false);
+        ManagerGameElements.Instance.Player.HUD.SetFocusPlayer(false);
         CharacterPortraitRight.color = FocusOffColor;
         CharacterPortraitLeft.color = FocusOffColor;
 
@@ -204,7 +203,7 @@ public class ManagerDialogue : MonoBehaviour
         else if (node.IndexCharacterFocus == 1)
         {
             //player
-            OnPlayerFocus?.Invoke(true);
+            ManagerGameElements.Instance.Player.HUD.SetFocusPlayer(true);
         }
 
         // set text

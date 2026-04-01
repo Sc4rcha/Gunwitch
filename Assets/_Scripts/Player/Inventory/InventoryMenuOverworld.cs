@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class InventoryMenuOverworld : InventoryMenu
 {
     [Header("References Overworld")]
+    public GameObject ItemInfo;
+    [Space]
     public InventorySlotButtonInfo[] InventorySlots;
     [Space]
     public RectTransform InventoryWindow;
@@ -25,9 +27,9 @@ public class InventoryMenuOverworld : InventoryMenu
 
     private ItemType lastSelectedSection;
 
-    public override void Setup(Inventory inventory)
+    public override void Setup(PlayerInfo player)
     {
-        base.Setup(inventory);
+        base.Setup(player);
 
         // setup slots
         foreach (var slot in InventorySlots)
@@ -113,6 +115,9 @@ public class InventoryMenuOverworld : InventoryMenu
     {
         base.ShowSection(section);
 
+        // hide item info if changing sections
+        ItemInfo.SetActive(false);
+
         // set last selected section
         lastSelectedSection = section;
 
@@ -124,37 +129,37 @@ public class InventoryMenuOverworld : InventoryMenu
         switch (section)
         {
             case ItemType.INGREDIENT:
-                for (int i = 0; i < inventory.Ingredients.Count; i++)
+                for (int i = 0; i < player.Inventory.Ingredients.Count; i++)
                 {
-                    InventorySlots[i].SetItem(inventory.Ingredients.ElementAt(i).Value);
+                    InventorySlots[i].SetItem(player.Inventory.Ingredients.ElementAt(i).Value);
                     InventorySlots[i].Show(true);
                 }
                 break;
             case ItemType.BULLET:
-                for (int i = 0; i < inventory.Bullets.Count; i++)
+                for (int i = 0; i < player.Inventory.Bullets.Count; i++)
                 {
-                    InventorySlots[i].SetItem(inventory.Bullets.ElementAt(i).Value);
+                    InventorySlots[i].SetItem(player.Inventory.Bullets.ElementAt(i).Value);
                     InventorySlots[i].Show(true);
                 }
                 break;
             case ItemType.DRUM:
-                for (int i = 0; i < inventory.Drums.Count; i++)
+                for (int i = 0; i < player.Inventory.Drums.Count; i++)
                 {
-                    InventorySlots[i].SetItem(inventory.Drums.ElementAt(i).Value);
+                    InventorySlots[i].SetItem(player.Inventory.Drums.ElementAt(i).Value);
                     InventorySlots[i].Show(true);
                 }
                 break;
             case ItemType.KEY:
-                for (int i = 0; i < inventory.KeyItems.Count; i++)
+                for (int i = 0; i < player.Inventory.KeyItems.Count; i++)
                 {
-                    InventorySlots[i].SetItem(inventory.KeyItems.ElementAt(i).Value);
+                    InventorySlots[i].SetItem(player.Inventory.KeyItems.ElementAt(i).Value);
                     InventorySlots[i].Show(true);
                 }
                 break;
             case ItemType.CONSUMABLE:
-                for (int i = 0; i < inventory.Consumables.Count; i++)
+                for (int i = 0; i < player.Inventory.Consumables.Count; i++)
                 {
-                    InventorySlots[i].SetItem(inventory.Consumables[i]);
+                    InventorySlots[i].SetItem(player.Inventory.Consumables[i]);
                     InventorySlots[i].Show(true);
                 }
                 break;
@@ -164,7 +169,7 @@ public class InventoryMenuOverworld : InventoryMenu
         InventorySectionIcon.gameObject.SetActive(true);
     }
 
-    public override void SelectItem(InventoryItem item)
+    public override void ItemSelect(InventoryItem item)
     {
         ItemInfo.gameObject.SetActive(true);
     }

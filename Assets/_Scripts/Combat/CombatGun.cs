@@ -1,5 +1,4 @@
 using GameInfo;
-using GymCombat;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,7 +6,7 @@ using UnityEngine.InputSystem;
 public class CombatGun : MonoBehaviour
 {
     [Header ("Gun Stats")]
-    public SOBullet BulletBase;
+    public SOInventoryItemBullet BulletBase;
     public int MagazineSize;
     public float ShootingCooldown;
     public LayerMask CollisionLayer;
@@ -15,6 +14,8 @@ public class CombatGun : MonoBehaviour
 
     [Header ("References Scene")]
     public CombatDrum Drum;
+    public Camera CombatCamera;
+    public RectTransform ShootingArea;
 
     // bullets in gun magazine
     private Bullet[] bullets;
@@ -51,6 +52,10 @@ public class CombatGun : MonoBehaviour
     }
     public void Shoot() 
     {
+        // if cursor outside of shooting area don't shoot
+        if (!RectTransformUtility.RectangleContainsScreenPoint(ShootingArea, Mouse.current.position.ReadValue(), CombatCamera))
+            return;
+
         // detect combat agents on crosshair
         agentCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), CollisionLayer);
         if (agentCollider != null)
@@ -74,7 +79,7 @@ public class CombatGun : MonoBehaviour
     }
 
 
-    public void SetState(GunState stateNew) 
+    public void ChangeState(GunState stateNew) 
     {
         State = stateNew;
     }
@@ -83,7 +88,10 @@ public class CombatGun : MonoBehaviour
     public void ReloadStart() 
     {
         // set state to reloading
-        SetState(GunState.Reloading);
+        ChangeState(GunState.Reloading);
+
+        // send reload start to Drum
+        Drum.ReloadStart();
 
         // reset bullet index for loading
         bulletIndex = 0;
@@ -97,25 +105,60 @@ public class CombatGun : MonoBehaviour
         // load bullet
         bullets[bulletIndex] = bullet;
         // pay mana
-        player.Actor.ManaChange(-bullet.ManaCost);
-        player.HUD.Refresh(player.Actor.Stats);
+        player.PlayerReference.ManaRecover(bullet.ManaCost);
 
         // Drum visuals load bullet
         Drum.LoadBullet(bulletIndex);
 
         bulletIndex++;
 
-        // rotate bullet
+        // rotate drum
         Drum.RotateDrum(bulletIndex);
 
         // finish reaload if magazine fully loaded
         if (bulletIndex == MagazineSize)
-            ReloadFinish();
+            player.ReloadFinish();
+    }
+    public void UnloadBullet() 
+    {
+        Debug.Log(State);
+
+        // if reloading finished because all bullets already loaded go back
+        if (State == GunState.Shooting)
+        {
+            // restart player reload
+            player.ReloadRestart();
+
+            // state to reloading (to lock gun from firing)
+            ChangeState(GunState.Reloading);
+            // set bullet index to mag max
+            bulletIndex = MagazineSize;
+
+            Debug.Log(MagazineSize);
+        }
+
+        // turn back bullet index
+        bulletIndex--;
+
+        // return mana cost of bullet
+        player.PlayerReference.ManaUse(bullets[bulletIndex].ManaCost);
+
+        // Drum visuals load bullet
+        Drum.UnloadBullet(bulletIndex);
+
+        // remove bullet reference from bullets array
+        bullets[bulletIndex] = null;
+
+        // rotate drum
+        Drum.RotateDrum(bulletIndex);
     }
     public void ReloadFinish() 
     {
         // set state to Shooting
-        SetState(GunState.Shooting);
+        ChangeState(GunState.Shooting);
+
+        // send reload finish to Drum
+        Drum.ReloadFinish();
 
         // reset bullet index for shooting
         bulletIndex = 0;
@@ -125,9 +168,9 @@ public class CombatGun : MonoBehaviour
     private IEnumerator ShootCooldown()
     {
         // do cooldown
-        SetState(GunState.Cooldown);
+        ChangeState(GunState.Cooldown);
         yield return new WaitForSeconds(ShootingCooldown);
-        SetState(GunState.Shooting);
+        ChangeState(GunState.Shooting);
 
         // rotate drum and fire bullet
         Drum.FireBullet(bulletIndex);

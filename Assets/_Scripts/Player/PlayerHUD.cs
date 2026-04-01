@@ -8,6 +8,7 @@ public class PlayerHUD : MonoBehaviour
     public Image PlayerPortrait;
     public Image HealthBar;
     public Image ManaBar;
+    public Button CraftingButton;
 
     [Header ("Variables")]
     public Color FocusOffColor;
@@ -15,17 +16,9 @@ public class PlayerHUD : MonoBehaviour
 
     public void Setup()
     {
-        // add player focus to dialogue focus event
-        ManagerGameElements.Instance.ManagerDialogue.OnPlayerFocus += SetFocusPlayer;
     }
 
-    private void OnDestroy()
-    {
-        // remove player focus from dialogue focus event
-        ManagerGameElements.Instance.ManagerDialogue.OnPlayerFocus -= SetFocusPlayer;
-    }
-
-    public void Refresh(ActorStats stats) 
+    public void Refresh(Actor stats) 
     {
         HealthBar.fillAmount = (float)stats.HealthCurrent / (float)stats.Health;
         ManaBar.fillAmount = (float)stats.ManaCurrent / (float)stats.Mana;

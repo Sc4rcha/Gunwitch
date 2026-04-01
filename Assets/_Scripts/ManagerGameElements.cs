@@ -29,9 +29,13 @@ public class ManagerGameElements : MonoBehaviour
     public ManagerDialogue ManagerDialogue;
     [Space]
     public ManagerPlayer Player;
+    public InventoryItemReferences ItemReferences;
 
     private void Setup()
     {
+        // setup item references
+        ItemReferences.Setup();
+
         // setup dialogue
         ManagerDialogue.Setup();
 

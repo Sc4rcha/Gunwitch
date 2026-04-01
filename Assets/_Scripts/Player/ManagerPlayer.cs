@@ -12,7 +12,7 @@ public class ManagerPlayer : MonoBehaviour
     public void Setup() 
     {
         // setup elements
-        InventoryMenu.Setup(Info.Inventory);
+        InventoryMenu.Setup(Info);
         Crafting.Setup(this);
         HUD.Setup();
     }
@@ -33,11 +33,20 @@ public class ManagerPlayer : MonoBehaviour
         Crafting.Lock(false);
     }
 
-    public void CombatFinish(CombatActor playerCombatActor) 
+    public void Damage(int value) 
     {
-        // refresh player HUD to reflect combat end state
-        Info.Stats = playerCombatActor.Stats;
-        HUD.Refresh(Info.Stats);
+        Info.Actor.HealthChange(-value);
+        HUD.Refresh(Info.Actor);
+    }
+    public void ManaUse(int value) 
+    {
+        Info.Actor.ManaChange(-value);
+        HUD.Refresh(Info.Actor);
+    }
+    public void ManaRecover(int value)
+    {
+        Info.Actor.ManaChange(value);
+        HUD.Refresh(Info.Actor);
     }
 }
 

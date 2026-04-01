@@ -6,9 +6,17 @@ public class SOInventoryItem : ScriptableObject
     public string Id;
     public string Name;
     public GameInfo.ItemType Type;
+    [Space]
+    [TextArea]
+    public string Description;
 
     public GameInfo.InventoryItem GetItem() 
     {
         return new GameInfo.InventoryItem(this);
+    }
+
+    public void ItemEffect()
+    {
+        Debug.Log("Item Effect " + Name);
     }
 }

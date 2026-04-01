@@ -18,8 +18,8 @@ public class SOCombatEnemy : ScriptableObject
     public int Luck;
     public int Charisma;
 
-    public CombatActor GetCombatActor() 
+    public Actor GetCombatActor() 
     {
-        return new CombatActor(this);
+        return new Actor(this);
     }
 }

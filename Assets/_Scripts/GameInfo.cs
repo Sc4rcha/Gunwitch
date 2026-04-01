@@ -1,16 +1,47 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.Audio;
+using static UnityEngine.EventSystems.EventTrigger;
 
 namespace GameInfo
 {
 
     #region ACTORS
-    [Serializable]
-    public class ActorStats
+
+    #endregion
+
+    #region PLAYER
+    public class PlayerInfo
+    {
+        public Actor Actor;
+        public Inventory Inventory;
+
+        // create player from Initial State
+        public PlayerInfo (SOPlayerInitialState playerInitialState)
+        {
+            Actor = new Actor(playerInitialState);
+
+            // set combat stats
+            Actor.HealthCurrent = Actor.Health;
+            Actor.ManaCurrent = Actor.Mana;
+
+            // set inventory
+            Inventory = new Inventory();
+            foreach (var item in playerInitialState.StartingItems)
+                Inventory.AddItem(item.GetItem());
+            foreach (var bullet in playerInitialState.StartingBullets)
+                Inventory.AddItem(bullet.GetBullet());
+        }
+    }
+    #endregion
+
+    #region ACTORS
+    public enum Ability { BODY, MAGIC, DEX, LUCK, CHAR }
+
+
+    public class Actor
     {
         public string Name;
 
@@ -26,79 +57,45 @@ namespace GameInfo
         public int Dexterity;
         public int Luck;
         public int Charisma;
-    }
 
-    public enum Ability { BODY, MAGIC, DEX, LUCK, CHAR }
-    #endregion
+        public bool IsDead => HealthCurrent <= 0;
 
-    #region PLAYER
-    public class PlayerInfo
-    {
-        public ActorStats Stats;
-        public Inventory Inventory;
-
-        // create player from Initial State
-        public PlayerInfo (SOPlayerInitialState playerInitialState)
-        {
-            Stats = new ActorStats();
-
-            Stats.Name = "Player";
-
-            // set combat stats
-            Stats.Health = playerInitialState.Health;
-            Stats.Mana = playerInitialState.Mana;
-            Stats.HealthCurrent = Stats.Health;
-            Stats.ManaCurrent = Stats.Mana;
-
-            // set stats
-            Stats.Body = playerInitialState.Body;
-            Stats.Magic = playerInitialState.Magic;
-            Stats.Dexterity = playerInitialState.Dexterity;
-            Stats.Luck = playerInitialState.Luck;
-            Stats.Charisma = playerInitialState.Charisma;
-
-            // set inventory
-            Inventory = new Inventory();
-            foreach (var item in playerInitialState.StartingItems)
-                Inventory.AddItem(item.GetItem());
-            foreach (var bullet in playerInitialState.StartingBullets)
-                Inventory.AddItem(bullet.GetBullet());
-        }
-    }
-    #endregion
-
-    #region COMBAT
-    public class CombatActor
-    {
-        public ActorStats Stats;
-
-        public bool IsDead => Stats.HealthCurrent <= 0;
-
-        // constructor for enemy
-        public CombatActor(SOCombatEnemy enemy) 
-        {
-            Stats = new ActorStats();
-
-            Stats.Health = enemy.Health;
-            Stats.Mana = enemy.Mana;
-
-            Stats.Body = enemy.Body;
-            Stats.Magic = enemy.Magic;
-            Stats.Dexterity = enemy.Dexterity;
-            Stats.Luck = enemy.Luck;
-            Stats.Charisma = enemy.Charisma;
-        }
         // constructor for player
-        public CombatActor (PlayerInfo player) 
+        public Actor(SOPlayerInitialState player)
         {
-            Stats = player.Stats;
+            Name = "Player";
+
+            Health = player.Health;
+            Mana = player.Mana;
+
+            Body = player.Body;
+            Magic = player.Magic;
+            Dexterity = player.Dexterity;
+            Luck = player.Luck;
+            Charisma = player.Charisma;
+        }
+        // constructor for enemy
+        public Actor(SOCombatEnemy enemy) 
+        {
+            Name = enemy.Name;
+
+            Health = enemy.Health;
+            Mana = enemy.Mana;
+
+            Body = enemy.Body;
+            Magic = enemy.Magic;
+            Dexterity = enemy.Dexterity;
+            Luck = enemy.Luck;
+            Charisma = enemy.Charisma;
         }
 
-        // set actor ready for combat
+        /// <summary>
+        /// this is only for enemies, do not call on player.
+        /// </summary>
         public void Startcombat() 
         {
-            Stats.HealthCurrent = Stats.Health;
-            Stats.ManaCurrent = Stats.Mana;
+            HealthCurrent = Health;
+            ManaCurrent = Mana;
         }
 
         /// <summary>
@@ -107,7 +104,7 @@ namespace GameInfo
         /// <param name="value"></param>
         public void HealthChange(int value) 
         {
-            Stats.HealthCurrent = Mathf.Clamp(Stats.HealthCurrent + value, 0, Stats.Health);
+            HealthCurrent = Mathf.Clamp(HealthCurrent + value, 0, Health);
         }
         /// <summary>
         /// Change the current mana of actor
@@ -115,7 +112,7 @@ namespace GameInfo
         /// <param name="value"></param>
         public void ManaChange (int value)
         {
-            Stats.ManaCurrent = Mathf.Clamp(Stats.ManaCurrent + value, 0, Stats.Mana);
+            ManaCurrent = Mathf.Clamp(ManaCurrent + value, 0, Mana);
         }
         /// <summary>
         /// Check if actor has enough mana to cast a spell
@@ -124,7 +121,7 @@ namespace GameInfo
         /// <returns></returns>
         public bool CheckEnoughMana(int cost) 
         {
-            return Stats.ManaCurrent >= cost;
+            return ManaCurrent >= cost;
         }
     }
 
@@ -133,7 +130,7 @@ namespace GameInfo
         public int ManaCost;
         public int Damage;
 
-        public Bullet(SOBullet bullet) : base(bullet)
+        public Bullet(SOInventoryItemBullet bullet) : base(bullet)
         {
             ManaCost = bullet.ManaCost;
             Damage = bullet.Damage;

@@ -3,15 +3,11 @@ using UnityEngine;
 
 public class InventoryMenu : MonoBehaviour
 {
-    public GameObject ItemInfo;
-    
-    protected Inventory inventory;
+    protected PlayerInfo player;
 
-    public virtual void Setup(Inventory inventory) 
+    public virtual void Setup(PlayerInfo player) 
     {
-        this.inventory = inventory;
-
-
+        this.player = player;
     }
 
     #region BUTTONS
@@ -41,11 +37,9 @@ public class InventoryMenu : MonoBehaviour
 
     public virtual void ShowSection(ItemType section)
     {
-        // hide item preview
-        ItemInfo.gameObject.SetActive(false);
     }
 
-    public virtual void SelectItem(InventoryItem item)
-    {
-    }
+    public virtual void ItemUse(InventoryItem item) { }
+    public virtual void ItemSelect(InventoryItem item) { }
+    public virtual void ItemDelesect() { }
 }
