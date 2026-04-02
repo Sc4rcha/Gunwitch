@@ -6,6 +6,7 @@ public class InventorySlotButtonInfo : MonoBehaviour
 {
     public TMPro.TMP_Text ItemName;
     public TMPro.TMP_Text ItemNumber;
+    public Image ImageBack;
 
     public Button SlotButton { get; private set; }
 
@@ -34,9 +35,14 @@ public class InventorySlotButtonInfo : MonoBehaviour
         ItemName.text = this.itemInfo.Name;
         ItemNumber.gameObject.SetActive(itemInfo.Type == ItemType.INGREDIENT || itemInfo.Type == ItemType.BULLET);
         ItemNumber.text = itemInfo.Quantity.ToString();
+        ImageBack.color = Color.white;
 
+        // extra setup steps for bullets
         if (itemInfo is Bullet bullet)
+        {
             ItemNumber.text = bullet.ManaCost.ToString();
+            ImageBack.color = bullet.BulletColor;
+        }
     }
 
     public void Show(bool isShow) 

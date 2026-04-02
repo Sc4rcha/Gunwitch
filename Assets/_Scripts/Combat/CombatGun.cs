@@ -2,11 +2,12 @@ using GameInfo;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class CombatGun : MonoBehaviour
 {
     [Header ("Gun Stats")]
-    public SOInventoryItemBullet BulletBase;
+    public SOInventoryItemBullet BulletDefault;
     public int MagazineSize;
     public float ShootingCooldown;
     public LayerMask CollisionLayer;
@@ -16,6 +17,10 @@ public class CombatGun : MonoBehaviour
     public CombatDrum Drum;
     public Camera CombatCamera;
     public RectTransform ShootingArea;
+    [Space]
+    public GameObject DrumButtonsHolder;
+    public Button ButtonUnload;
+    public Button ButtonLoadDefault;
 
     // bullets in gun magazine
     private Bullet[] bullets;
@@ -39,6 +44,9 @@ public class CombatGun : MonoBehaviour
         // add shooting to input actions
         InputSystem.actions.FindAction("Shoot").performed += InputShoot;
 
+        // setup load default bullet button
+        ButtonLoadDefault.GetComponent<LoadDefaultInfo>().Setup(BulletDefault.GetBullet());
+
         // setup drum
         Drum.Setup(MagazineSize);
     }
@@ -55,6 +63,9 @@ public class CombatGun : MonoBehaviour
         // if cursor outside of shooting area don't shoot
         if (!RectTransformUtility.RectangleContainsScreenPoint(ShootingArea, Mouse.current.position.ReadValue(), CombatCamera))
             return;
+
+        // play shoot animation
+        ManagerPlayer.Instance.HUD.Shoot(ShootingCooldown);
 
         // detect combat agents on crosshair
         agentCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), CollisionLayer);
@@ -74,6 +85,9 @@ public class CombatGun : MonoBehaviour
             }
         }
 
+        // once player has fired deactivate drum buttons, cannot unload anymore
+        DrumButtonsHolder.SetActive(false);
+
         // start gun cooldown
         StartCoroutine(ShootCooldown());
     }
@@ -90,6 +104,13 @@ public class CombatGun : MonoBehaviour
         // set state to reloading
         ChangeState(GunState.Reloading);
 
+        // activate Load and unload buttons
+        DrumButtonsHolder.SetActive(true);
+        // lock unload button (no bullets to unload)
+        ButtonUnload.interactable = false;
+        // unlock load default
+        ButtonLoadDefault.interactable = true;
+
         // send reload start to Drum
         Drum.ReloadStart();
 
@@ -98,17 +119,25 @@ public class CombatGun : MonoBehaviour
     }
     public void LoadBulletDefault() 
     {
-        LoadBullet(BulletBase.GetBullet());
+        LoadBullet(BulletDefault.GetBullet());
     }
     public void LoadBullet(Bullet bullet) 
     {
         // load bullet
         bullets[bulletIndex] = bullet;
         // pay mana
-        player.PlayerReference.ManaRecover(bullet.ManaCost);
+        player.PlayerReference.ManaUse(bullet.ManaCost);
+
+        // unload button interactable when a bullet is loaded
+        ButtonUnload.interactable = true;
+        // load default button interactable when bullet is not last bullet on magazine
+        ButtonLoadDefault.interactable = bulletIndex < MagazineSize - 1;
+
+        // load bullet visuals
+        ManagerPlayer.Instance.HUD.ReloadLoadBullet(bullet);
 
         // Drum visuals load bullet
-        Drum.LoadBullet(bulletIndex);
+        Drum.LoadBullet(bulletIndex, bullet);
 
         bulletIndex++;
 
@@ -121,8 +150,6 @@ public class CombatGun : MonoBehaviour
     }
     public void UnloadBullet() 
     {
-        Debug.Log(State);
-
         // if reloading finished because all bullets already loaded go back
         if (State == GunState.Shooting)
         {
@@ -131,26 +158,32 @@ public class CombatGun : MonoBehaviour
 
             // state to reloading (to lock gun from firing)
             ChangeState(GunState.Reloading);
+
+            // set player portrait lo reload again
+            ManagerPlayer.Instance.HUD.Reload(BulletDefault.GetBullet());
+
             // set bullet index to mag max
             bulletIndex = MagazineSize;
-
-            Debug.Log(MagazineSize);
         }
 
         // turn back bullet index
         bulletIndex--;
 
         // return mana cost of bullet
-        player.PlayerReference.ManaUse(bullets[bulletIndex].ManaCost);
-
-        // Drum visuals load bullet
-        Drum.UnloadBullet(bulletIndex);
+        player.PlayerReference.ManaRecover(bullets[bulletIndex].ManaCost);
 
         // remove bullet reference from bullets array
         bullets[bulletIndex] = null;
 
+        // Drum visuals unload bullet
+        Drum.UnloadBullet(bulletIndex);
         // rotate drum
         Drum.RotateDrum(bulletIndex);
+
+        // Lock unload if no bullets, otherwise unlock
+        ButtonUnload.interactable = bulletIndex != 0;
+        // unlock load bullet button
+        ButtonLoadDefault.interactable = true;
     }
     public void ReloadFinish() 
     {

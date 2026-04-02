@@ -4,6 +4,8 @@ using UnityEngine;
 public class InventoryMenu : MonoBehaviour
 {
     protected PlayerInfo player;
+    protected InventorySlotButtonInfo[] inventorySlots;
+    protected ItemType selectedSection;
 
     public virtual void Setup(PlayerInfo player) 
     {
@@ -24,7 +26,9 @@ public class InventoryMenu : MonoBehaviour
     /// <param name="isLock"></param>
     public virtual void Lock(bool isLock)
     {
-
+        // lock/unlock inventory slots
+        foreach (var slot in inventorySlots)
+            slot.SlotButton.interactable = !isLock;
     }
     /// <summary>
     /// Lock section button for a given section
@@ -32,11 +36,21 @@ public class InventoryMenu : MonoBehaviour
     /// <param name="section"></param>
     public virtual void LockSection(ItemType section, bool isLocked) 
     {
-
+        // lock/unlock inventory slots if section is selected section
+        if (selectedSection == section)
+        {
+            foreach (var slot in inventorySlots)
+                slot.SlotButton.interactable = !isLocked;
+        }
     }
 
     public virtual void ShowSection(ItemType section)
     {
+        selectedSection = section;
+    }
+    public void Refresh() 
+    {
+        ShowSection(selectedSection);
     }
 
     public virtual void ItemUse(InventoryItem item) { }

@@ -192,6 +192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventorySlotButtonInfo
   ItemName: {fileID: 3928617796182435626}
   ItemNumber: {fileID: 507259610547063881}
+  ImageBack: {fileID: 1746755564422047820}
 --- !u!222 &7566742133130603496
 CanvasRenderer:
   m_ObjectHideFlags: 0

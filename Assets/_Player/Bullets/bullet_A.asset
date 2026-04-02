@@ -15,5 +15,7 @@ MonoBehaviour:
   Id: bullet_A
   Name: bullet_A
   Type: 1
+  Description: 
   ManaCost: 10
   Damage: 10
+  BulletColor: {r: 0.66180134, g: 0.9225252, b: 0.9811321, a: 1}

@@ -15,5 +15,7 @@ MonoBehaviour:
   Id: bullet_C
   Name: bullet_C
   Type: 1
+  Description: 
   ManaCost: 20
   Damage: 20
+  BulletColor: {r: 1, g: 0.5330188, b: 0.92922217, a: 1}

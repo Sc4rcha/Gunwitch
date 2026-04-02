@@ -129,11 +129,13 @@ namespace GameInfo
     {
         public int ManaCost;
         public int Damage;
+        public Color BulletColor;
 
         public Bullet(SOInventoryItemBullet bullet) : base(bullet)
         {
             ManaCost = bullet.ManaCost;
             Damage = bullet.Damage;
+            BulletColor = bullet.BulletColor;
         }
     }
     #endregion

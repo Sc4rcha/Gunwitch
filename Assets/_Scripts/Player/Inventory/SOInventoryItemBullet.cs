@@ -5,6 +5,7 @@ public class SOInventoryItemBullet : SOInventoryItem
 {
     public int ManaCost;
     public int Damage;
+    public Color BulletColor;
 
     private void OnValidate()
     {

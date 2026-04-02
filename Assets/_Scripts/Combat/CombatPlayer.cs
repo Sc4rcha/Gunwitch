@@ -1,5 +1,6 @@
 using UnityEngine;
 using GameInfo;
+using System.Collections;
 
 public class CombatPlayer : MonoBehaviour
 {
@@ -35,14 +36,19 @@ public class CombatPlayer : MonoBehaviour
         manager.InventoryMenu.ShowSection(ItemType.BULLET);
         manager.InventoryMenu.LockSection(ItemType.CONSUMABLE, true);
 
-        // gun reload Start
         Gun.ReloadStart();
+
+        // Play player animation reload
+        PlayerReference.HUD.Reload(Gun.BulletDefault.GetBullet());
     }
     public void ReloadRestart() 
     {
         // set inventory menu to bullet and lock consumables
         manager.InventoryMenu.ShowSection(ItemType.BULLET);
         manager.InventoryMenu.LockSection(ItemType.CONSUMABLE, true);
+
+        // stop coroutines in case script was waiting for last reload to go to aim
+        StopAllCoroutines();
     }
     public void ReloadFinish() 
     {
@@ -51,8 +57,10 @@ public class CombatPlayer : MonoBehaviour
         manager.InventoryMenu.LockSection(ItemType.BULLET, true);
         manager.InventoryMenu.LockSection(ItemType.CONSUMABLE, false);
 
-        // gun reload Start
         Gun.ReloadFinish();
+
+        // wait for reload animation to finish and set player portrait to aim
+        StartCoroutine(LoadFinalBulletDelay());
     }
     #endregion
 
@@ -68,5 +76,13 @@ public class CombatPlayer : MonoBehaviour
 
         // finish player round
         manager.PlayerRoundFinish();
+    }
+
+
+    private IEnumerator LoadFinalBulletDelay() 
+    {
+        yield return new WaitForSeconds(0.5f);
+        // Player portrait AIM
+        PlayerReference.HUD.Aim();
     }
 }

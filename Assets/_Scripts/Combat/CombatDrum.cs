@@ -3,11 +3,7 @@ using UnityEngine.UI;
 
 public class CombatDrum : MonoBehaviour
 {
-    public GameObject[] Bullets;
-    [Space]
-    public GameObject DrumButtonsHolder;
-    public Button Unload;
-    public Button LoadDefault;
+    public Image[] Bullets;
 
     private int magazineSize;
     private RectTransform rectTransform;
@@ -22,7 +18,7 @@ public class CombatDrum : MonoBehaviour
 
         // hide all bullets
         foreach (var bullet in Bullets)
-            bullet.SetActive(false);
+            bullet.gameObject.SetActive(false);
 
         // arrange and show bullets
         var bulletPositions = GetBulletPositions();
@@ -34,11 +30,6 @@ public class CombatDrum : MonoBehaviour
     public void ReloadStart() 
     {
         // activate drum buttons
-        DrumButtonsHolder.SetActive(true);
-
-        // set drum buttons to interactable
-        Unload.interactable = true;
-        LoadDefault.interactable = true;
     }
     public void ReloadFinish() 
     {
@@ -46,28 +37,19 @@ public class CombatDrum : MonoBehaviour
     }
 
 
-    public void LoadBullet(int bulletIndex) 
+    public void LoadBullet(int bulletIndex, GameInfo.Bullet bullet) 
     {
-        // unload button interactable when a bullet is loaded
-        Unload.interactable = true;
-        // load default button interactable when bullet is not last bullet on magazine
-        LoadDefault.interactable = bulletIndex < magazineSize - 1;
-
         // activate loaded bullet
         Bullets[bulletIndex].gameObject.SetActive(true);
+        Bullets[bulletIndex].color = bullet.BulletColor;
     }
     public void UnloadBullet(int bulletIndex) 
     {
-        // load default button interactable since there is now a new space
-        LoadDefault.interactable = true;
         // deactivate bullet unloaded
         Bullets[bulletIndex].gameObject.SetActive(false);
     }
     public void FireBullet(int bulletIndex) 
     {
-        // once player has fired deactivate drum buttons, cannot unload anymore
-        DrumButtonsHolder.SetActive(false);
-
         // deactivate bullet fired
         Bullets[bulletIndex].gameObject.SetActive(false);
     }

@@ -183,7 +183,7 @@ public class ManagerDialogue : MonoBehaviour
         }
 
         // set focus to nothing
-        ManagerGameElements.Instance.Player.HUD.SetFocusPlayer(false);
+        ManagerPlayer.Instance.HUD.SetFocusPlayer(false);
         CharacterPortraitRight.color = FocusOffColor;
         CharacterPortraitLeft.color = FocusOffColor;
 
@@ -203,7 +203,7 @@ public class ManagerDialogue : MonoBehaviour
         else if (node.IndexCharacterFocus == 1)
         {
             //player
-            ManagerGameElements.Instance.Player.HUD.SetFocusPlayer(true);
+            ManagerPlayer.Instance.HUD.SetFocusPlayer(true);
         }
 
         // set text

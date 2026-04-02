@@ -14,6 +14,10 @@ public class InventorySlotButton : Button
     {
         base.OnPointerEnter(eventData);
 
+        // skip if not interactable
+        if (!interactable)
+            return;
+
         // send Enter to button info
         buttonInfo.ButtonEnter();
     }
@@ -22,6 +26,10 @@ public class InventorySlotButton : Button
     {
         base.OnPointerExit(eventData);
 
+        // skip if not interactable
+        if (!interactable)
+            return;
+
         // send Exit to button info
         buttonInfo.ButtonExit();
     }
@@ -29,6 +37,10 @@ public class InventorySlotButton : Button
     public override void OnPointerClick(PointerEventData eventData)
     {
         base.OnPointerClick(eventData);
+
+        // skip if not interactable
+        if (!interactable)
+            return;
 
         // send interaction to button info
         buttonInfo.ButtonInteract();

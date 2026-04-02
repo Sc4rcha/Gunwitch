@@ -112,6 +112,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &3160783338045091316 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1746755564422047820, guid: da995787caa623e4582813f8eca38248, type: 3}
+  m_PrefabInstance: {fileID: 3738237680680863160}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9097119322478230283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!114 &3813078497186351601 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 507259610547063881, guid: da995787caa623e4582813f8eca38248, type: 3}
@@ -142,3 +153,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventorySlotButtonInfoCombat
   ItemName: {fileID: 388895404991570578}
   ItemNumber: {fileID: 3813078497186351601}
+  ImageBack: {fileID: 3160783338045091316}

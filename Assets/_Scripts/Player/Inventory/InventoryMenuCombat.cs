@@ -7,13 +7,14 @@ public class InventoryMenuCombat : InventoryMenu
 {
     [Header("Combat")]
     public GameObject ItemInfo;
+    public GameObject ItemUseConfirm;
     [Space]
     public Button SectionBullets;
     public Button SectionConsums;
     public InventorySlotButtonInfo[] InventorySlotsLeft;
     public InventorySlotButtonInfo[] InventorySlotsRight;
 
-    private InventorySlotButtonInfo[] inventorySlots;
+    private InventoryItem consumableSelected;
 
     private ManagerCombat combat;
 
@@ -36,6 +37,27 @@ public class InventoryMenuCombat : InventoryMenu
         Setup(player);
     }
 
+    public void ButtonConsumableUse (bool confirm)
+    {
+        // use consumable if confirm
+        if (confirm)
+        {
+            // consumable effect
+            ManagerGameElements.Instance.ItemReferences.GetItemReference(consumableSelected.Id).ItemEffect();
+            // remove consumable from inventory
+            player.Inventory.RemoveItem(consumableSelected.Type, consumableSelected.Id);
+        }
+
+        // deactivate item confirm popup
+        ItemUseConfirm.SetActive(false);
+        // clear selected consumable
+        consumableSelected = null;
+        // unlock consumable window
+        LockSection(ItemType.CONSUMABLE, false);
+
+        // refresh menu
+        Refresh();
+    }
 
     public override void ShowSection(ItemType section)
     {
@@ -85,10 +107,6 @@ public class InventoryMenuCombat : InventoryMenu
         SectionConsums.interactable = !isLock;
         SectionBullets.interactable = !isLock;
 
-        // lock inventory slots
-        foreach (var slot in inventorySlots)
-            slot.SlotButton.interactable = !isLock;
-
         base.Lock(isLock);
     }
     public override void LockSection(ItemType section, bool isLocked)
@@ -111,11 +129,16 @@ public class InventoryMenuCombat : InventoryMenu
                 SectionConsums.interactable = !isLocked;
                 break;
         }
+
+        base.LockSection(section, isLocked);
     }
 
     public override void ItemSelect(InventoryItem item)
     {
         base.ItemSelect(item);
+
+        if (item is Bullet bullet)
+            ManagerPlayer.Instance.HUD.ReloadSelectBullet(bullet);
 
         ItemInfo.SetActive(true);
     }
@@ -127,14 +150,24 @@ public class InventoryMenuCombat : InventoryMenu
     }
     public override void ItemUse(InventoryItem item)
     {
+        // deselect used item.
+        ItemDelesect();
+
         // load bullet
         if (item.Type == ItemType.BULLET)
+        {
             combat.Player.Gun.LoadBullet(item as Bullet);
+        }
 
-        // use consumable
+        // consumable
         if (item.Type == ItemType.CONSUMABLE)
         {
-            ManagerGameElements.Instance.ItemReferences.GetItemReference(item.Id).ItemEffect();
+            // activate item confirm popup
+            ItemUseConfirm.SetActive(true);
+            // set selected consumable
+            consumableSelected = item;
+            // lock consumable window
+            LockSection(ItemType.CONSUMABLE, true);
         }
     }
 }
