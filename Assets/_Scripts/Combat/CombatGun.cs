@@ -1,5 +1,6 @@
 using GameInfo;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -17,20 +18,26 @@ public class CombatGun : MonoBehaviour
     public CombatDrum Drum;
     public Camera CombatCamera;
     public RectTransform ShootingArea;
+    public CombatCrosshair Crosshair;
     [Space]
     public GameObject DrumButtonsHolder;
-    public Button ButtonUnload;
     public Button ButtonLoadDefault;
+    public Button ButtonUnload;
 
     // bullets in gun magazine
     private Bullet[] bullets;
 
     // Gun states
-    public enum GunState {Shooting, Locked, Reloading, Cooldown }
-    private GunState State;
+    public bool IsCursorOnShootingArea { get; private set; }
+    private bool isCursorOnShootingAreaPrevious;
+    private bool isOnCooldown;
 
-    private Collider2D agentCollider;
+    // shooting detected colliders
+    private List<CombatAgentCollider> agentColliders;
+    private CombatAgentCollider targetCollider;
     private int bulletIndex;
+
+
 
     private CombatPlayer player;
 
@@ -40,6 +47,8 @@ public class CombatGun : MonoBehaviour
 
         // isntantiate bullets array to match magazine size
         bullets = new Bullet[MagazineSize];
+        // instantiate agent collider list
+        agentColliders = new List<CombatAgentCollider>();
 
         // add shooting to input actions
         InputSystem.actions.FindAction("Shoot").performed += InputShoot;
@@ -55,34 +64,49 @@ public class CombatGun : MonoBehaviour
     public void InputShoot(InputAction.CallbackContext context) 
     {
         // stop if gun cannot shoot
-        if (State == GunState.Shooting)
+        if (player.State == CombatPlayer.PlayerState.Shooting && !isOnCooldown)
             Shoot();
     }
     public void Shoot() 
     {
         // if cursor outside of shooting area don't shoot
-        if (!RectTransformUtility.RectangleContainsScreenPoint(ShootingArea, Mouse.current.position.ReadValue(), CombatCamera))
+        if (!IsCursorOnShootingArea)
             return;
 
+        // until first shoot bulletIndex is set at max in case you want to unload bullets
+        if (bulletIndex == MagazineSize)
+            bulletIndex = 0;
+
         // play shoot animation
-        ManagerPlayer.Instance.HUD.Shoot(ShootingCooldown);
+        Crosshair.Shoot();
+        PlayerHUDPortrait.Instance.GunShoot();
 
         // detect combat agents on crosshair
-        agentCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), CollisionLayer);
-        if (agentCollider != null)
+        agentColliders.Clear();
+        foreach (var col in Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()),Vector2.zero,Mathf.Infinity, CollisionLayer))
         {
-            // try to get an agent collider to deal damage
-            if (agentCollider.GetComponent<CombatAgentCollider>() is CombatAgentCollider collider)
+            if (col.collider.GetComponent<CombatAgentCollider>() is CombatAgentCollider agentCol)
+                agentColliders.Add(agentCol);
+        }
+
+        // sort colliders by prio
+        agentColliders.Sort((a, b) => a.Priority.CompareTo(b.Priority));
+
+        if (agentColliders.Count != 0)
+        {
+            // priorize crits
+            targetCollider = agentColliders[0];
+            foreach (var col in agentColliders)
             {
-                if (collider != null)
-                {
-                    // do damage
-                    if (collider.IsCrit)
-                        collider.Damage((int)(bullets[bulletIndex].Damage * CritMultiplier));
-                    else
-                        collider.Damage((bullets[bulletIndex].Damage));
-                }
+                if (col.IsCrit)
+                    targetCollider = col;
             }
+
+            // do damage
+            if (targetCollider.IsCrit)
+                targetCollider.Damage((int)(bullets[bulletIndex].Damage * CritMultiplier));
+            else
+                targetCollider.Damage((bullets[bulletIndex].Damage));
         }
 
         // once player has fired deactivate drum buttons, cannot unload anymore
@@ -93,17 +117,28 @@ public class CombatGun : MonoBehaviour
     }
 
 
-    public void ChangeState(GunState stateNew) 
+    private void Update()
     {
-        State = stateNew;
+        // get if cursor is inside the encounter screen
+        isCursorOnShootingAreaPrevious = IsCursorOnShootingArea;
+        IsCursorOnShootingArea = RectTransformUtility.RectangleContainsScreenPoint(ShootingArea, Mouse.current.position.ReadValue(), CombatCamera);
+
+        // detect if cursoer entered or exited this turn
+        if (IsCursorOnShootingArea != isCursorOnShootingAreaPrevious && !isOnCooldown)
+        {
+            // change portrait state aim or not aim
+            player.AimOnOff();
+        }
+
+        // update cursor
+        Crosshair.Show(IsCursorOnShootingArea);
+        Crosshair.UpdatePosition(CombatCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
     }
+
 
     #region Reload
     public void ReloadStart() 
     {
-        // set state to reloading
-        ChangeState(GunState.Reloading);
-
         // activate Load and unload buttons
         DrumButtonsHolder.SetActive(true);
         // lock unload button (no bullets to unload)
@@ -133,11 +168,9 @@ public class CombatGun : MonoBehaviour
         // load default button interactable when bullet is not last bullet on magazine
         ButtonLoadDefault.interactable = bulletIndex < MagazineSize - 1;
 
-        // load bullet visuals
-        ManagerPlayer.Instance.HUD.ReloadLoadBullet(bullet);
-
-        // Drum visuals load bullet
+        // Visuals load bullet
         Drum.LoadBullet(bulletIndex, bullet);
+        PlayerHUDPortrait.Instance.ReloadLoad(bullet.Id);
 
         bulletIndex++;
 
@@ -151,16 +184,10 @@ public class CombatGun : MonoBehaviour
     public void UnloadBullet() 
     {
         // if reloading finished because all bullets already loaded go back
-        if (State == GunState.Shooting)
+        if (player.State != CombatPlayer.PlayerState.Reloading)
         {
             // restart player reload
             player.ReloadRestart();
-
-            // state to reloading (to lock gun from firing)
-            ChangeState(GunState.Reloading);
-
-            // set player portrait lo reload again
-            ManagerPlayer.Instance.HUD.Reload(BulletDefault.GetBullet());
 
             // set bullet index to mag max
             bulletIndex = MagazineSize;
@@ -187,27 +214,26 @@ public class CombatGun : MonoBehaviour
     }
     public void ReloadFinish() 
     {
-        // set state to Shooting
-        ChangeState(GunState.Shooting);
-
         // send reload finish to Drum
         Drum.ReloadFinish();
-
-        // reset bullet index for shooting
-        bulletIndex = 0;
     }
     #endregion
 
     private IEnumerator ShootCooldown()
     {
-        // do cooldown
-        ChangeState(GunState.Cooldown);
-        yield return new WaitForSeconds(ShootingCooldown);
-        ChangeState(GunState.Shooting);
-
-        // rotate drum and fire bullet
+        // fire bullet
         Drum.FireBullet(bulletIndex);
+
+        // do cooldown
+        isOnCooldown = true;
+        yield return new WaitForSeconds(ShootingCooldown);
+        isOnCooldown = false;
+
+        // rotate drum
         Drum.RotateDrum(bulletIndex + 1);
+
+        // change portrait state aim or not aim
+        player.AimOnOff();
 
         // add bullet index and finish player turn if no more bullets on magazine
         bulletIndex++;

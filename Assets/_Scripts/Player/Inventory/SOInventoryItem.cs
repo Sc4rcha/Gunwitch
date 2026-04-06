@@ -9,6 +9,7 @@ public class SOInventoryItem : ScriptableObject
     [Space]
     [TextArea]
     public string Description;
+    public Sprite Sprite;
 
     public GameInfo.InventoryItem GetItem() 
     {

@@ -50,6 +50,7 @@ MonoBehaviour:
   Colliders:
   - {fileID: 6558402506730635334}
   - {fileID: 7410926739945362294}
+  Animator: {fileID: 1542770240457769523}
 --- !u!1 &1691115971853782702
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,6 +60,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 618516466007285376}
+  - component: {fileID: 1542770240457769523}
   m_Layer: 7
   m_Name: Agent
   m_TagString: Untagged
@@ -84,6 +86,28 @@ Transform:
   - {fileID: 626053130469101240}
   m_Father: {fileID: 559890192054137798}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1542770240457769523
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691115971853782702}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 23c8a591c82331c4883ef1a8d7115b52, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2314306319338866259
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +201,6 @@ GameObject:
   m_Component:
   - component: {fileID: 330685164195559019}
   - component: {fileID: 7688325322983987869}
-  - component: {fileID: 1015840603029825651}
   m_Layer: 7
   m_Name: Renderer
   m_TagString: Untagged
@@ -259,28 +282,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!95 &1015840603029825651
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3737775668170843905}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 23c8a591c82331c4883ef1a8d7115b52, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7505656741617935545
 GameObject:
   m_ObjectHideFlags: 0

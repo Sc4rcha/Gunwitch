@@ -16,6 +16,7 @@ MonoBehaviour:
   Name: bullet_A
   Type: 1
   Description: 
+  Sprite: {fileID: 21300000, guid: 66db7c7f2fb9f6144b4fbb1a3e295271, type: 3}
   ManaCost: 10
   Damage: 10
-  BulletColor: {r: 0.66180134, g: 0.9225252, b: 0.9811321, a: 1}
+  BulletColor: {r: 1, g: 0.49411768, b: 0.49411768, a: 1}

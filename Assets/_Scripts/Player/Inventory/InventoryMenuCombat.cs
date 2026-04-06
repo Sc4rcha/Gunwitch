@@ -2,6 +2,7 @@ using GameInfo;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InventoryMenuCombat : InventoryMenu
 {
@@ -9,8 +10,9 @@ public class InventoryMenuCombat : InventoryMenu
     public GameObject ItemInfo;
     public GameObject ItemUseConfirm;
     [Space]
-    public Button SectionBullets;
-    public Button SectionConsums;
+    public Button ButtonOpen;
+    public Button ButtonClose;
+    public TMPro.TMP_Text SectionName;
     public InventorySlotButtonInfo[] InventorySlotsLeft;
     public InventorySlotButtonInfo[] InventorySlotsRight;
 
@@ -37,27 +39,6 @@ public class InventoryMenuCombat : InventoryMenu
         Setup(player);
     }
 
-    public void ButtonConsumableUse (bool confirm)
-    {
-        // use consumable if confirm
-        if (confirm)
-        {
-            // consumable effect
-            ManagerGameElements.Instance.ItemReferences.GetItemReference(consumableSelected.Id).ItemEffect();
-            // remove consumable from inventory
-            player.Inventory.RemoveItem(consumableSelected.Type, consumableSelected.Id);
-        }
-
-        // deactivate item confirm popup
-        ItemUseConfirm.SetActive(false);
-        // clear selected consumable
-        consumableSelected = null;
-        // unlock consumable window
-        LockSection(ItemType.CONSUMABLE, false);
-
-        // refresh menu
-        Refresh();
-    }
 
     public override void ShowSection(ItemType section)
     {
@@ -74,6 +55,8 @@ public class InventoryMenuCombat : InventoryMenu
                 Debug.LogError("This section is not available in Combat");
                 break;
             case ItemType.BULLET:
+                ButtonOpen.interactable = false;
+                ButtonClose.interactable = false;
                 for (int i = 0; i < player.Inventory.Bullets.Count; i++)
                 {
                     // show inventory slot
@@ -91,6 +74,8 @@ public class InventoryMenuCombat : InventoryMenu
                 Debug.LogError("This section is not available in Combat");
                 break;
             case ItemType.CONSUMABLE:
+                ButtonOpen.interactable = false;
+                ButtonClose.interactable = true;
                 for (int i = 0; i < player.Inventory.Consumables.Count; i++)
                 {
                     inventorySlots[i].SetItem(player.Inventory.Consumables[i]);
@@ -101,44 +86,65 @@ public class InventoryMenuCombat : InventoryMenu
         }
     }
 
+
+    #region Button actions
+    public new void ButtonOpenConsums()
+    {
+        combat.Player.ConsumableStart();
+
+        ShowSection(ItemType.CONSUMABLE);
+    }
+    public void ButtonCloseConsums() 
+    {
+        combat.Player.ConsumableFinish();
+
+        InventoryClose();
+    }
+    public void ButtonConsumableUse(bool confirm)
+    {
+        // use consumable if confirm
+        if (confirm)
+        {
+            // consumable effect
+            ManagerGameElements.Instance.ItemReferences.GetItemReference(consumableSelected.Id).ItemEffect();
+            // remove consumable from inventory
+            player.Inventory.RemoveItem(consumableSelected.Type, consumableSelected.Id);
+        }
+
+        // deactivate item confirm popup
+        ItemUseConfirm.SetActive(false);
+        // clear selected consumable
+        consumableSelected = null;
+
+        // player portrait return to item selection
+        PlayerHUDPortrait.Instance.ConsumsDeselect();
+
+        // refresh menu
+        Refresh();
+    }
+    #endregion
+
     public override void Lock(bool isLock)
     {
         // lock inventory sections
-        SectionConsums.interactable = !isLock;
-        SectionBullets.interactable = !isLock;
+        ButtonOpen.interactable = !isLock;
+        ButtonClose.interactable = !isLock;
 
         base.Lock(isLock);
     }
-    public override void LockSection(ItemType section, bool isLocked)
-    {
-        switch (section)
-        {
-            case ItemType.INGREDIENT:
-                Debug.LogError("This section is not available in Combat");
-                break;
-            case ItemType.BULLET:
-                SectionBullets.interactable = !isLocked;
-                break;
-            case ItemType.DRUM:
-                Debug.LogError("This section is not available in Combat");
-                break;
-            case ItemType.KEY:
-                Debug.LogError("This section is not available in Combat");
-                break;
-            case ItemType.CONSUMABLE:
-                SectionConsums.interactable = !isLocked;
-                break;
-        }
 
-        base.LockSection(section, isLocked);
-    }
 
+    #region ITEM USE
     public override void ItemSelect(InventoryItem item)
     {
         base.ItemSelect(item);
 
-        if (item is Bullet bullet)
-            ManagerPlayer.Instance.HUD.ReloadSelectBullet(bullet);
+        // player portait reload select bullet
+        if (item.Type == ItemType.BULLET)
+            PlayerHUDPortrait.Instance.ReloadFocus(item.Id);
+        // player portait reload select bullet
+        if (item.Type == ItemType.CONSUMABLE)
+            PlayerHUDPortrait.Instance.ConsumsFocus(item.Id);
 
         ItemInfo.SetActive(true);
     }
@@ -155,9 +161,7 @@ public class InventoryMenuCombat : InventoryMenu
 
         // load bullet
         if (item.Type == ItemType.BULLET)
-        {
             combat.Player.Gun.LoadBullet(item as Bullet);
-        }
 
         // consumable
         if (item.Type == ItemType.CONSUMABLE)
@@ -166,8 +170,31 @@ public class InventoryMenuCombat : InventoryMenu
             ItemUseConfirm.SetActive(true);
             // set selected consumable
             consumableSelected = item;
-            // lock consumable window
-            LockSection(ItemType.CONSUMABLE, true);
+
+            // player portrait take item
+            PlayerHUDPortrait.Instance.ConsumsSelect(item.Id);
         }
+    }
+    #endregion
+
+    public void ReloadStart() 
+    {
+        SectionName.text = "Bullets";
+        ShowSection(ItemType.BULLET);
+    }
+    public void ReloadFinish() 
+    {
+        SectionName.text = "Consums";
+        InventoryClose();
+    }
+
+    public void InventoryClose() 
+    {
+        ButtonClose.interactable = false;
+        ButtonOpen.interactable = true;
+
+        // hide all slots
+        foreach (var slot in inventorySlots)
+            slot.Show(false);
     }
 }

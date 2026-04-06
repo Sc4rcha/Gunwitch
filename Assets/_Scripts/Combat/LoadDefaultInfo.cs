@@ -25,6 +25,6 @@ public class LoadDefaultInfo : MonoBehaviour, IPointerEnterHandler
     {
         // if button is interactable select bullet
         if (button.interactable)
-            ManagerPlayer.Instance.HUD.ReloadSelectBullet(bullet);
+            PlayerHUDPortrait.Instance.ReloadFocus(bullet.Id);
     }
 }

@@ -4,11 +4,15 @@ using UnityEngine.UI;
 public class CombatDrum : MonoBehaviour
 {
     public Image[] Bullets;
+    [Header("Variables")]
+    public float RotationSpeed;
 
     private int magazineSize;
     private RectTransform rectTransform;
 
     private const float magazineRadius = 80f;
+    private float drumtargetAngle;
+    private float drumAngle;
 
     public void Setup(int magazineSize) 
     {
@@ -24,6 +28,16 @@ public class CombatDrum : MonoBehaviour
         var bulletPositions = GetBulletPositions();
         for (int i = 0; i < bulletPositions.Length; i++)
             Bullets[i].GetComponent<RectTransform>().anchoredPosition = bulletPositions[i];
+    }
+
+
+    private void Update()
+    {
+        // Smooth interpolation toward target angle
+        drumAngle = Mathf.LerpAngle(rectTransform.localEulerAngles.z, drumtargetAngle, RotationSpeed * Time.deltaTime);
+
+        // set drum rotation
+        rectTransform.localEulerAngles = new Vector3(rectTransform.localEulerAngles.x, rectTransform.localEulerAngles.y, drumAngle);
     }
 
 
@@ -55,7 +69,7 @@ public class CombatDrum : MonoBehaviour
     }
     public void RotateDrum(int bulletIndex) 
     {
-        rectTransform.localRotation = Quaternion.Euler(0, 0, GetDrumRotation(bulletIndex));
+        drumtargetAngle = bulletIndex * 360f / magazineSize;
     }
 
     private Vector2[] GetBulletPositions()
@@ -83,10 +97,5 @@ public class CombatDrum : MonoBehaviour
         }
 
         return positions;
-    }
-
-    float GetDrumRotation(int holeIndex)
-    {
-        return holeIndex * 360f / magazineSize;
     }
 }

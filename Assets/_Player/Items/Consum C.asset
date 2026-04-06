@@ -15,3 +15,5 @@ MonoBehaviour:
   Id: consum_C
   Name: consum_C
   Type: 4
+  Description: 
+  Sprite: {fileID: 21300000, guid: d840b0094a7c421498656e6e8d7ef068, type: 3}
