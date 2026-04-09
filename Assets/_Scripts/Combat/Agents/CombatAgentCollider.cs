@@ -10,6 +10,7 @@ public class CombatAgentCollider : MonoBehaviour
     {
         this.agent = agent;
         Priority = agent.Priority;
+        gameObject.SetActive(true);
     }
 
     /// <summary>

@@ -6,17 +6,26 @@ public class SOCombatEnemy : ScriptableObject
 {
     public string Name;
 
+    [Header("Sprites")]
+    public Sprite AttackSprite;
+
     // combat stats
     [Header ("Combat Stats")]
     public int Health;
     public int Mana;
 
-    [Header ("Agent Stat")]
+    [Header ("Agent Ability Scores")]
     public int Body;
     public int Magic;
     public int Dexterity;
     public int Luck;
     public int Charisma;
+
+    [Header("Abilities")]
+    public SOAbility Attack;
+
+    [Header("Agent Loot")]
+    public LootItem[] Loot;
 
     public Actor GetCombatActor() 
     {

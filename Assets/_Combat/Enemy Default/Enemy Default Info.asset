@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Enemy Default Info
   m_EditorClassIdentifier: Assembly-CSharp::SOCombatEnemy
   Name: Enemy Debug
+  AttackSprite: {fileID: 21300000, guid: ea2e0f02d422f4f42bbbd2515e34b9b7, type: 3}
   Health: 20
   Mana: 0
   Body: 1
@@ -20,3 +21,7 @@ MonoBehaviour:
   Dexterity: 1
   Luck: 1
   Charisma: 1
+  Attack: {fileID: 11400000, guid: 04ac8f4c88a629f4a928120653656692, type: 2}
+  Loot:
+  - Loot: {fileID: 11400000, guid: cd8a234a7cc4b5042a86da400de9643a, type: 2}
+    Chances: 25

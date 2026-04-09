@@ -29,7 +29,8 @@ public class CombatPlayer : MonoBehaviour
     }
     public void CombatFinish()
     {
-
+        ChangeState(PlayerState.None);
+        Gun.CombatFinish();
     }
 
     public void TurnStart()
@@ -59,10 +60,14 @@ public class CombatPlayer : MonoBehaviour
         // change state to reaload
         ChangeState(PlayerState.Reloading);
 
+
+        // set phase message
+        manager.ScreenPhases.ShowPhase("Reloading...", Mathf.Infinity);
     }
     public void ReloadRestart() 
     {
-        Debug.Log("Restart");
+        // set phase message
+        manager.ScreenPhases.ShowPhase("Reloading...", Mathf.Infinity);
 
         // stop coroutines in case script was waiting for last reload to go to aim
         StopAllCoroutines();
@@ -71,6 +76,9 @@ public class CombatPlayer : MonoBehaviour
     }
     public void ReloadFinish() 
     {
+        // set phase message
+        manager.ScreenPhases.ShowPhase("Shoot!", 1);
+
         // wait for reload animation to finish and set player portrait to aim
         StartCoroutine(LoadFinalBulletDelay());
 

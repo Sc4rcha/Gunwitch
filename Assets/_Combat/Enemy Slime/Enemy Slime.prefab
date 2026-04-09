@@ -136,10 +136,9 @@ MonoBehaviour:
   - {fileID: 6047329649076819357}
   Animator: {fileID: 7223485722793167335}
   Movement: {fileID: 1663862149599048}
-  ProbabilityJump: 25
-  ProbabilityDirectionChange: 35
-  ProbabilityPause: 70
+  ProbabilityJump: 33
   TimeToRandomize: 2
+  TimeToRandomizeVariance: 1
 --- !u!1 &4742195875458910738
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,6 +507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatSlimeMovement
   Body: {fileID: 7954366246161215489}
   MoveSpeed: 3
-  JumpHeight: 2
-  TimeToJumpApex: 0.45
-  HorizontalMovementSmoothTime: 0.3
+  JumpHeightMax: 3
+  JumpHeightMin: 2
+  TimeToJumpApex: 0.5
+  HorizontalMovementSmoothTime: 0.1

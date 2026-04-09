@@ -125,6 +125,7 @@ public class ManagerEvents : MonoBehaviour
 
         // send event for player winning
         OnCombatFinish?.Invoke(isPlayerWin);
+
         // refresh PlayerHUD
     }
     private IEnumerator ExitCombat()

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Enemy Slime
   m_EditorClassIdentifier: Assembly-CSharp::SOCombatEnemy
   Name: Slime
+  AttackSprite: {fileID: 21300000, guid: 9b79de225eecfd8459353f969a4b30c1, type: 3}
   Health: 10
   Mana: 0
   Body: 1
@@ -20,3 +21,7 @@ MonoBehaviour:
   Dexterity: 1
   Luck: 1
   Charisma: 1
+  Attack: {fileID: 11400000, guid: c2d524c7650fa8546ab3796b71eb002e, type: 2}
+  Loot:
+  - Loot: {fileID: 11400000, guid: ea3e3986d2aac844383ba7a3144faa03, type: 2}
+    Chances: 75

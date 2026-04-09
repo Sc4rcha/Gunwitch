@@ -3,8 +3,6 @@ using GameInfo;
 
 public class ManagerPlayer : MonoBehaviour
 {
-    public static ManagerPlayer Instance;
-
     public PlayerInfo Info;
 
     public InventoryMenuOverworld InventoryMenu;
@@ -13,10 +11,6 @@ public class ManagerPlayer : MonoBehaviour
 
     public void Setup() 
     {
-        // set singleton
-        if (Instance == null)
-            Instance = this;
-
         // setup elements
         InventoryMenu.Setup(Info);
         Crafting.Setup(this);
@@ -41,6 +35,8 @@ public class ManagerPlayer : MonoBehaviour
 
     public void Damage(int value) 
     {
+        HUD.Portrait.HitNumber.ShowNumber(value);
+
         Info.Actor.HealthChange(-value);
         HUD.Refresh(Info.Actor);
     }

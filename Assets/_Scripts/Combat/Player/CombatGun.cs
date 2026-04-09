@@ -38,7 +38,6 @@ public class CombatGun : MonoBehaviour
     private int bulletIndex;
 
 
-
     private CombatPlayer player;
 
     public void Setup(CombatPlayer player) 
@@ -61,61 +60,13 @@ public class CombatGun : MonoBehaviour
     }
 
 
-    public void InputShoot(InputAction.CallbackContext context) 
+    public void CombatFinish ()
     {
-        // stop if gun cannot shoot
-        if (player.State == CombatPlayer.PlayerState.Shooting && !isOnCooldown)
-            Shoot();
-    }
-    public void Shoot() 
-    {
-        // if cursor outside of shooting area don't shoot
-        if (!IsCursorOnShootingArea)
-            return;
-
-        // until first shoot bulletIndex is set at max in case you want to unload bullets
-        if (bulletIndex == MagazineSize)
-            bulletIndex = 0;
-
-        // play shoot animation
-        Crosshair.Shoot();
-        PlayerHUDPortrait.Instance.GunShoot();
-
-        // detect combat agents on crosshair
-        agentColliders.Clear();
-        foreach (var col in Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()),Vector2.zero,Mathf.Infinity, CollisionLayer))
-        {
-            if (col.collider.GetComponent<CombatAgentCollider>() is CombatAgentCollider agentCol)
-                agentColliders.Add(agentCol);
-        }
-
-        // sort colliders by prio
-        agentColliders.Sort((a, b) => a.Priority.CompareTo(b.Priority));
-
-        if (agentColliders.Count != 0)
-        {
-            // priorize crits
-            targetCollider = agentColliders[0];
-            foreach (var col in agentColliders)
-            {
-                if (col.IsCrit)
-                    targetCollider = col;
-            }
-
-            // do damage
-            if (targetCollider.IsCrit)
-                targetCollider.Damage((int)(bullets[bulletIndex].Damage * CritMultiplier));
-            else
-                targetCollider.Damage((bullets[bulletIndex].Damage));
-        }
-
-        // once player has fired deactivate drum buttons, cannot unload anymore
+        Crosshair.Show(false);
         DrumButtonsHolder.SetActive(false);
 
-        // start gun cooldown
-        StartCoroutine(ShootCooldown());
+        enabled = false;
     }
-
 
     private void Update()
     {
@@ -134,7 +85,6 @@ public class CombatGun : MonoBehaviour
         Crosshair.Show(IsCursorOnShootingArea);
         Crosshair.UpdatePosition(CombatCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
     }
-
 
     #region Reload
     public void ReloadStart() 
@@ -219,6 +169,61 @@ public class CombatGun : MonoBehaviour
     }
     #endregion
 
+    #region Shoot
+    public void InputShoot(InputAction.CallbackContext context)
+    {
+        // stop if gun cannot shoot
+        if (player.State == CombatPlayer.PlayerState.Shooting && !isOnCooldown)
+            Shoot();
+    }
+    public void Shoot()
+    {
+        // if cursor outside of shooting area don't shoot
+        if (!IsCursorOnShootingArea)
+            return;
+
+        // until first shoot bulletIndex is set at max in case you want to unload bullets
+        if (bulletIndex == MagazineSize)
+            bulletIndex = 0;
+
+        // play shoot animation
+        Crosshair.Shoot();
+        PlayerHUDPortrait.Instance.GunShoot();
+
+        // detect combat agents on crosshair
+        agentColliders.Clear();
+        foreach (var col in Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector2.zero, Mathf.Infinity, CollisionLayer))
+        {
+            if (col.collider.GetComponent<CombatAgentCollider>() is CombatAgentCollider agentCol)
+                agentColliders.Add(agentCol);
+        }
+
+        // sort colliders by prio
+        agentColliders.Sort((a, b) => b.Priority.CompareTo(a.Priority));
+
+        if (agentColliders.Count != 0)
+        {
+            // priorize crits
+            targetCollider = agentColliders[0];
+            foreach (var col in agentColliders)
+            {
+                if (col.IsCrit)
+                    targetCollider = col;
+            }
+
+            // do damage
+            if (targetCollider.IsCrit)
+                targetCollider.Damage((int)(bullets[bulletIndex].Damage * CritMultiplier));
+            else
+                targetCollider.Damage((bullets[bulletIndex].Damage));
+        }
+
+        // once player has fired deactivate drum buttons, cannot unload anymore
+        DrumButtonsHolder.SetActive(false);
+
+        // start gun cooldown
+        StartCoroutine(ShootCooldown());
+    }
     private IEnumerator ShootCooldown()
     {
         // fire bullet
@@ -240,5 +245,5 @@ public class CombatGun : MonoBehaviour
         if (bulletIndex == MagazineSize)
             player.TurnFinish();
     }
-
+    #endregion
 }

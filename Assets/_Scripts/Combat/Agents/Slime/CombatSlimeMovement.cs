@@ -1,26 +1,25 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CombatSlimeMovement : MonoBehaviour
 {
     public Transform Body;
     [Space]
     public float MoveSpeed;
-    public float JumpHeight;
+    public float JumpHeightMax;
+    public float JumpHeightMin;
     public float TimeToJumpApex;
     public float HorizontalMovementSmoothTime;
 
     // jump variables
     private float gravity;
-    private float jumpVelocity;
+    private float jumpVelocityMax;
+    private float jumpVelocityMin;
 
-    // move states
-    public bool isMoving { get; private set; }
-    private bool isMovingRight;
-    private bool isJumping => enemyPosition.y > bounds.min.y;
+    public bool IsJumping => enemyPosition.y > bounds.min.y;
 
     // movement variables
-    private float targetVelocityX;
     private float horizontalDampVelocity;
     private Vector3 enemyVelocity;
     private Vector3 enemyPosition;
@@ -37,44 +36,33 @@ public class CombatSlimeMovement : MonoBehaviour
         enemyPosition = Body.position;
 
         // calculate gravity and jump speed
-        gravity = -(2 * JumpHeight) / Mathf.Pow(TimeToJumpApex, 2);
-        jumpVelocity = Mathf.Abs(gravity) * TimeToJumpApex;
+        gravity = -(2 * JumpHeightMax) / Mathf.Pow(TimeToJumpApex, 2);
+        jumpVelocityMax = Mathf.Abs(gravity) * TimeToJumpApex;
+        jumpVelocityMin = jumpVelocityMax / JumpHeightMax * JumpHeightMin;
     }
 
     #region MOVEMENT ACTIONS
-    public void Stop() 
-    {
-        targetVelocityX = 0;
-    }
     public void Jump()
     {
-        enemyVelocity.y = jumpVelocity;
+        if (Mathf.Abs(Body.position.x - bounds.center.x) > bounds.size.x / 4)
+            enemyVelocity.x = MoveSpeed * -Mathf.Sign(Body.position.x - bounds.center.x);
+        else 
+        {
+            enemyVelocity.x = MoveSpeed;
+            if (Random.Range(0, 2) == 1)
+                enemyVelocity.x = -enemyVelocity.x;
+        }
+
+        enemyVelocity.y = Random.Range(jumpVelocityMin, jumpVelocityMax);
         manager.Animator.Play("Jump");
     }
-    public void ToggleMoving() 
+    public void Attack() 
     {
-        isMoving = !isMoving;
-
-        if (isMoving)
-        {
-            if (isMovingRight)
-                targetVelocityX = MoveSpeed;
-            else
-                targetVelocityX = -MoveSpeed;
-        }
-        else
-            targetVelocityX = 0;
-
-    }
-    public void ToggleDirection()
-    {
-        isMovingRight = !isMovingRight;
-        targetVelocityX *= -1;
+        enemyVelocity.y = Random.Range(jumpVelocityMin, jumpVelocityMax);
+        manager.Animator.Play("Jump");
     }
     public void Spawn() 
     {
-        enemyVelocity.x = Random.Range(-1, 1) * MoveSpeed;
-        targetVelocityX = enemyVelocity.x;
         Jump();
     }
     #endregion
@@ -87,24 +75,16 @@ public class CombatSlimeMovement : MonoBehaviour
 
         // set animator varialbes
         manager.Animator.SetFloat("velocityX", enemyVelocity.x);
-        manager.Animator.SetBool("isJumping", isJumping);
+        manager.Animator.SetBool("isJumping", IsJumping);
     }
 
 
     #region move updates
     private void UpdateMove()
     {
-        // apply horizontal smooth damp
-        enemyVelocity.x = Mathf.SmoothDamp(enemyVelocity.x, targetVelocityX, ref horizontalDampVelocity, HorizontalMovementSmoothTime);
-
-        // if is not jumping change direction when out of bounds
-        if (!isJumping)
-        {
-            if (bounds.min.x > Body.position.x && !isMovingRight)
-                ToggleDirection();
-            else if (bounds.max.x < Body.position.x && isMovingRight)
-                ToggleDirection();
-        }
+        // apply horizontal smooth damp stop
+        if (!IsJumping)
+            enemyVelocity.x = Mathf.SmoothDamp(enemyVelocity.x, 0, ref horizontalDampVelocity, HorizontalMovementSmoothTime);
     }
     private void CalculateMovement() 
     {

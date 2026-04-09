@@ -14,6 +14,8 @@ public class PlayerHUDPortrait : MonoBehaviour
     [Space]
     public Image PlayerPortrait;
     public Animator PortraitAnimator;
+    [Space]
+    public CombatHitMessage HitNumber;
 
     [Header("Variables")]
     public Color FocusOffColor;

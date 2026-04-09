@@ -3,14 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
-using static UnityEngine.EventSystems.EventTrigger;
 
 namespace GameInfo
 {
-
-    #region ACTORS
-
-    #endregion
 
     #region PLAYER
     public class PlayerInfo
@@ -39,8 +34,6 @@ namespace GameInfo
 
     #region ACTORS
     public enum Ability { BODY, MAGIC, DEX, LUCK, CHAR }
-
-
     public class Actor
     {
         public string Name;
@@ -57,6 +50,8 @@ namespace GameInfo
         public int Dexterity;
         public int Luck;
         public int Charisma;
+
+        public static readonly int MaxAbilityScore = 6;
 
         public bool IsDead => HealthCurrent <= 0;
 
@@ -124,23 +119,11 @@ namespace GameInfo
             return ManaCurrent >= cost;
         }
     }
-
-    public class Bullet : InventoryItem
-    {
-        public int ManaCost;
-        public int Damage;
-        public Color BulletColor;
-
-        public Bullet(SOInventoryItemBullet bullet) : base(bullet)
-        {
-            ManaCost = bullet.ManaCost;
-            Damage = bullet.Damage;
-            BulletColor = bullet.BulletColor;
-        }
-    }
     #endregion
 
     #region INVENTORY
+    public enum ItemType { INGREDIENT, BULLET, DRUM, KEY, CONSUMABLE }
+
     public class InventoryItem 
     {
         public string Id;
@@ -157,6 +140,20 @@ namespace GameInfo
             Quantity = 1;
         }
     }
+    public class Bullet : InventoryItem
+    {
+        public int ManaCost;
+        public int Damage;
+        public Color BulletColor;
+
+        public Bullet(SOInventoryItemBullet bullet) : base(bullet)
+        {
+            ManaCost = bullet.ManaCost;
+            Damage = bullet.Damage;
+            BulletColor = bullet.BulletColor;
+        }
+    }
+
     // class for saving the game
     [Serializable]
     public class ItemSaveData 
@@ -165,7 +162,13 @@ namespace GameInfo
         public int Quantity;
     }
 
-    public enum ItemType { INGREDIENT, BULLET, DRUM, KEY, CONSUMABLE}
+    [Serializable]
+    public struct LootItem
+    {
+        public SOInventoryItem Loot;
+        [Range(1, 100)]
+        public int Chances;
+    }
     #endregion
 
     #region CRAFTING

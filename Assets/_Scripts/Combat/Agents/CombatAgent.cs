@@ -60,6 +60,9 @@ public class CombatAgent : MonoBehaviour
     }
     public virtual void TurnFinish()
     {
+        // clear attack screen finish event
+        manager.ScreenAttack.OnAttackAnimationEnd -= TurnFinish;
+
         // do turn end stuff
 
         // send turn finish to manager for next enemy to act
@@ -72,20 +75,15 @@ public class CombatAgent : MonoBehaviour
 
         // enemy takes action
         Act();
-
-        // wait before ending turn
-        yield return new WaitForSeconds(turnCooldown);
-
-        // end enemy turn
-        TurnFinish();
     }
     protected virtual void Act()
     {
         // visual feedback for acting
-        Animator.Play("Attack");
+        manager.ScreenAttack.Attack(EnemyStatsReference.AttackSprite);
+        manager.ScreenAttack.OnAttackAnimationEnd += TurnFinish;
 
-        // do 2 damage to player by default
-        manager.Player.PlayerReference.Damage(2);
+        // Do ability
+        manager.EnemyAttack(EnemyStatsReference.Attack);
     }
     #endregion
 
@@ -106,6 +104,16 @@ public class CombatAgent : MonoBehaviour
     #region Stat change
     public virtual void Damage(int value)
     {
+        foreach (var hitMessage in manager.HitMessages)
+        {
+            if (!hitMessage.gameObject.activeInHierarchy)
+            {
+                hitMessage.transform.position = manager.Player.Gun.Crosshair.Crosshair.transform.position + Vector3.up;
+                hitMessage.ShowNumber(value);
+                break;
+            }
+        }
+
         Actor.HealthChange(-value);
 
         // visual feedback for getting hurt
@@ -117,16 +125,36 @@ public class CombatAgent : MonoBehaviour
     }
     protected virtual void Die() 
     {
-        // play dead animation
-        Animator.Play("Dead");
+        // add loot to win screen
+        foreach (var loot in EnemyStatsReference.Loot)
+            manager.ScreenWin.AddLootItem(loot);
+
         // send death to manager to check for combat over
         manager.CheckCombatOver();
 
         // deactivate colliders
         foreach (var colider in Colliders)
             colider.gameObject.SetActive(false);
+
+
+        // play dead animation
+        Animator.Play("Dead");
+
+        // delay death deactivate enemy
+        StartCoroutine(DeathAnimationDelay());
     }
     #endregion
 
+
+    IEnumerator DeathAnimationDelay()
+    {
+        while (!Animator.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
+            yield return null;
+
+        while (Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+            yield return null;
+
+        gameObject.SetActive(false);
+    }
 
 }
