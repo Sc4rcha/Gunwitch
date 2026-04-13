@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace HutongGames.PlayMaker.Actions
 {
-    [ActionCategory("Event")]
+    [ActionCategory("Events")]
     public class ActionEventFinish : FsmStateAction
     {
 

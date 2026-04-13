@@ -21,11 +21,13 @@ public class MapLocationButton : Button
     {
         base.OnPointerEnter(eventData);
 
-        Debug.Log(info.LocationInfo.Name);
+        info.LocationNameShow(true);
     }
     public override void OnPointerExit(PointerEventData eventData)
     {
         base.OnPointerExit(eventData);
+
+        info.LocationNameShow(false);
     }
 
     // mouse interact with button

@@ -30,15 +30,22 @@ public class ManagerEvents : MonoBehaviour
     public void EventAddList(SOEvent[] list) 
     {
         foreach (var newEvent in list)
-            ActiveEvents.Add(newEvent);
+            EventAdd(newEvent);
     }
     public void EventAdd(SOEvent eventToAdd) 
     {
-        ActiveEvents.Add(eventToAdd);
+        if (!ActiveEvents.Contains (eventToAdd))
+            ActiveEvents.Add(eventToAdd);
+    }
+    public void EventRemoveList(SOEvent[] list)
+    {
+        foreach (var newEvent in list)
+            EventRemove(newEvent);
     }
     public void EventRemove(SOEvent eventToRemove) 
     {
-        ActiveEvents.Remove(eventToRemove);
+        if (ActiveEvents.Contains (eventToRemove))
+            ActiveEvents.Remove(eventToRemove);
     }
     #endregion
 
@@ -60,6 +67,7 @@ public class ManagerEvents : MonoBehaviour
         if (eventFSMInstance != null)
             Debug.LogError("Event already instantiated. There cannot be two events active at the same time!");
 
+        // start event depending on type
         if (eventSelected is SOEventFSM eventFSM) 
         {
             // instantiate event object
@@ -74,12 +82,22 @@ public class ManagerEvents : MonoBehaviour
             OnCombatFinish += EventFinish;
         }
 
+
+        // Add and Remove evets
+        EventAddList(eventSelected.EventsAdd);
+        EventRemoveList(eventSelected.EventsRemove);
+        if (!eventSelected.IsPersistent)
+            EventRemove(eventSelected);
+
         // show event background
         EventScreen.SetActive(true);
         EventBackground.sprite = eventSelected.EventLocation.BackgroundSprite;
     }
     public void EventFinish(bool isEventPass)
     {
+        // clear combat finish event if the event was an SOCombatEvent
+        OnCombatFinish -= EventFinish;
+
         // hide event background
         EventScreen.SetActive(false);
 
@@ -95,7 +113,6 @@ public class ManagerEvents : MonoBehaviour
 
         // Player Setup
         ManagerGameElements.Instance.Player.EventFinish();
-
 
         // game over screen if player fails event
         if (!isEventPass)

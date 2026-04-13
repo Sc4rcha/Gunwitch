@@ -4451,7 +4451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatAttackScreen
   AttackImage: {fileID: 741666958}
   AttackName: {fileID: 363674529}
-  AttackTime: 1
+  AttackAnimationTime: 1
 --- !u!1 &1010213914
 GameObject:
   m_ObjectHideFlags: 0
@@ -6647,7 +6647,7 @@ MonoBehaviour:
   CollisionLayer:
     serializedVersion: 2
     m_Bits: 128
-  CritMultiplier: 2
+  CritMultiplier: 1.5
   Drum: {fileID: 1659459457}
   CombatCamera: {fileID: 2119255760}
   ShootingArea: {fileID: 1730527209}

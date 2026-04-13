@@ -1,0 +1,197 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2661107687867455514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9173621549618412763}
+  - component: {fileID: 6764114205206381537}
+  m_Layer: 0
+  m_Name: MVP Combat Bandits
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9173621549618412763
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661107687867455514}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 389098063866099394}
+  - {fileID: 1403735805707756256}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6764114205206381537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661107687867455514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3d33d575d978b74092f8905c59f1092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatEnounter
+  Enemies:
+  - {fileID: 5701676596966193998}
+  - {fileID: 6430335702203969388}
+--- !u!1001 &190131439450932484
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 9173621549618412763}
+    m_Modifications:
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1251943353823522656, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_Name
+      value: Enemy Bandit
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+--- !u!4 &389098063866099394 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+  m_PrefabInstance: {fileID: 190131439450932484}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5701676596966193998 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5585333451743608394, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+  m_PrefabInstance: {fileID: 190131439450932484}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f26f7707344bf647a87735b76fb9ef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatAgentBandit
+--- !u!1001 &1494688677684154662
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 9173621549618412763}
+    m_Modifications:
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1251943353823522656, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_Name
+      value: Enemy Bandit
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+--- !u!4 &1403735805707756256 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+  m_PrefabInstance: {fileID: 1494688677684154662}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6430335702203969388 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5585333451743608394, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+  m_PrefabInstance: {fileID: 1494688677684154662}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f26f7707344bf647a87735b76fb9ef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatAgentBandit

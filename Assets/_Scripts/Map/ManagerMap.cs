@@ -81,6 +81,8 @@ public class ManagerMap : MonoBehaviour
     public void LocationExit()
     {
         LocationScreen.Exit();
+
+        Refresh();
     }
 
     // called by location button to open a new location in the overworld

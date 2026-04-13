@@ -38,10 +38,11 @@ public class CombatAgent : MonoBehaviour
         isPlayerTurn = false;
     }
 
+
     private void Update()
     {
         if (isPlayerTurn && !Actor.IsDead)
-            PlayerTurnBehaviour();
+            PlayerTurnUpdate();
     }
 
 
@@ -61,7 +62,7 @@ public class CombatAgent : MonoBehaviour
     public virtual void TurnFinish()
     {
         // clear attack screen finish event
-        manager.ScreenAttack.OnAttackAnimationEnd -= TurnFinish;
+        manager.ScreenAttack.OnAnimationEnd -= TurnFinish;
 
         // do turn end stuff
 
@@ -80,7 +81,7 @@ public class CombatAgent : MonoBehaviour
     {
         // visual feedback for acting
         manager.ScreenAttack.Attack(EnemyStatsReference.AttackSprite);
-        manager.ScreenAttack.OnAttackAnimationEnd += TurnFinish;
+        manager.ScreenAttack.OnAnimationEnd += TurnFinish;
 
         // Do ability
         manager.EnemyAttack(EnemyStatsReference.Attack);
@@ -97,7 +98,7 @@ public class CombatAgent : MonoBehaviour
     {
         isPlayerTurn = false;
     }
-    protected virtual void PlayerTurnBehaviour() { }
+    protected virtual void PlayerTurnUpdate() { }
     #endregion
 
 
@@ -135,7 +136,6 @@ public class CombatAgent : MonoBehaviour
         // deactivate colliders
         foreach (var colider in Colliders)
             colider.gameObject.SetActive(false);
-
 
         // play dead animation
         Animator.Play("Dead");

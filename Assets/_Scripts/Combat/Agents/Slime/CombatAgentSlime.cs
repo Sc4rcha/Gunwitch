@@ -25,9 +25,9 @@ public class CombatAgentSlime : CombatAgent
     }
 
     #region Player Turn
-    protected override void PlayerTurnBehaviour()
+    protected override void PlayerTurnUpdate()
     {
-        base.PlayerTurnBehaviour();
+        base.PlayerTurnUpdate();
 
         // tick randomizer timer
         timeToRandomizeCurrent += Time.deltaTime;
