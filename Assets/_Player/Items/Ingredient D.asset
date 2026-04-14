@@ -15,3 +15,5 @@ MonoBehaviour:
   Id: ingredient_D
   Name: ingredient_D
   Type: 0
+  Description: 
+  Sprite: {fileID: 21300000, guid: 5558c43dce79a064786c507f47cd3711, type: 3}

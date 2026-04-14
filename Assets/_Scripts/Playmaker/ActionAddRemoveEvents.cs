@@ -12,8 +12,6 @@ namespace HutongGames.PlayMaker.Actions
         {
             base.OnEnter();
 
-            Debug.Log("Event Enter");
-
             ManagerGameElements.Instance.ManagerEvents.EventAddList(Add);
             ManagerGameElements.Instance.ManagerEvents.EventRemoveList(Remove);
 

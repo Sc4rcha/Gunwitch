@@ -17,4 +17,9 @@ public class SOInventoryItemBullet : SOInventoryItem
     {
         return new GameInfo.Bullet(this);
     }
+
+    public override void ItemEffect()
+    {
+        base.ItemEffect();
+    }
 }

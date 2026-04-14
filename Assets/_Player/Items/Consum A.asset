@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Consum A
   m_EditorClassIdentifier: Assembly-CSharp::SOInventoryItem
   Id: consum_A
-  Name: consum_A
+  Name: Healing Potion
   Type: 4
-  Description: 
-  Sprite: {fileID: 21300000, guid: fd9cb8dd1e2b2e24fa840bbce76f3b69, type: 3}
+  Description: Drink it to gain HP
+  Sprite: {fileID: 21300000, guid: f6ea29851c735264cbb9f8018e5b17d5, type: 3}

@@ -16,7 +16,7 @@ public class SOInventoryItem : ScriptableObject
         return new GameInfo.InventoryItem(this);
     }
 
-    public void ItemEffect()
+    public virtual void ItemEffect()
     {
         Debug.Log("Item Effect " + Name);
     }

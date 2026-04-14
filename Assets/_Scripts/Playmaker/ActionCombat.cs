@@ -9,8 +9,8 @@ namespace HutongGames.PlayMaker.Actions
 
         public override void OnEnter()
         {
-            ManagerGameElements.Instance.ManagerEvents.CombatStart(Encounter);
-            ManagerGameElements.Instance.ManagerEvents.OnCombatFinish += CombatFinish;
+            ManagerGameElements.Instance.CombatLoad(Encounter);
+            ManagerGameElements.Instance.OnCombatFinish += CombatFinish;
         }
 
         public void CombatFinish (bool isPlayerWin)

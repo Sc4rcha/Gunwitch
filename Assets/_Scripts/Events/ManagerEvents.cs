@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ManagerEvents : MonoBehaviour
@@ -17,7 +15,6 @@ public class ManagerEvents : MonoBehaviour
     private PlayMakerFSM eventFSMInstance;
 
     public event Action OnEnventFinish;
-    public event Action<bool> OnCombatFinish;
 
     public void Setup() 
     {
@@ -46,6 +43,10 @@ public class ManagerEvents : MonoBehaviour
     {
         if (ActiveEvents.Contains (eventToRemove))
             ActiveEvents.Remove(eventToRemove);
+    }
+    public void EventsClear() 
+    {
+        ActiveEvents.Clear();
     }
     #endregion
 
@@ -78,8 +79,8 @@ public class ManagerEvents : MonoBehaviour
         else if (eventSelected is SOEventCombat eventCombat)
         {
             // start combat
-            CombatStart(eventCombat.Encounter);
-            OnCombatFinish += EventFinish;
+            ManagerGameElements.Instance.CombatLoad(eventCombat.Encounter);
+            ManagerGameElements.Instance.OnCombatFinish += EventFinish;
         }
 
 
@@ -96,7 +97,7 @@ public class ManagerEvents : MonoBehaviour
     public void EventFinish(bool isEventPass)
     {
         // clear combat finish event if the event was an SOCombatEvent
-        OnCombatFinish -= EventFinish;
+        ManagerGameElements.Instance.OnCombatFinish -= EventFinish;
 
         // hide event background
         EventScreen.SetActive(false);
@@ -119,41 +120,4 @@ public class ManagerEvents : MonoBehaviour
         {
         }
     }
-
-    #region Combat
-    private CombatEnounter encounterReference;
-    public void CombatStart(CombatEnounter encounterReference) 
-    {
-        // get combat start variables
-        this.encounterReference = encounterReference;
-
-        // load combat scene
-        SceneManager.LoadScene("Combat", LoadSceneMode.Additive);
-    }
-    public void CombatRegister(ManagerCombat combat) 
-    {
-        // start combat with stored variables
-        combat.CombatStart(encounterReference);
-    }
-    public void CombatEnd(bool isPlayerWin) 
-    {
-        // unload combat scene
-        StartCoroutine(ExitCombat());
-
-        // send event for player winning
-        OnCombatFinish?.Invoke(isPlayerWin);
-
-        // refresh PlayerHUD
-    }
-    private IEnumerator ExitCombat()
-    {
-        // wait for unload scene
-        yield return SceneManager.UnloadSceneAsync("Combat");
-
-        // wait for unload all assets unused by combat scene
-        yield return Resources.UnloadUnusedAssets();
-        // garbage colleciton
-        GC.Collect();
-    }
-    #endregion
 }

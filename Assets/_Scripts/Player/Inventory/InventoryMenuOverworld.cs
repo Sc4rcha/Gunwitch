@@ -15,11 +15,19 @@ public class InventoryMenuOverworld : InventoryMenu
     public Button InventoryButton;
     public Image InventorySectionIcon;
     [Space]
+    public TMPro.TMP_Text SectionName;
     public Button SectionIngredients;
     public Button SectionConsums;
     public Button SectionBullets;
     public Button SectionDrums;
     public Button SectionKeyItems;
+    public Button SectionGun;
+    [Header("References Project")]
+    public Sprite IconIngredient;
+    public Sprite IconConsumable;
+    public Sprite IconBullet;
+    public Sprite IconKey;
+    public Sprite IconDrum;
 
     private bool isInventoryOpen;
     private Vector2 positionOpen = new Vector2(0, 0);
@@ -63,7 +71,7 @@ public class InventoryMenuOverworld : InventoryMenu
         SectionKeyItems.interactable = !isLock;
 
         // lock open close button
-        InventoryButton.interactable = !isLock;
+        LockOpenClose(isLock);
 
         base.Lock(isLock);
     }
@@ -89,6 +97,15 @@ public class InventoryMenuOverworld : InventoryMenu
         }
 
         base.LockSection(section, isLocked);
+    }
+    public void LockOpenClose(bool isLock) 
+    {
+        // lock open close button
+        InventoryButton.interactable = !isLock;
+    }
+    public void LockGunSection (bool isLock) 
+    {
+        SectionGun.interactable = !isLock;
     }
 
     public void Open(bool isOpen)
@@ -133,6 +150,10 @@ public class InventoryMenuOverworld : InventoryMenu
                     inventorySlots[i].SetItem(player.Inventory.Ingredients.ElementAt(i).Value);
                     inventorySlots[i].Show(true);
                 }
+
+                InventorySectionIcon.sprite = IconIngredient;
+                SectionName.text = "Ingredients";
+
                 break;
             case ItemType.BULLET:
                 for (int i = 0; i < player.Inventory.Bullets.Count; i++)
@@ -140,6 +161,10 @@ public class InventoryMenuOverworld : InventoryMenu
                     inventorySlots[i].SetItem(player.Inventory.Bullets.ElementAt(i).Value);
                     inventorySlots[i].Show(true);
                 }
+
+                InventorySectionIcon.sprite = IconBullet;
+                SectionName.text = "Bullets";
+
                 break;
             case ItemType.DRUM:
                 for (int i = 0; i < player.Inventory.Drums.Count; i++)
@@ -147,6 +172,10 @@ public class InventoryMenuOverworld : InventoryMenu
                     inventorySlots[i].SetItem(player.Inventory.Drums.ElementAt(i).Value);
                     inventorySlots[i].Show(true);
                 }
+
+                InventorySectionIcon.sprite = IconDrum;
+                SectionName.text = "Drums";
+
                 break;
             case ItemType.KEY:
                 for (int i = 0; i < player.Inventory.KeyItems.Count; i++)
@@ -154,6 +183,10 @@ public class InventoryMenuOverworld : InventoryMenu
                     inventorySlots[i].SetItem(player.Inventory.KeyItems.ElementAt(i).Value);
                     inventorySlots[i].Show(true);
                 }
+
+                InventorySectionIcon.sprite = IconKey;
+                SectionName.text = "Key items";
+
                 break;
             case ItemType.CONSUMABLE:
                 for (int i = 0; i < player.Inventory.Consumables.Count; i++)
@@ -161,6 +194,10 @@ public class InventoryMenuOverworld : InventoryMenu
                     inventorySlots[i].SetItem(player.Inventory.Consumables[i]);
                     inventorySlots[i].Show(true);
                 }
+
+                InventorySectionIcon.sprite = IconConsumable;
+                SectionName.text = "Consumables";
+
                 break;
         }
 

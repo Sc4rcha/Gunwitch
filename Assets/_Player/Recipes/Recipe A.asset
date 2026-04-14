@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Recipe A
   m_EditorClassIdentifier: Assembly-CSharp::SOCraftingRecipe
   Id: recipe_A
-  Name: recipe_A
+  Name: Ritual A
   Ingredients:
   - {fileID: 11400000, guid: ea3e3986d2aac844383ba7a3144faa03, type: 2}
   - {fileID: 11400000, guid: ea3e3986d2aac844383ba7a3144faa03, type: 2}

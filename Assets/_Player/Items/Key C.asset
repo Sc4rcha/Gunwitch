@@ -15,3 +15,5 @@ MonoBehaviour:
   Id: key_C
   Name: key_C
   Type: 3
+  Description: 
+  Sprite: {fileID: 21300000, guid: e3ea6d2cda1de9749ae2ce41535926d0, type: 3}

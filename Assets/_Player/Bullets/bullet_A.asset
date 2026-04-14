@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: bullet_A
   Name: bullet_A
   Type: 1
-  Description: 
+  Description: A powerful bullet that does more damage that refular bullets
   Sprite: {fileID: 21300000, guid: 66db7c7f2fb9f6144b4fbb1a3e295271, type: 3}
   ManaCost: 10
   Damage: 10

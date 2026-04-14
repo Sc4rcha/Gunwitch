@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +10,7 @@ public class ManagerMap : MonoBehaviour
     public TMPro.TMP_Text MapName;
     [Space]
     public LocationScreen LocationScreen;
-
+    public GameObject ButtonFinishQuest;
 
     private Map map;
 
@@ -18,12 +18,15 @@ public class ManagerMap : MonoBehaviour
     public void Setup() 
     {
         // setup Screen
-        LocationScreen.Setup();
+        LocationScreen.Setup(this);
         LocationScreen.Exit();
+
+        // hide map screen
+        gameObject.SetActive(false);
     }
 
-    // open a new overworld map
-    public void OpenNewMap(Map newMap) 
+    // Load a new map
+    public void MapOpen(Map newMap) 
     {
         // destroy previous map
         if (map != null)
@@ -40,6 +43,26 @@ public class ManagerMap : MonoBehaviour
         // add map events
         if (map.MapEvents != null)
             ManagerGameElements.Instance.ManagerEvents.EventAddList(map.MapEvents.Events);
+
+        // setup location buttons
+        foreach (var locationButton in map.Locations)
+            locationButton.Setup(this);
+
+        // show map screen
+        gameObject.SetActive(true);
+        // hide finish quest button
+        ButtonFinishQuest.SetActive(false);
+
+        // refresh map at instantiation
+        Refresh();
+    }
+    public void MapClose() 
+    {
+        // hide map screen
+        gameObject.SetActive(false);
+
+        // destroy instanced map
+        Destroy(map.gameObject);
     }
 
     // refresh map (check location availability)
@@ -66,7 +89,8 @@ public class ManagerMap : MonoBehaviour
 
     }
 
-    #region Location
+
+    #region Locations
     // Set location screen Information
     public void LocationSetInfo(SOLocation locationInfo) 
     {

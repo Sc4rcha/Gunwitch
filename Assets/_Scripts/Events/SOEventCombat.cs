@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Event Combat", menuName = "Overworld/Event Combat")]
+[CreateAssetMenu(fileName = "Event Combat", menuName = "Event/Event Combat")]
 public class SOEventCombat : SOEvent
 {
     [Space]

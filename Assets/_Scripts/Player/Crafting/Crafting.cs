@@ -1,20 +1,17 @@
-using System.Collections.Generic;
 using UnityEngine;
 using GameInfo;
 using UnityEngine.UI;
 
 public class Crafting : MonoBehaviour
 {
-    public SOCraftingRecipe[] DebugKnownRecipes;
-
     [Header("References UI")]
     public Button CraftingButton;
+    public Button SelectRight;
+    public Button SelectLeft;
     public GameObject CraftingUI;
-    public TMPro.TMP_Text NameRecipe;
-    public TMPro.TMP_Text NameBullet;
+    public TMPro.TMP_Text NameConsumable;
     public TMPro.TMP_Text[] IngredientList;
-
-    public List<CraftingRecipe> KnownRecipes;
+    public Animator CraftFailMessage;
 
     private bool isCraftingOpen;
     private int recipeIndex;
@@ -28,34 +25,15 @@ public class Crafting : MonoBehaviour
         inventory = player.Info.Inventory;
         inventoryMenu = player.InventoryMenu;
 
-        // setup recipes known list
-        KnownRecipes = new List<CraftingRecipe>();
-
         // Close crafting
         Open(false);
-
-        // add debug known recipes
-        foreach (var recipe in DebugKnownRecipes)
-            AddRecipe(recipe.GetRecipe());
     }
-
-    public void AddRecipe(CraftingRecipe recipe) 
-    {
-        KnownRecipes.Add(recipe);
-    }
-    public void RemoveRecipe(CraftingRecipe recipe)
-    {
-        int index = KnownRecipes.FindIndex(x => x.Id == recipe.Id);
-        if (index >= 0)
-            KnownRecipes.RemoveAt(index);
-    }
-
 
     public void ButtonOpenClose() 
     {
         Open(!isCraftingOpen);
     }
-    public void Open(bool isOpen)
+    public void Open (bool isOpen)
     {
         isCraftingOpen = isOpen;
 
@@ -84,6 +62,9 @@ public class Crafting : MonoBehaviour
             inventoryMenu.LockSection(ItemType.KEY, false);
         }
 
+        // lock inventory menu open close button
+        inventoryMenu.LockOpenClose(isOpen);
+        inventoryMenu.LockGunSection(isOpen);
     }
     public void Lock (bool isLocked)
     {
@@ -94,9 +75,9 @@ public class Crafting : MonoBehaviour
     {
         // move selection index
         if (isRight)
-            recipeIndex = (recipeIndex + 1) % KnownRecipes.Count;
+            recipeIndex = (recipeIndex + 1) % inventory.Recipes.Count;
         else
-            recipeIndex = (recipeIndex - 1 + KnownRecipes.Count) % KnownRecipes.Count;
+            recipeIndex = (recipeIndex - 1 + inventory.Recipes.Count) % inventory.Recipes.Count;
 
         // show recipe
         ShowRecipe(recipeIndex);
@@ -109,29 +90,35 @@ public class Crafting : MonoBehaviour
     private void ShowRecipe(int index) 
     {
         // Recipes names
-        NameRecipe.text = KnownRecipes[index].Name;
-        NameBullet.text = KnownRecipes[index].Consumable.Name;
+        NameConsumable.text = inventory.Recipes[index].Consumable.Name;
 
         // ingredient list
         for (int i = 0; i < IngredientList.Length; i++)
         {
             IngredientList[i].gameObject.SetActive(false);
-            if (KnownRecipes[index].Ingredients.Length > i)
+            if (inventory.Recipes[index].Ingredients.Length > i)
             {
                 IngredientList[i].gameObject.SetActive(true);
-                IngredientList[i].text = KnownRecipes[index].Ingredients[i].Name;
+                IngredientList[i].text = inventory.Recipes[index].Ingredients[i].Name;
             }
         }
+
+        // Buttons
+        SelectRight.interactable = inventory.Recipes.Count > 1;
+        SelectLeft.interactable = inventory.Recipes.Count > 1;
     }
 
     public void Craft() 
     {
         // crafting is not possible
         if (!IsCraftingPossible())
+        {
+            CraftFailMessage.Play("Show");
             return;
+        }
 
         // remove ingredients from inventory
-        foreach (var ingredient in KnownRecipes[recipeIndex].IngredientsStacked)
+        foreach (var ingredient in inventory.Recipes[recipeIndex].IngredientsStacked)
         {
             for (int i = 0; i < ingredient.Quantity; i++)
                 inventory.RemoveItem(ingredient.Type, ingredient.Id);
@@ -140,13 +127,13 @@ public class Crafting : MonoBehaviour
         // show consumable section
         inventoryMenu.ShowSection(ItemType.CONSUMABLE);
         // add consumable to player inventory
-        inventory.AddItem(KnownRecipes[recipeIndex].Consumable);
+        inventory.AddItem(inventory.Recipes[recipeIndex].Consumable);
 
     }
     private bool IsCraftingPossible() 
     {
         // check if player has enough ingredients
-        foreach (var ingredient in KnownRecipes[recipeIndex].IngredientsStacked)
+        foreach (var ingredient in inventory.Recipes[recipeIndex].IngredientsStacked)
         {
             if (!inventory.CheckIngredientInInventory(ingredient.Id, ingredient.Quantity))
                 return false;

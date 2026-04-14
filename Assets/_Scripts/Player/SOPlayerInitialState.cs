@@ -16,6 +16,7 @@ public class SOPlayerInitialState : ScriptableObject
 
     public SOInventoryItem[] StartingItems;
     public SOInventoryItemBullet[] StartingBullets;
+    public SOCraftingRecipe[] StartingRecipes;
 
     public GameInfo.PlayerInfo GetPlayer() 
     {

@@ -340,14 +340,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1538599778114025860, guid: 9f25f29209661ad41b176bc4881de8f9, type: 3}
-      propertyPath: StartingMap
-      value: 
-      objectReference: {fileID: 3599094386276447101, guid: 27dfc13f5b48b2a4887910dd223d8f44, type: 3}
-    - target: {fileID: 1538599778114025860, guid: 9f25f29209661ad41b176bc4881de8f9, type: 3}
-      propertyPath: StartingEvents
-      value: 
-      objectReference: {fileID: 11400000, guid: 51cad0d2769a9264c9581fd5326aa771, type: 2}
     - target: {fileID: 2362228857835928483, guid: 9f25f29209661ad41b176bc4881de8f9, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0

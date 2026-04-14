@@ -28,6 +28,8 @@ namespace GameInfo
                 Inventory.AddItem(item.GetItem());
             foreach (var bullet in playerInitialState.StartingBullets)
                 Inventory.AddItem(bullet.GetBullet());
+            foreach (var recipe in playerInitialState.StartingRecipes)
+                Inventory.AddRecipe(recipe.GetRecipe());
         }
     }
     #endregion

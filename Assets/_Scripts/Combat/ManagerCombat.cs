@@ -25,7 +25,7 @@ public class ManagerCombat : MonoBehaviour
     private void Start()
     {
         // register combat on combat scene load
-        ManagerGameElements.Instance.ManagerEvents.CombatRegister(this);
+        ManagerGameElements.Instance.CombatRegister(this);
     }
     public void CombatStart(CombatEnounter encounter)
     {
@@ -62,7 +62,7 @@ public class ManagerCombat : MonoBehaviour
 
     public void CombatExit(bool isWin) 
     {
-        ManagerGameElements.Instance.ManagerEvents.CombatEnd(isWin);
+        ManagerGameElements.Instance.CombatEnd(isWin);
     }
 
     #region Player

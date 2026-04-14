@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Ingredient A
   m_EditorClassIdentifier: Assembly-CSharp::SOInventoryItem
   Id: ingredient_A
-  Name: ingredient_A
+  Name: Blue Slime Core
   Type: 0
+  Description: The powercel of the slime. Can be used to create potions.
+  Sprite: {fileID: 21300000, guid: f6ea29851c735264cbb9f8018e5b17d5, type: 3}

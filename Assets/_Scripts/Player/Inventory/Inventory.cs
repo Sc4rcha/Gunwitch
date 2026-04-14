@@ -10,6 +10,7 @@ public class Inventory
     public Dictionary<string, InventoryItem> Drums;
     public Dictionary<string, InventoryItem> KeyItems;
     public List<InventoryItem> Consumables;
+    public List<CraftingRecipe> Recipes;
 
     public Inventory()
     {
@@ -19,6 +20,7 @@ public class Inventory
         Drums = new Dictionary<string, InventoryItem>();
         KeyItems = new Dictionary<string, InventoryItem>();
         Consumables = new List<InventoryItem>();
+        Recipes = new List<CraftingRecipe>();
     }
 
     public void AddItem(InventoryItem item)
@@ -85,6 +87,17 @@ public class Inventory
                     Consumables.RemoveAt(consumIndex);
                 break;
         }
+    }
+
+    public void AddRecipe(CraftingRecipe recipe) 
+    {
+        Recipes.Add (recipe);
+    }
+    public void RemoveRecipe(string recipeId) 
+    {
+        foreach (var recipe in Recipes)
+            if (recipe.Id == recipeId)
+                Recipes.Remove (recipe);
     }
 
     public bool CheckItemInInventory(ItemType itemType, string itemId)

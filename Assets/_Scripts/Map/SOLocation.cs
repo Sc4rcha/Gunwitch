@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Location Info", menuName = "Overworld/Location")]
+[CreateAssetMenu(fileName = "Location Info", menuName = "Map/Location")]
 public class SOLocation : ScriptableObject
 {
     public string Name;

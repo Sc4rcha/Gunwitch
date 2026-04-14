@@ -21,12 +21,14 @@ public class MapLocationButton : Button
     {
         base.OnPointerEnter(eventData);
 
+        // show location name
         info.LocationNameShow(true);
     }
     public override void OnPointerExit(PointerEventData eventData)
     {
         base.OnPointerExit(eventData);
 
+        // hide location name
         info.LocationNameShow(false);
     }
 
@@ -36,6 +38,6 @@ public class MapLocationButton : Button
         base.OnPointerClick(eventData);
 
         // enter location
-        ManagerGameElements.Instance.ManagerOverworld.ButtonLocation(info.LocationInfo);
+        info.LocationInteract();
     }
 }

@@ -8,7 +8,7 @@ public class LocationScreen : MonoBehaviour
 
     private SOLocation locationInfo;
 
-    public void Setup() 
+    public void Setup(ManagerMap manager) 
     {
         // setup event buttons
         foreach (var button in EventButtons)
@@ -36,6 +36,7 @@ public class LocationScreen : MonoBehaviour
                 EventButtons[i].Show(locationEvents[i]);
         }
     }
+
 
     #region Enter/Exit
     public void Enter() 
