@@ -19,8 +19,12 @@ MonoBehaviour:
   Dexterity: 1
   Luck: 1
   Charisma: 1
-  StartingItems: []
+  EquippedDrum: {fileID: 11400000, guid: 4bef006ac01bc3c45804cfaa4070e7bb, type: 2}
+  StartingItems:
+  - {fileID: 11400000, guid: 5c96bf93224cd684393fe80f003a02fe, type: 2}
+  - {fileID: 11400000, guid: 4bef006ac01bc3c45804cfaa4070e7bb, type: 2}
   StartingBullets:
+  - {fileID: 11400000, guid: c8509abc8ec1ad94f9011d39d159b9ca, type: 2}
   - {fileID: 11400000, guid: cf398d804dc143042a02d5cb6f8ac887, type: 2}
   StartingRecipes:
   - {fileID: 11400000, guid: 343b0a64fea979b4fb98fd9d237396dc, type: 2}

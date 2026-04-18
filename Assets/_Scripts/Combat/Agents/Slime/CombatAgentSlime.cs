@@ -3,6 +3,7 @@ using UnityEngine;
 public class CombatAgentSlime : CombatAgent
 {
     [Header("SLIME")]
+    public SpriteRenderer RendererCore;
     public CombatSlimeMovement Movement;
     [Space]
     [Range(0, 100)]
@@ -17,6 +18,8 @@ public class CombatAgentSlime : CombatAgent
     public override void Setup(ManagerCombat manager)
     {
         base.Setup(manager);
+
+        RendererCore.sortingOrder = Renderer.sortingOrder + 1;
 
         Movement.Setup(this, manager.ArenaBounds);
 
@@ -48,9 +51,9 @@ public class CombatAgentSlime : CombatAgent
 
 
     #region Stat Change
-    public override void Damage(int value)
+    public override void Damage(int value, bool isCrit)
     {
-        base.Damage(value);
+        base.Damage(value, isCrit);
 
         // if hit while not moving and also didn't die from hit multiply
         if (!Movement.IsJumping)

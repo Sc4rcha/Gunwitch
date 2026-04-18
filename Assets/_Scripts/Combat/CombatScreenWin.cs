@@ -1,5 +1,6 @@
-using System.Collections.Generic;
 using GameInfo;
+using HutongGames.PlayMaker.Actions;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CombatScreenWin : MonoBehaviour
@@ -7,14 +8,14 @@ public class CombatScreenWin : MonoBehaviour
     public TMPro.TMP_Text[] LootDisplay;
 
     private List<LootItem> lootTable;
-    private List<InventoryItem> loot;
+    private Dictionary<SOInventoryItem,int> loot;
 
     private ManagerPlayer player;
     private int playerLuck;
 
     public void Setup() 
     {
-        loot = new List<InventoryItem>();
+        loot = new Dictionary<SOInventoryItem, int>();
         lootTable = new List<LootItem>();
 
         // get player info
@@ -34,10 +35,17 @@ public class CombatScreenWin : MonoBehaviour
     {
         LootCalculate();
 
-        for (int i = 0; i < loot.Count; i++)
+        int i = 0;
+        foreach (var lootSlot in loot)
         {
             LootDisplay[i].gameObject.SetActive(true);
-            LootDisplay[i].text = loot[i].Name;
+            LootDisplay[i].text = lootSlot.Key.Name + " x" + lootSlot.Value;
+            i++;
+        }
+
+        for (; i < LootDisplay.Length; i++)
+        {
+            LootDisplay[i].gameObject.SetActive(false);
         }
 
         gameObject.SetActive(true);
@@ -51,14 +59,20 @@ public class CombatScreenWin : MonoBehaviour
             {
                 if (Random.Range(0, 100) < lootItem.Chances)
                 {
-                    loot.Add(lootItem.Loot.GetItem());
+                    if (loot.ContainsKey(lootItem.Loot))
+                        loot[lootItem.Loot] += 1;
+                    else
+                        loot.Add(lootItem.Loot, 1);
                     break;
                 }
             }
         }
 
         // add loot to player
-        foreach (var item in loot)
-            player.Info.Inventory.AddItem(item);
+        foreach (var lootSlot in loot)
+        {
+            for (int i = 0; i < lootSlot.Value; i++)
+                player.Info.Inventory.AddItem(lootSlot.Key.GetItem());
+        }
     }
 }

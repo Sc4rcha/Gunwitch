@@ -34,14 +34,23 @@ public class InventoryMenu : MonoBehaviour
     /// Lock section button for a given section
     /// </summary>
     /// <param name="section"></param>
-    public virtual void LockSection(ItemType section, bool isLocked) 
+    public virtual void LockSection(ItemType section, bool isLock) 
     {
         // lock/unlock inventory slots if section is selected section
         if (selectedSection == section)
         {
             foreach (var slot in inventorySlots)
-                slot.SlotButton.interactable = !isLocked;
+                slot.SlotButton.interactable = !isLock;
         }
+    }
+    /// <summary>
+    /// Lock inventory item buttons
+    /// </summary>
+    /// <param name="isLock"></param>
+    public void LockItemButtons(bool isLock) 
+    {
+        foreach (var slot in inventorySlots)
+            slot.SlotButton.interactable = !isLock;
     }
 
     public virtual void ShowSection(ItemType section)

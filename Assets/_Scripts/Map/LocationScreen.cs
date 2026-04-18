@@ -42,6 +42,16 @@ public class LocationScreen : MonoBehaviour
     public void Enter() 
     {
         gameObject.SetActive(true);
+
+        // start event with autoplay in location
+        foreach (var locationEvent in ManagerGameElements.Instance.ManagerEvents.GetLocationEvents (locationInfo))
+        {
+            if (locationEvent.IsAutoplay)
+            {
+                EventStart(locationEvent);
+                break;
+            }
+        }
     }
     public void Exit() 
     {
@@ -51,14 +61,16 @@ public class LocationScreen : MonoBehaviour
 
     public void EventStart(SOEvent eventInfo) 
     {
+        // Add event finish to managerevents on event finish trigger
         ManagerGameElements.Instance.ManagerEvents.OnEnventFinish += EventFinish;
+        // start events
         ManagerGameElements.Instance.ManagerEvents.EventStart(eventInfo);
     }
     public void EventFinish()
     {
-        // called by event manager when event finishes
+        // remove event finish to managerevents on event finish trigger
         ManagerGameElements.Instance.ManagerEvents.OnEnventFinish -= EventFinish;
-        // refres location screen
+        // refresh location screen
         SetInfo(locationInfo);
     }
 

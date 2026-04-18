@@ -34,7 +34,7 @@ public class CombatAgentMageShield : CombatAgent
         base.PlayerTurnUpdate();
 
         if (playerGun.IsCursorOnShootingArea)
-            transform.position = Vector2.SmoothDamp(transform.position, playerGun.Crosshair.Crosshair.position, ref smoothDampVelocity, ShieldSmoothTime);
+            transform.position = Vector2.SmoothDamp(transform.position, playerGun.Visuals.Crosshair.position, ref smoothDampVelocity, ShieldSmoothTime);
         else
             transform.position = Vector2.SmoothDamp(transform.position, Mage.transform.position, ref smoothDampVelocity, ShieldSmoothTime);
     }

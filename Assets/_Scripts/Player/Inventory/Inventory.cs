@@ -12,6 +12,8 @@ public class Inventory
     public List<InventoryItem> Consumables;
     public List<CraftingRecipe> Recipes;
 
+    public string EquippedDrum;
+
     public Inventory()
     {
         // setup dictionaries and lists
@@ -21,6 +23,8 @@ public class Inventory
         KeyItems = new Dictionary<string, InventoryItem>();
         Consumables = new List<InventoryItem>();
         Recipes = new List<CraftingRecipe>();
+
+        EquippedDrum = "none";
     }
 
     public void AddItem(InventoryItem item)
@@ -87,6 +91,10 @@ public class Inventory
                     Consumables.RemoveAt(consumIndex);
                 break;
         }
+    }
+    public void EquipDrum(string newDrumId) 
+    {
+        EquippedDrum = newDrumId;
     }
 
     public void AddRecipe(CraftingRecipe recipe) 

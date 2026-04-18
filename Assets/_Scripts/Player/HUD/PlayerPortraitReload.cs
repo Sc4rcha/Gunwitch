@@ -1,24 +1,22 @@
-using GameInfo;
 using System.Linq;
+using UnityEngine;
 
 public class PlayerPortraitReload : PlayerPortraitItemSelection
 {
 
-    public void ReloadStart(Bullet defaultBullet) 
+    public void ReloadStart() 
     {
         base.SelectionStart();
 
         // Get bullets count = bullets in inventory + 1 for the defalt bullet
-        itemsCount = ManagerGameElements.Instance.Player.Info.Inventory.Bullets.Count + 1;
+        itemsCount = ManagerGameElements.Instance.Player.Info.Inventory.Bullets.Count;
 
         // show default bullet in inventory
-        Items[0].gameObject.SetActive(true);
-        Items[0].SetItemInfo(defaultBullet);
         // show consums in inventory
-        for (int i = 1; i < itemsCount; i++)
+        for (int i = 0; i < itemsCount; i++)
         {
             Items[i].gameObject.SetActive(true);
-            Items[i].SetItemInfo(ManagerGameElements.Instance.Player.Info.Inventory.Bullets.ElementAt(i - 1).Value);
+            Items[i].SetItemInfo(ManagerGameElements.Instance.Player.Info.Inventory.Bullets.ElementAt(i).Value);
         }
 
         // get angle step

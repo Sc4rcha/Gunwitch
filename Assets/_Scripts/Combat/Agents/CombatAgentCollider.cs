@@ -20,6 +20,6 @@ public class CombatAgentCollider : MonoBehaviour
     public void Damage(int value) 
     {
         // send damage to agent
-        agent.Damage(value);
+        agent.Damage(value, IsCrit);
     }
 }

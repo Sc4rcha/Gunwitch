@@ -40,6 +40,11 @@ public class ManagerPlayer : MonoBehaviour
         Info.Actor.HealthChange(-value);
         HUD.Refresh(Info.Actor);
     }
+    public void Heal (int value)
+    {
+        Info.Actor.HealthChange(value);
+        HUD.Refresh(Info.Actor);
+    }
     public void ManaUse(int value) 
     {
         Info.Actor.ManaChange(-value);

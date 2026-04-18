@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class CombatGun : MonoBehaviour
 {
     [Header ("Gun Stats")]
-    public SOInventoryItemBullet BulletDefault;
     public int MagazineSize;
     public float ShootingCooldown;
     public LayerMask CollisionLayer;
@@ -18,10 +17,9 @@ public class CombatGun : MonoBehaviour
     public CombatDrum Drum;
     public Camera CombatCamera;
     public RectTransform ShootingArea;
-    public CombatCrosshair Crosshair;
+    public CombatGunVisuals Visuals;
     [Space]
     public GameObject DrumButtonsHolder;
-    public Button ButtonLoadDefault;
     public Button ButtonUnload;
 
     // bullets in gun magazine
@@ -52,9 +50,6 @@ public class CombatGun : MonoBehaviour
         // add shooting to input actions
         InputSystem.actions.FindAction("Shoot").performed += InputShoot;
 
-        // setup load default bullet button
-        ButtonLoadDefault.GetComponent<LoadDefaultInfo>().Setup(BulletDefault.GetBullet());
-
         // setup drum
         Drum.Setup(MagazineSize);
     }
@@ -62,7 +57,7 @@ public class CombatGun : MonoBehaviour
 
     public void CombatFinish ()
     {
-        Crosshair.Show(false);
+        Visuals.Show(false);
         DrumButtonsHolder.SetActive(false);
 
         enabled = false;
@@ -82,29 +77,26 @@ public class CombatGun : MonoBehaviour
         }
 
         // update cursor
-        Crosshair.Show(IsCursorOnShootingArea);
-        Crosshair.UpdatePosition(CombatCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
+        Visuals.Show(IsCursorOnShootingArea && player.State == CombatPlayer.PlayerState.Shooting);
+        Visuals.UpdatePosition(CombatCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
     }
 
     #region Reload
     public void ReloadStart() 
     {
+        // hide Crosshair
+
+
         // activate Load and unload buttons
         DrumButtonsHolder.SetActive(true);
         // lock unload button (no bullets to unload)
         ButtonUnload.interactable = false;
-        // unlock load default
-        ButtonLoadDefault.interactable = true;
 
         // send reload start to Drum
         Drum.ReloadStart();
 
         // reset bullet index for loading
         bulletIndex = 0;
-    }
-    public void LoadBulletDefault() 
-    {
-        LoadBullet(BulletDefault.GetBullet());
     }
     public void LoadBullet(Bullet bullet) 
     {
@@ -115,8 +107,6 @@ public class CombatGun : MonoBehaviour
 
         // unload button interactable when a bullet is loaded
         ButtonUnload.interactable = true;
-        // load default button interactable when bullet is not last bullet on magazine
-        ButtonLoadDefault.interactable = bulletIndex < MagazineSize - 1;
 
         // Visuals load bullet
         Drum.LoadBullet(bulletIndex, bullet);
@@ -159,8 +149,6 @@ public class CombatGun : MonoBehaviour
 
         // Lock unload if no bullets, otherwise unlock
         ButtonUnload.interactable = bulletIndex != 0;
-        // unlock load bullet button
-        ButtonLoadDefault.interactable = true;
     }
     public void ReloadFinish() 
     {
@@ -187,12 +175,14 @@ public class CombatGun : MonoBehaviour
             bulletIndex = 0;
 
         // play shoot animation
-        Crosshair.Shoot();
+        Visuals.Shoot();
         PlayerHUDPortrait.Instance.GunShoot();
+
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
         // detect combat agents on crosshair
         agentColliders.Clear();
-        foreach (var col in Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector2.zero, Mathf.Infinity, CollisionLayer))
+        foreach (var col in Physics2D.RaycastAll(mousePosition, Vector2.zero, Mathf.Infinity, CollisionLayer))
         {
             if (col.collider.GetComponent<CombatAgentCollider>() is CombatAgentCollider agentCol)
                 agentColliders.Add(agentCol);
@@ -203,6 +193,9 @@ public class CombatGun : MonoBehaviour
 
         if (agentColliders.Count != 0)
         {
+            // show bullet stendil
+            Visuals.ShowStencil(mousePosition);
+
             // priorize crits
             targetCollider = agentColliders[0];
             foreach (var col in agentColliders)

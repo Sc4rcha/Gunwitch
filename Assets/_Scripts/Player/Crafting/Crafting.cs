@@ -50,6 +50,7 @@ public class Crafting : MonoBehaviour
             inventoryMenu.LockSection(ItemType.DRUM, true);
             inventoryMenu.LockSection(ItemType.BULLET, true);
             inventoryMenu.LockSection(ItemType.KEY, true);
+            inventoryMenu.LockItemButtons(true);
 
             // show selected recipe
             ShowRecipe(recipeIndex);
@@ -60,6 +61,7 @@ public class Crafting : MonoBehaviour
             inventoryMenu.LockSection(ItemType.DRUM, false);
             inventoryMenu.LockSection(ItemType.BULLET, false);
             inventoryMenu.LockSection(ItemType.KEY, false);
+            inventoryMenu.LockItemButtons(false);
         }
 
         // lock inventory menu open close button
@@ -124,11 +126,10 @@ public class Crafting : MonoBehaviour
                 inventory.RemoveItem(ingredient.Type, ingredient.Id);
         }
 
-        // show consumable section
-        inventoryMenu.ShowSection(ItemType.CONSUMABLE);
         // add consumable to player inventory
         inventory.AddItem(inventory.Recipes[recipeIndex].Consumable);
-
+        // refresh inventory
+        inventoryMenu.Refresh();
     }
     private bool IsCraftingPossible() 
     {

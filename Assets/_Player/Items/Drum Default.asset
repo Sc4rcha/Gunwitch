@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ef6ffc783628ea4bb931608f33d8186, type: 3}
-  m_Name: Drum A
+  m_Name: Drum Default
   m_EditorClassIdentifier: Assembly-CSharp::SOInventoryItem
-  Id: drum_A
-  Name: drum_A
+  Id: drum_Default
+  Name: Revolver Drum
   Type: 2
+  Description: The drum the revolver came with. 4 slots for bullets, no special effects
+  Sprite: {fileID: 21300000, guid: 2271d895cc3c6904eb16653facc6a2eb, type: 3}

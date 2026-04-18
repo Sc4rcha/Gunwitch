@@ -75,11 +75,11 @@ public class PlayerHUDPortrait : MonoBehaviour
     #endregion
 
     #region Combat Reload
-    public void ReloadStart(Bullet defaultBullet)
+    public void ReloadStart()
     {
         // show reload and hide normal player portrait
         PortraitReload.gameObject.SetActive(true);
-        PortraitReload.ReloadStart(defaultBullet);
+        PortraitReload.ReloadStart();
         PortraitShow(false);
     }
     public void ReloadFinish() 

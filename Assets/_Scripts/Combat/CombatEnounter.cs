@@ -85,4 +85,13 @@ public class CombatEnounter : MonoBehaviour
         return true;
     }
 
+
+#if UNITY_EDITOR
+    
+    private void OnDrawGizmos()
+    {
+        Bounds ArenaBounds = new Bounds(new Vector3(2, 1.5f), new Vector3(10, 6));
+        Handles.DrawWireCube(ArenaBounds.center, ArenaBounds.size);
+    }
+#endif
 }

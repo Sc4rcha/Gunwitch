@@ -18,8 +18,13 @@ public class CombatAgent : MonoBehaviour
 
     protected ManagerCombat manager;
 
+    public bool IsHurt { get; private set; }
+
     private bool isPlayerTurn;
-    private const float turnCooldown = 1;
+    private const float turnCooldown = 0.5f;
+
+    private float hurtDeathAnimationTime = 0.5f;
+    private float hurtDeathAnimationTimeCurrent;
 
     public virtual void Setup(ManagerCombat manager)
     {
@@ -34,7 +39,13 @@ public class CombatAgent : MonoBehaviour
         Actor = EnemyStatsReference.GetCombatActor();
         Actor.Startcombat();
 
+        // set renderer variables
         Renderer.sortingOrder = Priority * 10;
+        Renderer.color = Color.white;
+        Renderer.GetComponent<CombatAgentShake>().enabled = false;
+
+
+        IsHurt = false;
         isPlayerTurn = false;
     }
 
@@ -103,13 +114,13 @@ public class CombatAgent : MonoBehaviour
 
 
     #region Stat change
-    public virtual void Damage(int value)
+    public virtual void Damage(int value, bool isCrit)
     {
         foreach (var hitMessage in manager.HitMessages)
         {
             if (!hitMessage.gameObject.activeInHierarchy)
             {
-                hitMessage.transform.position = manager.Player.Gun.Crosshair.Crosshair.transform.position + Vector3.up;
+                hitMessage.transform.position = manager.Player.Gun.Visuals.Crosshair.transform.position + Vector3.up;
                 hitMessage.ShowNumber(value);
                 break;
             }
@@ -117,12 +128,11 @@ public class CombatAgent : MonoBehaviour
 
         Actor.HealthChange(-value);
 
-        // visual feedback for getting hurt
-        Animator.Play("Hurt");
-
-        // kill enememy if it died
+        // kill enememy if it died otherwise play hurt animation
         if (Actor.IsDead)
             Die();
+        else
+            StartCoroutine(HurtAnimation(isCrit));
     }
     protected virtual void Die() 
     {
@@ -137,22 +147,56 @@ public class CombatAgent : MonoBehaviour
         foreach (var colider in Colliders)
             colider.gameObject.SetActive(false);
 
-        // play dead animation
-        Animator.Play("Dead");
-
         // delay death deactivate enemy
-        StartCoroutine(DeathAnimationDelay());
+        StartCoroutine(DeathAnimation());
     }
     #endregion
 
 
-    IEnumerator DeathAnimationDelay()
+    IEnumerator HurtAnimation(bool isCrit) 
     {
-        while (!Animator.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
-            yield return null;
+        IsHurt = true;
 
-        while (Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        // start shake
+        if (isCrit)
+            Renderer.GetComponent<CombatAgentShake>().ShakeStart(2);
+        else
+            Renderer.GetComponent<CombatAgentShake>().ShakeStart(1);
+
+        // color lerp
+        hurtDeathAnimationTimeCurrent = 0;
+        while (hurtDeathAnimationTimeCurrent < hurtDeathAnimationTime)
+        {
+            Renderer.color = Color.Lerp(Color.softRed, Color.white, hurtDeathAnimationTimeCurrent / hurtDeathAnimationTime);
+            hurtDeathAnimationTimeCurrent += Time.deltaTime;
             yield return null;
+        }
+
+        // Hide bullet stencil
+        manager.Player.Gun.Visuals.HideStencil();
+
+        IsHurt = false;
+    }
+    IEnumerator DeathAnimation()
+    {
+        IsHurt = true;
+
+        // start shake
+        Renderer.GetComponent<CombatAgentShake>().ShakeStart(3);
+
+        // color lerp
+        hurtDeathAnimationTimeCurrent = 0;
+        while (hurtDeathAnimationTimeCurrent < hurtDeathAnimationTime)
+        {
+            Renderer.color = Color.Lerp(Color.gray5, Color.white, hurtDeathAnimationTimeCurrent / hurtDeathAnimationTime);
+            hurtDeathAnimationTimeCurrent += Time.deltaTime;
+            yield return null;
+        }
+
+        // Hide bullet stencil
+        manager.Player.Gun.Visuals.HideStencil();
+
+        IsHurt = false;
 
         gameObject.SetActive(false);
     }

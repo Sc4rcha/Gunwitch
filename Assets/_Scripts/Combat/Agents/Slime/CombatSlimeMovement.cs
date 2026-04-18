@@ -68,23 +68,20 @@ public class CombatSlimeMovement : MonoBehaviour
     #endregion
 
 
-    private void Update()
+    public void Update()
     {
-        UpdateMove();
+        if (manager.IsHurt)
+            return;
+
+        // apply horizontal smooth damp stop
+        if (!IsJumping)
+            enemyVelocity.x = Mathf.SmoothDamp(enemyVelocity.x, 0, ref horizontalDampVelocity, HorizontalMovementSmoothTime);
+
         CalculateMovement();
 
         // set animator varialbes
         manager.Animator.SetFloat("velocityX", enemyVelocity.x);
         manager.Animator.SetBool("isJumping", IsJumping);
-    }
-
-
-    #region move updates
-    private void UpdateMove()
-    {
-        // apply horizontal smooth damp stop
-        if (!IsJumping)
-            enemyVelocity.x = Mathf.SmoothDamp(enemyVelocity.x, 0, ref horizontalDampVelocity, HorizontalMovementSmoothTime);
     }
     private void CalculateMovement() 
     {
@@ -100,6 +97,4 @@ public class CombatSlimeMovement : MonoBehaviour
         // apply position
         Body.position = enemyPosition;
     }
-    #endregion
-
 }

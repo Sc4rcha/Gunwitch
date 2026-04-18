@@ -55,6 +55,13 @@ public class ManagerMap : MonoBehaviour
 
         // refresh map at instantiation
         Refresh();
+
+        // enter starting location
+        if (map.InitialLocation != null)
+        {
+            LocationSetInfo(map.InitialLocation);
+            LocationEnter();
+        }
     }
     public void MapClose() 
     {

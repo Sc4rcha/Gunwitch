@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class InventoryMenuOverworld : InventoryMenu
 {
     [Header("References Overworld")]
-    public GameObject ItemInfo;
+    public InventoryItemInfoOverworld Information;
+    public InventoryGun Gun;
     [Space]
     public InventorySlotButtonInfo[] InventorySlotsReference;
     [Space]
@@ -44,7 +45,14 @@ public class InventoryMenuOverworld : InventoryMenu
         foreach (var slot in inventorySlots)
             slot.Setup(this);
 
+        // select ingredients by default
         lastSelectedSection = ItemType.INGREDIENT;
+
+        // setup information
+        Information.InventoryMenu = this;
+
+        // setup gun
+        Gun.Setup(player);
 
         // Close inventory
         Open(false);
@@ -54,6 +62,10 @@ public class InventoryMenuOverworld : InventoryMenu
     public void ButtonOpenClose()
     {
         Open(!isInventoryOpen);
+    }
+    public void ButtonGun() 
+    {
+        Gun.OpenClose();
     }
     #endregion
 
@@ -122,7 +134,9 @@ public class InventoryMenuOverworld : InventoryMenu
             InventoryWindow.anchoredPosition = positionClose;
 
         // hide item preview
-        ItemInfo.gameObject.SetActive(false);
+        Information.InfoHide();
+        // hide gun
+        Gun.Hide();
 
         // show last selected section when opening the inventory
         ShowSection(lastSelectedSection);
@@ -132,7 +146,7 @@ public class InventoryMenuOverworld : InventoryMenu
         base.ShowSection(section);
 
         // hide item info if changing sections
-        ItemInfo.SetActive(false);
+        Information.InfoHide();
 
         // set last selected section
         lastSelectedSection = section;
@@ -207,6 +221,18 @@ public class InventoryMenuOverworld : InventoryMenu
 
     public override void ItemSelect(InventoryItem item)
     {
-        ItemInfo.gameObject.SetActive(true);
+
+        // show item info
+        Information.InfoShow(ManagerGameElements.Instance.ItemReferences.GetItemReference(item.Id));
+    }
+
+    public void ConsumUse(SOInventoryItem item)
+    {
+        // item effect
+        item.ItemEffect();
+        // remove item from inventory
+        player.Inventory.RemoveItem(item.Type, item.Id);
+        // Refresh inventory
+        Refresh();
     }
 }

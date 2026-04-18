@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOEventFSM
   Name: FSM Debug
   EventLocation: {fileID: 11400000, guid: 47d55a4f8a4608146a524b53aa5bb36e, type: 2}
-  EventFSM: {fileID: 4807789364032136366, guid: e93c2e2bf38e250449e94fc14faddbe1, type: 3}
+  IsPersistent: 0
+  IsAutoplay: 0
+  EventsAdd: []
+  EventsRemove: []
+  FSM: {fileID: 4807789364032136366, guid: e93c2e2bf38e250449e94fc14faddbe1, type: 3}

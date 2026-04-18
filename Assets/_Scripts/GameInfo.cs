@@ -30,6 +30,9 @@ namespace GameInfo
                 Inventory.AddItem(bullet.GetBullet());
             foreach (var recipe in playerInitialState.StartingRecipes)
                 Inventory.AddRecipe(recipe.GetRecipe());
+
+            // set equipped drum
+            Inventory.EquippedDrum = playerInitialState.EquippedDrum.Id;
         }
     }
     #endregion

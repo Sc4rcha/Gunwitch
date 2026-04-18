@@ -15,6 +15,7 @@ MonoBehaviour:
   Name: Slimes
   EventLocation: {fileID: 11400000, guid: 5b14414643b8d2c46a96281fa97650f2, type: 2}
   IsPersistent: 0
+  IsAutoplay: 0
   EventsAdd:
   - {fileID: 11400000, guid: 2c578853a59e856428a75949e3948db8, type: 2}
   EventsRemove: []

@@ -2,13 +2,14 @@ using GameInfo;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class InventoryMenuCombat : InventoryMenu
 {
     [Header("Combat")]
-    public GameObject ItemInfo;
+    public InventoryItemInfo Information;
+    [Space]
     public GameObject ItemUseConfirm;
+    public GameObject InventoryScrollview;
     [Space]
     public Button ButtonOpen;
     public Button ButtonClose;
@@ -84,6 +85,9 @@ public class InventoryMenuCombat : InventoryMenu
                 }
                 break;
         }
+
+        // show inventory Scrollview
+        InventoryScrollview.SetActive(true);
     }
 
 
@@ -146,19 +150,17 @@ public class InventoryMenuCombat : InventoryMenu
         if (item.Type == ItemType.CONSUMABLE)
             PlayerHUDPortrait.Instance.ConsumsFocus(item.Id);
 
-        ItemInfo.SetActive(true);
+
+        Information.InfoShow(ManagerGameElements.Instance.ItemReferences.GetItemReference(item.Id));
     }
     public override void ItemDelesect()
     {
         base.ItemDelesect();
 
-        ItemInfo.SetActive(false);
+        Information.InfoHide();
     }
     public override void ItemUse(InventoryItem item)
     {
-        // deselect used item.
-        ItemDelesect();
-
         // load bullet
         if (item.Type == ItemType.BULLET)
             combat.Player.Gun.LoadBullet(item as Bullet);
@@ -190,11 +192,16 @@ public class InventoryMenuCombat : InventoryMenu
 
     public void InventoryClose() 
     {
+        ItemDelesect();
+
         ButtonClose.interactable = false;
         ButtonOpen.interactable = true;
 
         // hide all slots
         foreach (var slot in inventorySlots)
             slot.Show(false);
+
+        // hide inventory Scrollview
+        InventoryScrollview.SetActive(false);
     }
 }

@@ -139,7 +139,7 @@ public class CombatPlayer : MonoBehaviour
                 break;
             case PlayerState.Reloading:
                 // player HUD enter reload
-                PlayerHUDPortrait.Instance.ReloadStart(Gun.BulletDefault.GetBullet());
+                PlayerHUDPortrait.Instance.ReloadStart();
 
                 // inventory enter reload
                 manager.InventoryMenu.ReloadStart();

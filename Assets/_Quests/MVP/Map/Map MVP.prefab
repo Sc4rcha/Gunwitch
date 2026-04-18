@@ -444,9 +444,17 @@ PrefabInstance:
       value: Map MVP
       objectReference: {fileID: 0}
     - target: {fileID: 5057727192281955835, guid: 5c6e62de51b346e4896ff39f1185cf62, type: 3}
+      propertyPath: Name
+      value: MVP map
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057727192281955835, guid: 5c6e62de51b346e4896ff39f1185cf62, type: 3}
       propertyPath: MapEvents
       value: 
       objectReference: {fileID: 11400000, guid: 51cad0d2769a9264c9581fd5326aa771, type: 2}
+    - target: {fileID: 5057727192281955835, guid: 5c6e62de51b346e4896ff39f1185cf62, type: 3}
+      propertyPath: InitialLocation
+      value: 
+      objectReference: {fileID: 11400000, guid: 213953548b9997f4780da2e6f1b18413, type: 2}
     - target: {fileID: 5057727192281955835, guid: 5c6e62de51b346e4896ff39f1185cf62, type: 3}
       propertyPath: 'Locations.Array.data[0]'
       value: 

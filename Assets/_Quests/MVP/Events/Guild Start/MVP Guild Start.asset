@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc04ff25f771d7642957da1a38d7fa74, type: 3}
   m_Name: MVP Guild Start
   m_EditorClassIdentifier: Assembly-CSharp::SOEventFSM
-  Name: Quest Start
+  Name: Talk with Guild
   EventLocation: {fileID: 11400000, guid: 213953548b9997f4780da2e6f1b18413, type: 2}
   IsPersistent: 0
   EventsAdd:

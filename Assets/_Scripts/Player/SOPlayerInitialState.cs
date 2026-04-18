@@ -14,6 +14,8 @@ public class SOPlayerInitialState : ScriptableObject
     public int Luck;
     public int Charisma;
 
+    [Header("Inventory")]
+    public SOInventoryItem EquippedDrum;
     public SOInventoryItem[] StartingItems;
     public SOInventoryItemBullet[] StartingBullets;
     public SOCraftingRecipe[] StartingRecipes;
