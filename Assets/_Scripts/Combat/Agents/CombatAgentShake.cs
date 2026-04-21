@@ -7,10 +7,6 @@ public class CombatAgentShake : MonoBehaviour
     public const float ShakeScaleStrength = 0.05f;
     public const float ShakeStepTime = 0.1f;
 
-
-    public AnimationCurve IntensityCurve;
-
-
     private Vector3 initialScale;
     private Vector3 initialPosition;
     private float shakeTime;
@@ -26,7 +22,7 @@ public class CombatAgentShake : MonoBehaviour
             ShakeFinish();
 
         // get initial state 
-        initialPosition = transform.position;
+        initialPosition = transform.localPosition;
         initialScale = transform.localScale;
 
         // setup shake variables
@@ -41,8 +37,10 @@ public class CombatAgentShake : MonoBehaviour
     public void ShakeFinish() 
     {
         // reset state to initial state
-        transform.position = initialPosition;
+        transform.localPosition = initialPosition;
         transform.localScale = initialScale;
+
+        enabled = false;
     }
 
     private void Update()
@@ -52,12 +50,12 @@ public class CombatAgentShake : MonoBehaviour
         // shake steps
         if (shakeTimeCurrent > (shakeTime / shakeSteps) * shakeStepsCurrent)
         {
-            transform.localScale = initialScale - Vector3.one * IntensityCurve.Evaluate(shakeTimeCurrent / shakeTime) * ShakeScaleStrength;
-            transform.position = initialPosition + (Vector3)Random.insideUnitCircle.normalized * IntensityCurve.Evaluate(shakeTimeCurrent / shakeTime) * ShakeStrength;
+            transform.localScale = initialScale - Vector3.one * (1-(shakeTimeCurrent / shakeTime)) * ShakeScaleStrength;
+            transform.localPosition = initialPosition + (Vector3)Random.insideUnitCircle.normalized * (1 - (shakeTimeCurrent / shakeTime)) * ShakeStrength;
             shakeStepsCurrent++;
         }
 
         if (shakeTimeCurrent > shakeTime)
-            enabled = false;
+            ShakeFinish();
     }
 }

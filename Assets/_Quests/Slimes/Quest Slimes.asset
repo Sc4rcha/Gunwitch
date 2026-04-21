@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a170309109180fa46bb189d2a610633e, type: 3}
+  m_Name: Quest Slimes
+  m_EditorClassIdentifier: Assembly-CSharp::SOQuest
+  QuestName: Slimes
+  QuestDescription: A village has trouble with some strange slimes that explode on
+    death. They need someone to look into it, that someone is you!
+  InitialEvent: {fileID: 11400000, guid: b33fcf44475bf364aa550264c71ee781, type: 2}
+  QuestMap: {fileID: 6839095951491151182, guid: 146fe14d2a488bd4896ffbbd1089e861, type: 3}

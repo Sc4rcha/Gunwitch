@@ -35,7 +35,7 @@ public class ManagerDialogue : MonoBehaviour
     public Color FocusOffColor;
 
     // dialogue finished action
-    public event Action OnDialogueFinished;
+    public event Action OnDialogueFinish;
     public event Action<DecisionOption> OnDialogueDecision;
 
     private Dialogue dialogueSelected;
@@ -77,7 +77,7 @@ public class ManagerDialogue : MonoBehaviour
         gameObject.SetActive(false);
 
         // call action
-        OnDialogueFinished?.Invoke();
+        OnDialogueFinish?.Invoke();
     }
 
     public void DialogueNext()

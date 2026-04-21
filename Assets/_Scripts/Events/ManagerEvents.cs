@@ -1,6 +1,8 @@
+using GameInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -50,6 +52,7 @@ public class ManagerEvents : MonoBehaviour
     }
     #endregion
 
+
     /// <summary>
     /// Get active events for a specific location
     /// </summary>
@@ -60,45 +63,43 @@ public class ManagerEvents : MonoBehaviour
         return ActiveEvents.Where(e => e.EventLocation == location).ToArray();
     }
 
+
+    #region EVENT START
     public void EventStart(SOEvent eventSelected)
     {
         // Player Setup
         ManagerGameElements.Instance.Player.EventStart();
 
-        if (eventFSMInstance != null)
-            Debug.LogError("Event already instantiated. There cannot be two events active at the same time!");
-
-        // start event depending on type
-        if (eventSelected is SOEventFSM eventFSM) 
-        {
-            // instantiate event object
-            eventFSMInstance = Instantiate(eventFSM.FSM, EventObjectParent).GetComponent<PlayMakerFSM>();
-            // start FSM
-            eventFSMInstance.SendEvent("EVENT_START");
-        }
-        else if (eventSelected is SOEventCombat eventCombat)
-        {
-            // start combat
-            ManagerGameElements.Instance.CombatLoad(eventCombat.Encounter);
-            ManagerGameElements.Instance.OnCombatFinish += EventFinish;
-        }
-
-
-        // Add and Remove evets
-        EventAddList(eventSelected.EventsAdd);
-        EventRemoveList(eventSelected.EventsRemove);
+        // remove event from list if not persistent
         if (!eventSelected.IsPersistent)
             EventRemove(eventSelected);
 
-        // show event background
-        EventScreen.SetActive(true);
-        EventBackground.sprite = eventSelected.EventLocation.BackgroundSprite;
+        // execute event actions
+        EventContext context = new EventContext(this);
+        foreach (var action in eventSelected.EventActions)
+            action.Execute(context);
+
+        // show Location background
+        EventScreen.SetActive(eventSelected.EventLocation != null);
+        if (eventSelected.EventLocation != null)
+            EventBackground.sprite = eventSelected.EventLocation.BackgroundSprite;
+    }
+    public void EventFSM(PlayMakerFSM fsm) 
+    {
+        // instantiate event object
+        eventFSMInstance = Instantiate(fsm, EventObjectParent);
+        // start FSM
+        eventFSMInstance.SendEvent("EVENT_START");
+    }
+    /// <summary>
+    /// Event finish for events you cannot FAIL
+    /// </summary>
+    public void EventFinish() 
+    {
+        EventFinish(true);
     }
     public void EventFinish(bool isEventPass)
     {
-        // clear combat finish event if the event was an SOCombatEvent
-        ManagerGameElements.Instance.OnCombatFinish -= EventFinish;
-
         // hide event background
         EventScreen.SetActive(false);
 
@@ -120,4 +121,5 @@ public class ManagerEvents : MonoBehaviour
         {
         }
     }
+    #endregion
 }

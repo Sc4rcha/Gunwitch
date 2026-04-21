@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class ManagerCombat : MonoBehaviour
     public CombatPlayer Player;
     public Transform EncounterParent;
     public InventoryMenuCombat InventoryMenu;
+    public CombatEffects Effects;
     [Header ("Screens")]
     public CombatScreenAttack ScreenAttack;
     public CombatScreenPhases ScreenPhases;
@@ -17,7 +19,7 @@ public class ManagerCombat : MonoBehaviour
     public Bounds ArenaBounds;
 
     public bool IsPlayerTurn { get; private set; }
-    public CombatEnounter Encounter { get; private set; }
+    public CombatEncounter Encounter { get; private set; }
 
     private int enemyTurnIndex;
     private bool isCombatFinished;
@@ -27,7 +29,7 @@ public class ManagerCombat : MonoBehaviour
         // register combat on combat scene load
         ManagerGameElements.Instance.CombatRegister(this);
     }
-    public void CombatStart(CombatEnounter encounter)
+    public void CombatStart(CombatEncounter encounter)
     {
         // instantiate and setup encounter
         Encounter = Instantiate(encounter, EncounterParent);
@@ -53,11 +55,7 @@ public class ManagerCombat : MonoBehaviour
         Player.CombatFinish();
         InventoryMenu.Lock(true);
 
-        // if player won show combat win screen. Just exit if lost combat (TO DO LATER)
-        if (isWin)
-            ScreenWin.ScreenShow();
-        else
-            CombatExit(false);
+        StartCoroutine(CombatFinishDelay(isWin));
     }
 
     public void CombatExit(bool isWin) 
@@ -93,8 +91,7 @@ public class ManagerCombat : MonoBehaviour
         // send player turn finish to encounter
         Encounter.PlayerTurnFinish();
 
-        // Start enemy round
-        EnemyRoundStart();
+        StartCoroutine(PhaseChangeToEnemy());
     }
     #endregion
 
@@ -165,6 +162,29 @@ public class ManagerCombat : MonoBehaviour
         if (Player.PlayerReference.Info.Actor.IsDead)
             CombatFinish(false);
     }
+
+
+    private IEnumerator CombatFinishDelay(bool isWin) 
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        // if player won show combat win screen. Just exit if lost combat (TO DO LATER)
+        if (isWin)
+            ScreenWin.ScreenShow();
+        else
+            CombatExit(false);
+    }
+    private IEnumerator PhaseChangeToEnemy() 
+    {
+        while (Encounter.CheckAllEnemiesfinishedActions())
+            yield return null;
+
+        yield return new WaitForSeconds(1);
+
+        // Start enemy round
+        EnemyRoundStart();
+    }
+
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

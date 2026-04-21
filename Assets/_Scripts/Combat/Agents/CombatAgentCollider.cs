@@ -4,11 +4,11 @@ public class CombatAgentCollider : MonoBehaviour
 {
     public bool IsCrit;
     public int Priority { get; private set; }
+    public CombatAgent Agent { get; private set; }
 
-    private CombatAgent agent;
     public void Setup(CombatAgent agent) 
     {
-        this.agent = agent;
+        Agent = agent;
         Priority = agent.Priority;
         gameObject.SetActive(true);
     }
@@ -20,6 +20,6 @@ public class CombatAgentCollider : MonoBehaviour
     public void Damage(int value) 
     {
         // send damage to agent
-        agent.Damage(value, IsCrit);
+        Agent.Damage(value, IsCrit);
     }
 }

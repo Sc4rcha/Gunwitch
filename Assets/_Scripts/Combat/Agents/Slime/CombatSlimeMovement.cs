@@ -44,6 +44,8 @@ public class CombatSlimeMovement : MonoBehaviour
     #region MOVEMENT ACTIONS
     public void Jump()
     {
+        ForceJumpState();
+
         if (Mathf.Abs(Body.position.x - bounds.center.x) > bounds.size.x / 4)
             enemyVelocity.x = MoveSpeed * -Mathf.Sign(Body.position.x - bounds.center.x);
         else 
@@ -65,6 +67,10 @@ public class CombatSlimeMovement : MonoBehaviour
     {
         Jump();
     }
+    public void ForceJumpState() 
+    {
+        enemyPosition.y += 0.1f;
+    }
     #endregion
 
 
@@ -80,7 +86,6 @@ public class CombatSlimeMovement : MonoBehaviour
         CalculateMovement();
 
         // set animator varialbes
-        manager.Animator.SetFloat("velocityX", enemyVelocity.x);
         manager.Animator.SetBool("isJumping", IsJumping);
     }
     private void CalculateMovement() 

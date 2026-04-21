@@ -5,7 +5,7 @@ namespace HutongGames.PlayMaker.Actions
     [ActionCategory("Events")]
     public class ActionCombat : FsmStateAction
     {
-        public CombatEnounter Encounter;
+        public CombatEncounter Encounter;
 
         public override void OnEnter()
         {

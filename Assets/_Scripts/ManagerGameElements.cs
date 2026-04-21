@@ -74,8 +74,8 @@ public class ManagerGameElements : MonoBehaviour
 
     #region Combat
     public event Action<bool> OnCombatFinish;
-    private CombatEnounter encounterReference;
-    public void CombatLoad(CombatEnounter encounterReference)
+    private CombatEncounter encounterReference;
+    public void CombatLoad(CombatEncounter encounterReference)
     {
         // get combat start variables
         this.encounterReference = encounterReference;

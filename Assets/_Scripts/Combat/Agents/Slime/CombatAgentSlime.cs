@@ -3,7 +3,6 @@ using UnityEngine;
 public class CombatAgentSlime : CombatAgent
 {
     [Header("SLIME")]
-    public SpriteRenderer RendererCore;
     public CombatSlimeMovement Movement;
     [Space]
     [Range(0, 100)]
@@ -19,8 +18,7 @@ public class CombatAgentSlime : CombatAgent
     {
         base.Setup(manager);
 
-        RendererCore.sortingOrder = Renderer.sortingOrder + 1;
-
+        // setup movement
         Movement.Setup(this, manager.ArenaBounds);
 
         // start with randomizing movement
@@ -60,6 +58,8 @@ public class CombatAgentSlime : CombatAgent
         {
             manager.Encounter.SpawnEnemy(this, transform.position, out CombatAgent addedEnemy);
             (addedEnemy as CombatAgentSlime).Movement.Spawn();
+
+            Movement.ForceJumpState();
         }
     }
     #endregion

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ingredient B
   m_EditorClassIdentifier: Assembly-CSharp::SOInventoryItem
   Id: ingredient_B
-  Name: ingredient_B
+  Name: Red Slime Core
   Type: 0
-  Description: 
+  Description: The powercel of the slime. Can be used to create grenades.
   Sprite: {fileID: 21300000, guid: 8a4197786fb0b2e46b099f8fba54643b, type: 3}

@@ -10,7 +10,8 @@ public class CombatAgent : MonoBehaviour
     public SOCombatEnemy EnemyStatsReference;
     public int Priority;
 
-    [Header ("Scene References")]
+    [Header("Scene References")]
+    public Transform Pivot;
     public SpriteRenderer Renderer;
     public CombatAgentCollider[] Colliders;
     public Animator Animator;
@@ -18,12 +19,14 @@ public class CombatAgent : MonoBehaviour
 
     protected ManagerCombat manager;
 
-    public bool IsHurt { get; private set; }
+    public bool IsHurt { get; protected set; }
+    public bool IsDoingStuff { get; protected set; }
 
     private bool isPlayerTurn;
     private const float turnCooldown = 0.5f;
 
-    private float hurtDeathAnimationTime = 0.5f;
+    protected float hurtAnimationTime = 0.5f;
+    protected float deathAnimationTime = 0.5f;
     private float hurtDeathAnimationTimeCurrent;
 
     public virtual void Setup(ManagerCombat manager)
@@ -73,7 +76,7 @@ public class CombatAgent : MonoBehaviour
     public virtual void TurnFinish()
     {
         // clear attack screen finish event
-        manager.ScreenAttack.OnAnimationEnd -= TurnFinish;
+        manager.ScreenAttack.OnAnimationFinish -= TurnFinish;
 
         // do turn end stuff
 
@@ -92,7 +95,7 @@ public class CombatAgent : MonoBehaviour
     {
         // visual feedback for acting
         manager.ScreenAttack.Attack(EnemyStatsReference.AttackSprite);
-        manager.ScreenAttack.OnAnimationEnd += TurnFinish;
+        manager.ScreenAttack.OnAnimationFinish += TurnFinish;
 
         // Do ability
         manager.EnemyAttack(EnemyStatsReference.Attack);
@@ -118,9 +121,9 @@ public class CombatAgent : MonoBehaviour
     {
         foreach (var hitMessage in manager.HitMessages)
         {
-            if (!hitMessage.gameObject.activeInHierarchy)
+            if (hitMessage.IsAvailable)
             {
-                hitMessage.transform.position = manager.Player.Gun.Visuals.Crosshair.transform.position + Vector3.up;
+                hitMessage.transform.position = Pivot.position + Vector3.up;
                 hitMessage.ShowNumber(value);
                 break;
             }
@@ -136,25 +139,31 @@ public class CombatAgent : MonoBehaviour
     }
     protected virtual void Die() 
     {
-        // add loot to win screen
-        foreach (var loot in EnemyStatsReference.Loot)
-            manager.ScreenWin.AddLootItem(loot);
-
-        // send death to manager to check for combat over
-        manager.CheckCombatOver();
-
-        // deactivate colliders
-        foreach (var colider in Colliders)
-            colider.gameObject.SetActive(false);
-
         // delay death deactivate enemy
         StartCoroutine(DeathAnimation());
     }
     #endregion
 
 
+    protected virtual void Cleanup() 
+    {
+        // add loot to win screen
+        foreach (var loot in EnemyStatsReference.Loot)
+            manager.ScreenWin.AddLootItem(loot);
+
+        // deactivate colliders
+        foreach (var colider in Colliders)
+            colider.gameObject.SetActive(false);
+
+        // send death to manager to check for combat over
+        manager.CheckCombatOver();
+
+        gameObject.SetActive(false);
+    }
+
     IEnumerator HurtAnimation(bool isCrit) 
     {
+        IsDoingStuff = true;
         IsHurt = true;
 
         // start shake
@@ -163,11 +172,13 @@ public class CombatAgent : MonoBehaviour
         else
             Renderer.GetComponent<CombatAgentShake>().ShakeStart(1);
 
+        manager.Effects.HitStopStart();
+
         // color lerp
         hurtDeathAnimationTimeCurrent = 0;
-        while (hurtDeathAnimationTimeCurrent < hurtDeathAnimationTime)
+        while (hurtDeathAnimationTimeCurrent < hurtAnimationTime)
         {
-            Renderer.color = Color.Lerp(Color.softRed, Color.white, hurtDeathAnimationTimeCurrent / hurtDeathAnimationTime);
+            Renderer.color = Color.Lerp(Color.softRed, Color.white, hurtDeathAnimationTimeCurrent / hurtAnimationTime);
             hurtDeathAnimationTimeCurrent += Time.deltaTime;
             yield return null;
         }
@@ -175,20 +186,24 @@ public class CombatAgent : MonoBehaviour
         // Hide bullet stencil
         manager.Player.Gun.Visuals.HideStencil();
 
+        IsDoingStuff = false;
         IsHurt = false;
     }
     IEnumerator DeathAnimation()
     {
+        IsDoingStuff = true;
         IsHurt = true;
 
         // start shake
         Renderer.GetComponent<CombatAgentShake>().ShakeStart(3);
 
+        manager.Effects.HitStopStart();
+
         // color lerp
         hurtDeathAnimationTimeCurrent = 0;
-        while (hurtDeathAnimationTimeCurrent < hurtDeathAnimationTime)
+        while (hurtDeathAnimationTimeCurrent < deathAnimationTime)
         {
-            Renderer.color = Color.Lerp(Color.gray5, Color.white, hurtDeathAnimationTimeCurrent / hurtDeathAnimationTime);
+            Renderer.color = Color.Lerp(Color.gray5, Color.white, hurtDeathAnimationTimeCurrent / deathAnimationTime);
             hurtDeathAnimationTimeCurrent += Time.deltaTime;
             yield return null;
         }
@@ -196,9 +211,10 @@ public class CombatAgent : MonoBehaviour
         // Hide bullet stencil
         manager.Player.Gun.Visuals.HideStencil();
 
+        IsDoingStuff = true;
         IsHurt = false;
 
-        gameObject.SetActive(false);
+        Cleanup();
     }
 
 }

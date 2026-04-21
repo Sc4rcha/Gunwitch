@@ -10,7 +10,7 @@ public class CombatScreenAttack : MonoBehaviour
     public float AttackAnimationTime;
     private float attackTimeCurrent;
 
-    public event Action OnAnimationEnd;
+    public event Action OnAnimationFinish;
 
     public void Attack(Sprite attackSprite) 
     {
@@ -26,7 +26,7 @@ public class CombatScreenAttack : MonoBehaviour
         attackTimeCurrent += Time.deltaTime;
         if (attackTimeCurrent > AttackAnimationTime)
         {
-            OnAnimationEnd?.Invoke();
+            OnAnimationFinish?.Invoke();
             gameObject.SetActive(false);
         }
     }

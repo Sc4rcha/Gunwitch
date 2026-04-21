@@ -4,6 +4,8 @@ public class CombatHitMessage : MonoBehaviour
 {
     public TMPro.TMP_Text Text;
 
+    public bool IsAvailable { get; private set; } = true;
+
     private float messageTime = 0.75f;
     private float messageTimeCurrent;
 
@@ -13,6 +15,7 @@ public class CombatHitMessage : MonoBehaviour
 
         messageTimeCurrent = 0;
 
+        IsAvailable = false;
         gameObject.SetActive(true);
     }
     public void ShowMiss() 
@@ -21,6 +24,7 @@ public class CombatHitMessage : MonoBehaviour
 
         messageTimeCurrent = 0;
 
+        IsAvailable = false;
         gameObject.SetActive(true);
     }
 
@@ -29,6 +33,9 @@ public class CombatHitMessage : MonoBehaviour
         messageTimeCurrent += Time.deltaTime;
 
         if (messageTime < messageTimeCurrent)
+        {
+            IsAvailable = true;
             gameObject.SetActive(false);
+        }
     }
 }

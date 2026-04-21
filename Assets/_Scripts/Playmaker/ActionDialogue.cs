@@ -11,12 +11,12 @@ namespace HutongGames.PlayMaker.Actions
         public override void OnEnter()
         {
             ManagerGameElements.Instance.ManagerDialogue.DialogueStart(Dialogue);
-            ManagerGameElements.Instance.ManagerDialogue.OnDialogueFinished += DialogueEnd;
+            ManagerGameElements.Instance.ManagerDialogue.OnDialogueFinish += DialogueEnd;
         }
 
         public void DialogueEnd()
         {
-            ManagerGameElements.Instance.ManagerDialogue.OnDialogueFinished -= DialogueEnd;
+            ManagerGameElements.Instance.ManagerDialogue.OnDialogueFinish -= DialogueEnd;
             Finish();
         }
     }

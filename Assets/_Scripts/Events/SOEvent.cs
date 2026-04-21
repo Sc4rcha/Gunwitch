@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "Event", menuName = "Event/Event", order = 0)]
 public class SOEvent : ScriptableObject
 {
     public string Name;
@@ -8,7 +9,7 @@ public class SOEvent : ScriptableObject
     public bool IsPersistent;
     [Tooltip ("Does this event play the moment the player enters the location?")]
     public bool IsAutoplay;
+
     [Space]
-    public SOEvent[] EventsAdd;
-    public SOEvent[] EventsRemove;
+    public SOEventAction[] EventActions;
 }

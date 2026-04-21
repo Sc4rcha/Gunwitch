@@ -126,6 +126,18 @@ namespace GameInfo
     }
     #endregion
 
+    #region EVENTS
+    public class EventContext 
+    {
+        public ManagerEvents ManagerEvents;
+
+        public EventContext(ManagerEvents managerEvents)
+        {
+            ManagerEvents = managerEvents;
+        }
+    }
+    #endregion
+
     #region INVENTORY
     public enum ItemType { INGREDIENT, BULLET, DRUM, KEY, CONSUMABLE }
 
