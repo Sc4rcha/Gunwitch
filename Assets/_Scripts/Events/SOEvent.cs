@@ -11,5 +11,19 @@ public class SOEvent : ScriptableObject
     public bool IsAutoplay;
 
     [Space]
+    [Tooltip ("Array of flags to check to unlock event")]
+    public SOEventFlag[] UnlockFlags;
+    [Tooltip ("Actions called when the event is triggered")]
     public SOEventAction[] EventActions;
+
+    public bool CheckUnlocked(GameInfo.Flags flags) 
+    {
+        // check if any unlocked condition is not met and return false
+        foreach (var unlockCondition in UnlockFlags)
+            if (!unlockCondition.Check(flags))
+                return false;
+
+        // otherwise return true
+        return true;
+    }
 }

@@ -6,12 +6,12 @@ public class SOEventActionDialogue : SOEventAction
 {
     public SODialogue Dialogue;
 
-    public override void Execute(EventContext context)
+    public override void Execute(ManagerEvents manager)
     {
         void DialogueFinish() 
         {
             ManagerGameElements.Instance.ManagerDialogue.OnDialogueFinish -= DialogueFinish;
-            context.ManagerEvents.EventFinish();
+            manager.EventFinish(true);
         }
 
         ManagerGameElements.Instance.ManagerDialogue.DialogueStart(Dialogue);

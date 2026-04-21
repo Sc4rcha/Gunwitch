@@ -8,7 +8,6 @@ public class ManagerQuests : MonoBehaviour
     [Space]
     public TMPro.TMP_Text QuestDescription;
 
-
     private SOQuest quest;
 
     public void Setup() 

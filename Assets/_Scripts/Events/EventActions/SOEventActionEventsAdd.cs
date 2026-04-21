@@ -6,8 +6,8 @@ public class SOEventActionEventsAdd : SOEventAction
 {
     public SOEvent[] EventsToAdd;
 
-    public override void Execute(EventContext context)
+    public override void Execute(ManagerEvents manager)
     {
-        context.ManagerEvents.EventAddList(EventsToAdd);
+        manager.EventAddList(EventsToAdd);
     }
 }

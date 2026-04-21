@@ -6,8 +6,8 @@ public class SOEventActionEventsRemove : SOEventAction
 {
     public SOEvent[] EventsToRemove;
 
-    public override void Execute(EventContext context)
+    public override void Execute(ManagerEvents manager)
     {
-        context.ManagerEvents.EventRemoveList(EventsToRemove);
+        manager.EventRemoveList(EventsToRemove);
     }
 }

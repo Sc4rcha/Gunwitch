@@ -2,26 +2,37 @@ using GameInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ManagerEvents : MonoBehaviour
 {
+    [Header ("Scene References")]
     public Transform EventObjectParent;
     public GameObject EventScreen;
     public Image EventBackground;
 
-    public List<SOEvent> ActiveEvents { get; private set; }
-
-    private PlayMakerFSM eventFSMInstance;
+    public Flags EventFlags;
 
     public event Action OnEnventFinish;
+
+    // event lists
+    private List<SOEvent> activeEvents;
+    private List<SOEvent> lockedEvents;
+
+    private PlayMakerFSM eventFSMInstance;
 
     public void Setup() 
     {
         // setup active events list
-        ActiveEvents = new List<SOEvent>();
+        activeEvents = new List<SOEvent>();
+        lockedEvents = new List<SOEvent>();
+
+        // setup flags for the game
+        EventFlags = new Flags();
+
+        // check to unlock events when event finishes
+        OnEnventFinish += CheckLockedEvents;
     }
 
 
@@ -33,8 +44,16 @@ public class ManagerEvents : MonoBehaviour
     }
     public void EventAdd(SOEvent eventToAdd) 
     {
-        if (!ActiveEvents.Contains (eventToAdd))
-            ActiveEvents.Add(eventToAdd);
+        if (eventToAdd.CheckUnlocked(EventFlags))
+        {
+            if (!activeEvents.Contains(eventToAdd))
+                activeEvents.Add(eventToAdd);
+        }
+        else
+        {
+            if (!lockedEvents.Contains(eventToAdd))
+                lockedEvents.Add(eventToAdd);
+        }
     }
     public void EventRemoveList(SOEvent[] list)
     {
@@ -43,12 +62,14 @@ public class ManagerEvents : MonoBehaviour
     }
     public void EventRemove(SOEvent eventToRemove) 
     {
-        if (ActiveEvents.Contains (eventToRemove))
-            ActiveEvents.Remove(eventToRemove);
+        if (activeEvents.Contains (eventToRemove))
+            activeEvents.Remove(eventToRemove);
+        if (lockedEvents.Contains(eventToRemove))
+            lockedEvents.Remove(eventToRemove);
     }
     public void EventsClear() 
     {
-        ActiveEvents.Clear();
+        activeEvents.Clear();
     }
     #endregion
 
@@ -60,7 +81,7 @@ public class ManagerEvents : MonoBehaviour
     /// <returns></returns>
     public SOEvent[] GetLocationEvents(SOLocation location) 
     {
-        return ActiveEvents.Where(e => e.EventLocation == location).ToArray();
+        return activeEvents.Where(e => e.EventLocation == location).ToArray();
     }
 
 
@@ -75,28 +96,13 @@ public class ManagerEvents : MonoBehaviour
             EventRemove(eventSelected);
 
         // execute event actions
-        EventContext context = new EventContext(this);
         foreach (var action in eventSelected.EventActions)
-            action.Execute(context);
+            action.Execute(this);
 
         // show Location background
         EventScreen.SetActive(eventSelected.EventLocation != null);
         if (eventSelected.EventLocation != null)
             EventBackground.sprite = eventSelected.EventLocation.BackgroundSprite;
-    }
-    public void EventFSM(PlayMakerFSM fsm) 
-    {
-        // instantiate event object
-        eventFSMInstance = Instantiate(fsm, EventObjectParent);
-        // start FSM
-        eventFSMInstance.SendEvent("EVENT_START");
-    }
-    /// <summary>
-    /// Event finish for events you cannot FAIL
-    /// </summary>
-    public void EventFinish() 
-    {
-        EventFinish(true);
     }
     public void EventFinish(bool isEventPass)
     {
@@ -113,13 +119,33 @@ public class ManagerEvents : MonoBehaviour
         // send event end trigger
         OnEnventFinish?.Invoke();
 
-        // Player Setup
-        ManagerGameElements.Instance.Player.EventFinish();
-
         // game over screen if player fails event
         if (!isEventPass)
         {
         }
     }
     #endregion
+
+    public void InstantiateFSM(PlayMakerFSM fsm)
+    {
+        // instantiate event object
+        eventFSMInstance = Instantiate(fsm, EventObjectParent);
+        // start FSM
+        eventFSMInstance.SendEvent("EVENT_START");
+    }
+
+    public void CheckLockedEvents() 
+    {
+        SOEvent lockedEvent;
+        for (int i = lockedEvents.Count - 1; i >= 0; i--)
+        {
+            lockedEvent = lockedEvents[i];
+            // if event meets unlock conditions remove from locked events and add to active events
+            if (lockedEvent.CheckUnlocked(EventFlags))
+            {
+                EventRemove(lockedEvent);
+                EventAdd(lockedEvent);
+            }
+        }
+    }
 }

@@ -6,8 +6,8 @@ public class SOEventActionFSM : SOEventAction
 {
     public PlayMakerFSM FSM;
 
-    public override void Execute(EventContext context)
+    public override void Execute(ManagerEvents manager)
     {
-        context.ManagerEvents.EventFSM(FSM);
+        manager.InstantiateFSM(FSM);
     }
 }

@@ -127,14 +127,49 @@ namespace GameInfo
     #endregion
 
     #region EVENTS
-    public class EventContext 
-    {
-        public ManagerEvents ManagerEvents;
+    public enum FlagValueType { Bool, Int }
 
-        public EventContext(ManagerEvents managerEvents)
+
+    public class FlagStateValue
+    {
+        public FlagValueType Type;
+        public bool BoolValue;
+        public int IntValue;
+    }
+
+    public class Flags 
+    {
+        private Dictionary<string, FlagStateValue> values = new();
+
+        public void SetFlag(string key, bool value)
         {
-            ManagerEvents = managerEvents;
+            if (!values.ContainsKey(key)) 
+            {
+                values[key] = new FlagStateValue
+                {
+                    Type = FlagValueType.Bool,
+                    BoolValue = value
+                };
+            }
+
+            values[key].BoolValue = value;
         }
+        public void AddProgress(string key, int amount = 1)
+        {
+            if (!values.ContainsKey(key))
+            {
+                values[key] = new FlagStateValue
+                {
+                    Type = FlagValueType.Int,
+                    IntValue = 0
+                };
+            }
+
+            values[key].IntValue += amount;
+        }
+
+        public bool GetBool(string key) => values.ContainsKey(key) && values[key].BoolValue;
+        public int GetInt(string key) => values.ContainsKey(key) ? values[key].IntValue : 0;
     }
     #endregion
 

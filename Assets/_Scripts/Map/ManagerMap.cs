@@ -12,6 +12,7 @@ public class ManagerMap : MonoBehaviour
     public LocationScreen LocationScreen;
     public GameObject ButtonFinishQuest;
 
+    private ManagerEvents managerEvents;
     private Map map;
 
 
@@ -23,6 +24,9 @@ public class ManagerMap : MonoBehaviour
 
         // hide map screen
         gameObject.SetActive(false);
+
+        // get event manager reference
+        managerEvents = ManagerGameElements.Instance.ManagerEvents;
     }
 
     // Load a new map
@@ -42,7 +46,7 @@ public class ManagerMap : MonoBehaviour
 
         // add map events
         if (map.MapEvents != null)
-            ManagerGameElements.Instance.ManagerEvents.EventAddList(map.MapEvents.Events);
+            managerEvents.EventAddList(map.MapEvents.Events);
 
         // setup location buttons
         foreach (var locationButton in map.Locations)
@@ -75,25 +79,15 @@ public class ManagerMap : MonoBehaviour
     // refresh map (check location availability)
     public void Refresh() 
     {
-        // get list of active events
-        SOEvent[] activeEvents = ManagerGameElements.Instance.ManagerEvents.ActiveEvents.ToArray();
-
         foreach (var location in map.Locations)
         {
             // Activate location if is persistent, deactivate if not
             location.gameObject.SetActive(location.LocationInfo.IsPersistent);
 
-            foreach (var activeEvent in activeEvents)
-            {
-                // reactivate location if an event is taking place there
-                if (location.LocationInfo == activeEvent.EventLocation)
-                {
-                    location.gameObject.SetActive(true);
-                    break;
-                }
-            }
+            // activate location if any event is taking place there
+            if (managerEvents.GetLocationEvents(location.LocationInfo).Length > 0)
+                location.gameObject.SetActive(true);
         }
-
     }
 
 

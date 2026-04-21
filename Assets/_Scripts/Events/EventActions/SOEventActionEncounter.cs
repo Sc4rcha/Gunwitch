@@ -3,12 +3,12 @@ using UnityEngine;
 
 public abstract class SOEventActionEncounter : SOEventAction
 {
-    public override void Execute(EventContext context)
+    public override void Execute(ManagerEvents manager)
     {
         void CombatFinish(bool isWin) 
         {
             ManagerGameElements.Instance.OnCombatFinish -= CombatFinish;
-            context.ManagerEvents.EventFinish(isWin);
+            manager.EventFinish(isWin);
         }
 
         ManagerGameElements.Instance.CombatLoad(GetEncounter());
