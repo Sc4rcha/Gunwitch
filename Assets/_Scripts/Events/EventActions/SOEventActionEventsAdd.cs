@@ -1,7 +1,7 @@
 using GameInfo;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Events Add", menuName = "Event/Actions Functionality/Events Add", order = 1)]
+[CreateAssetMenu(fileName = "Events Add", menuName = "Event/Actions Functionality/Events Add", order = 31)]
 public class SOEventActionEventsAdd : SOEventAction
 {
     public SOEvent[] EventsToAdd;

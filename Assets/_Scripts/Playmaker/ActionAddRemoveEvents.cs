@@ -13,7 +13,7 @@ namespace HutongGames.PlayMaker.Actions
             base.OnEnter();
 
             ManagerGameElements.Instance.ManagerEvents.EventAddList(Add);
-            ManagerGameElements.Instance.ManagerEvents.EventRemoveList(Remove);
+            ManagerGameElements.Instance.ManagerEvents.EventDeactivateList(Remove);
 
             Finish();
         }

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class LocationScreen : MonoBehaviour
 {
     public Image BackgroundImage;
+    public GameObject ExitButton;
     public LocationScreenButtonInfo[] EventButtons;
 
     private SOLocation locationInfo;

@@ -1,4 +1,4 @@
-using UnityEngine;
+using GameInfo;
 
 namespace HutongGames.PlayMaker.Actions
 {
@@ -6,6 +6,7 @@ namespace HutongGames.PlayMaker.Actions
     public class ActionCombat : FsmStateAction
     {
         public CombatEncounter Encounter;
+        public bool LoseBehaviour;
 
         public override void OnEnter()
         {
@@ -13,12 +14,22 @@ namespace HutongGames.PlayMaker.Actions
             ManagerGameElements.Instance.OnCombatFinish += CombatFinish;
         }
 
-        public void CombatFinish (bool isPlayerWin)
+        public void CombatFinish (CombatEndType endType)
         {
-            if (isPlayerWin)
+            ManagerGameElements.Instance.OnCombatFinish -= CombatFinish;
+
+            switch (endType)
+            {
+                case CombatEndType.Win:
                 Fsm.Event("COMBAT_WIN");
-            else
+                    break;
+                case CombatEndType.Lose:
                 Fsm.Event("COMBAT_LOSE");
+                    break;
+                case CombatEndType.Special:
+                Fsm.Event("COMBAT_SPECIAL");
+                    break;
+            }
         }
 
     }

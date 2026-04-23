@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Enemy Slime Explosive Info
   m_EditorClassIdentifier: Assembly-CSharp::SOCombatEnemy
   Name: Slime
+  Id: enemy_slime_explosive
   AttackSprite: {fileID: 21300000, guid: 9c79281e09db0064f85f754081a6a02e, type: 3}
   Health: 7
   Mana: 0

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Combat Single", menuName = "Event/Actions/Combat Single", order = 2)]
+[CreateAssetMenu(fileName = "Combat Single", menuName = "Event/Actions/Combat Single", order = 22)]
 public class SOEventActionEncounterSingle : SOEventActionEncounter
 {
     public CombatEncounter Encounter;

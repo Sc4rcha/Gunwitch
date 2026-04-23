@@ -33,8 +33,10 @@ public class CombatScreenWin : MonoBehaviour
 
     public void ScreenShow()
     {
+        // calculate all loot
         LootCalculate();
 
+        // display loot
         int i = 0;
         foreach (var lootSlot in loot)
         {
@@ -43,20 +45,23 @@ public class CombatScreenWin : MonoBehaviour
             i++;
         }
 
+        // Hide remaining loot items
         for (; i < LootDisplay.Length; i++)
-        {
             LootDisplay[i].gameObject.SetActive(false);
-        }
 
+        // show screen
         gameObject.SetActive(true);
     }
 
     private void LootCalculate()
     {
+        // Check for each possible loot drop
         foreach (var lootItem in lootTable)
         {
+            // Repeat equal to player's luck
             for (int i = 0; i < playerLuck; i++)
             {
+                // Check if player got item
                 if (Random.Range(0, 100) < lootItem.Chances)
                 {
                     if (loot.ContainsKey(lootItem.Loot))

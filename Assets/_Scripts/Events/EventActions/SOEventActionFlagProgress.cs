@@ -1,7 +1,7 @@
 using GameInfo;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Flag Progress", menuName = "Event/Actions Functionality/Flag Progress", order = 3)]
+[CreateAssetMenu(fileName = "Flag Progress", menuName = "Event/Actions Functionality/Flag Progress", order = 33)]
 public class SOEventActionFlagProgress : SOEventAction
 {
     public SOFlag FlagInfo;

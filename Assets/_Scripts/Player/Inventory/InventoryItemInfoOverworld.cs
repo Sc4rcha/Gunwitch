@@ -5,8 +5,8 @@ public class InventoryItemInfoOverworld : InventoryItemInfo
 {
     public TMPro.TMP_Text ItemName;
     [Space]
-    public GameObject ConsumButton;
-    public GameObject ConsumConfirm;
+    public GameObject ItemUseButton;
+    public GameObject ItemUseConfirmHolder;
 
     [HideInInspector]
     public InventoryMenuOverworld InventoryMenu;
@@ -22,22 +22,21 @@ public class InventoryItemInfoOverworld : InventoryItemInfo
         ItemName.text = item.Name;
 
         // show use consum if item is consum
-        ConsumButton.SetActive(item.Type == ItemType.CONSUMABLE);
+        ItemUseButton.SetActive(item.IsItemUsable());
     }
-    public void ConsumUse()
+    
+    public void ItemUse()
     {
-        ConsumConfirm.SetActive(true);
+        ItemUseConfirmHolder.SetActive(true);
     }
-
-    public void ConsumUseConfirm(bool isConfirm)
+    public void ItemUseConfirm(bool isConfirm)
     {
-        ConsumConfirm.SetActive(false);
+        ItemUseConfirmHolder.SetActive(false);
 
         if (isConfirm)
         {
-            InventoryMenu.ConsumUse(item);
+            InventoryMenu.ItemUse(item.GetItem());
             item = null;
         }
-
     }
 }

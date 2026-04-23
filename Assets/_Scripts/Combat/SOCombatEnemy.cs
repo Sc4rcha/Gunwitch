@@ -5,6 +5,7 @@ using UnityEngine;
 public class SOCombatEnemy : ScriptableObject
 {
     public string Name;
+    public string Id;
 
     [Header("Sprites")]
     public Sprite AttackSprite;

@@ -8566,7 +8566,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Do you want to use this consumable?
+  m_text: Do you want to use this item?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9106,7 +9106,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 920294023694047968}
         m_TargetAssemblyTypeName: InventoryItemInfoOverworld, Assembly-CSharp
-        m_MethodName: ConsumUseConfirm
+        m_MethodName: ItemUseConfirm
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9860,7 +9860,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4421790171079153975}
   m_Layer: 0
-  m_Name: Consum Confirm
+  m_Name: Item Use Confirm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10043,7 +10043,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 920294023694047968}
         m_TargetAssemblyTypeName: InventoryItemInfoOverworld, Assembly-CSharp
-        m_MethodName: ConsumUseConfirm
+        m_MethodName: ItemUseConfirm
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11620,7 +11620,7 @@ GameObject:
   - component: {fileID: 8990511896864585958}
   - component: {fileID: 7378806684745093587}
   m_Layer: 0
-  m_Name: Consum Button
+  m_Name: Item Use Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11730,7 +11730,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 920294023694047968}
         m_TargetAssemblyTypeName: InventoryItemInfoOverworld, Assembly-CSharp
-        m_MethodName: ConsumUse
+        m_MethodName: ItemUse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12037,6 +12037,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 71c11b0dbc73c77499e350d5e4accd8a, type: 2}
   - {fileID: 11400000, guid: 152be7f229970c64bbaa91949bfe684d, type: 2}
   - {fileID: 11400000, guid: d2f35a00ceb2e5646bcf3e9f64618fe9, type: 2}
+  - {fileID: 11400000, guid: c63a7e2e920a87b43bc1000dd096dea9, type: 2}
 --- !u!1 &6805033028134599797
 GameObject:
   m_ObjectHideFlags: 0
@@ -14461,8 +14462,8 @@ MonoBehaviour:
   ItemImage: {fileID: 9030411792580854418}
   ItemDescription: {fileID: 7340743434069143556}
   ItemName: {fileID: 8239813313236551810}
-  ConsumButton: {fileID: 6596804759389247369}
-  ConsumConfirm: {fileID: 5611059875304546745}
+  ItemUseButton: {fileID: 6596804759389247369}
+  ItemUseConfirmHolder: {fileID: 5611059875304546745}
   InventoryMenu: {fileID: 0}
 --- !u!1 &8332863816104207008
 GameObject:

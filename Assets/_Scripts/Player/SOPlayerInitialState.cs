@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Player Initial State", menuName = "Player/Initial State")]
+[CreateAssetMenu(fileName = "Player Initial State", menuName = "Player Initial State")]
 public class SOPlayerInitialState : ScriptableObject
 {
     [Header("Combat Stats")]

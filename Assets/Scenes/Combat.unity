@@ -3692,7 +3692,7 @@ MonoBehaviour:
       - m_Target: {fileID: 109500559}
         m_TargetAssemblyTypeName: ManagerCombat, Assembly-CSharp
         m_MethodName: CombatExit
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

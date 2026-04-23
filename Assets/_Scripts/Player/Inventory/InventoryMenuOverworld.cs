@@ -219,20 +219,23 @@ public class InventoryMenuOverworld : InventoryMenu
         InventorySectionIcon.gameObject.SetActive(true);
     }
 
+    public override void ItemUse(InventoryItem item)
+    {
+        base.ItemUse(item);
+
+        // get scriptable object of item
+        SOInventoryItem soItem = ManagerGameElements.Instance.ItemReferences.GetItemReference(item.Id);
+
+        // item effect
+        soItem.ItemEffect();
+
+        // Refresh inventory
+        Refresh();
+    }
     public override void ItemSelect(InventoryItem item)
     {
 
         // show item info
         Information.InfoShow(ManagerGameElements.Instance.ItemReferences.GetItemReference(item.Id));
-    }
-
-    public void ConsumUse(SOInventoryItem item)
-    {
-        // item effect
-        item.ItemEffect();
-        // remove item from inventory
-        player.Inventory.RemoveItem(item.Type, item.Id);
-        // Refresh inventory
-        Refresh();
     }
 }

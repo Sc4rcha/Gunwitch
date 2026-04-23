@@ -129,14 +129,27 @@ namespace GameInfo
     #region EVENTS
     public enum FlagValueType { Bool, Int }
 
+    public class EventState
+    {
+        public bool IsLocked;
+        public bool IsActive;
+        public bool IsComplete;
 
+        public bool IsAvailable => !IsLocked && IsActive && !IsComplete;
+
+        public EventState(bool isLocked) 
+        {
+            IsLocked = isLocked;
+            IsActive = true;
+            IsComplete = false;
+        }
+    }
     public class FlagStateValue
     {
         public FlagValueType Type;
         public bool BoolValue;
         public int IntValue;
     }
-
     public class Flags 
     {
         private Dictionary<string, FlagStateValue> values = new();
@@ -171,6 +184,8 @@ namespace GameInfo
         public bool GetBool(string key) => values.ContainsKey(key) && values[key].BoolValue;
         public int GetInt(string key) => values.ContainsKey(key) ? values[key].IntValue : 0;
     }
+
+    public enum CombatEndType {Win, Lose, Special }
     #endregion
 
     #region INVENTORY

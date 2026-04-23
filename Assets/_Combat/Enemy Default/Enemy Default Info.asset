@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f69eedba67cfbf4683246dc761bfb72, type: 3}
   m_Name: Enemy Default Info
   m_EditorClassIdentifier: Assembly-CSharp::SOCombatEnemy
-  Name: Enemy Debug
+  Name: Default Enemy
+  Id: enemy_default
   AttackSprite: {fileID: 21300000, guid: ea2e0f02d422f4f42bbbd2515e34b9b7, type: 3}
   Health: 20
   Mana: 0

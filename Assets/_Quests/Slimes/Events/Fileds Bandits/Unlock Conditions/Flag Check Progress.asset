@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Flag Check Progress
   m_EditorClassIdentifier: Assembly-CSharp::SOEventFlagProgress
   Flag: {fileID: 11400000, guid: 2996250eb0931de4e9ad1107f2b69189, type: 2}
-  Progress: 3
+  Value: 3

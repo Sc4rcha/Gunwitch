@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Recipe", menuName = "Player/Recipe")]
+[CreateAssetMenu(fileName = "Recipe", menuName = "Inventory/Craft Recipe")]
 public class SOCraftingRecipe : ScriptableObject
 {
     public string Id;

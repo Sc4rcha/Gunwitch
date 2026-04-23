@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Enemy Mage Info
   m_EditorClassIdentifier: Assembly-CSharp::SOCombatEnemy
   Name: Mage
+  Id: enemy_bandit_mage
   AttackSprite: {fileID: 21300000, guid: 6fde59f929ea1b14daac461e97a2f88c, type: 3}
   Health: 20
   Mana: 0

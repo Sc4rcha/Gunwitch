@@ -76,6 +76,7 @@ public class ManagerMap : MonoBehaviour
         Destroy(map.gameObject);
     }
 
+
     // refresh map (check location availability)
     public void Refresh() 
     {
@@ -108,6 +109,10 @@ public class ManagerMap : MonoBehaviour
         LocationScreen.Exit();
 
         Refresh();
+    }
+    public void LocationLock(bool isLocked) 
+    {
+        LocationScreen.ExitButton.SetActive(!isLocked);
     }
 
     // called by location button to open a new location in the overworld

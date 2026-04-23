@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
+using GameInfo;
 
 public class ManagerCombat : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class ManagerCombat : MonoBehaviour
 
     private int enemyTurnIndex;
     private bool isCombatFinished;
+    private CombatEndType combatEndType;
 
     private void Start()
     {
@@ -47,7 +49,7 @@ public class ManagerCombat : MonoBehaviour
         // start combat
         PlayerRoundStart();
     }
-    public void CombatFinish(bool isWin)
+    public void CombatFinish(CombatEndType endType)
     {
         isCombatFinished = true;
 
@@ -55,13 +57,14 @@ public class ManagerCombat : MonoBehaviour
         Player.CombatFinish();
         InventoryMenu.Lock(true);
 
-        StartCoroutine(CombatFinishDelay(isWin));
+        StartCoroutine(CombatFinishDelay(endType));
     }
 
-    public void CombatExit(bool isWin) 
+    public void CombatExit() 
     {
-        ManagerGameElements.Instance.CombatEnd(isWin);
+        ManagerGameElements.Instance.CombatEnd(combatEndType);
     }
+
 
     #region Player
     public void PlayerRoundStart() 
@@ -154,29 +157,34 @@ public class ManagerCombat : MonoBehaviour
 
     public void CheckCombatOver() 
     {
+        // check if encounter special condition is met
+        if (Encounter.CheckEncounterWincons())
+            CombatFinish(CombatEndType.Special);
         // check player win all enemies dead
-        if (Encounter.CheckEncounterFinished())
-            CombatFinish(true);
-
+        else if (Encounter.CheckEncounterFinished())
+            CombatFinish(CombatEndType.Win);
         // check player lose player is dead
-        if (Player.PlayerReference.Info.Actor.IsDead)
-            CombatFinish(false);
+        else if (Player.PlayerReference.Info.Actor.IsDead)
+            CombatFinish(CombatEndType.Lose);
     }
 
 
-    private IEnumerator CombatFinishDelay(bool isWin) 
+    private IEnumerator CombatFinishDelay(CombatEndType endType) 
     {
+        combatEndType = endType;
+
         yield return new WaitForSeconds(1.5f);
 
         // if player won show combat win screen. Just exit if lost combat (TO DO LATER)
-        if (isWin)
+        if (endType == CombatEndType.Win || endType == CombatEndType.Special)
             ScreenWin.ScreenShow();
         else
-            CombatExit(false);
+            CombatExit();
     }
     private IEnumerator PhaseChangeToEnemy() 
     {
-        while (Encounter.CheckAllEnemiesfinishedActions())
+
+        while (Encounter.CheckEnemiesDoingStuff())
             yield return null;
 
         yield return new WaitForSeconds(1);

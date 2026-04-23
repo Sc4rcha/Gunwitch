@@ -5,6 +5,6 @@ public class SOAbility : ScriptableObject
 {
     public string Name;
     public int Damage;
-    [Range (1,100)]
+    [Range (1,200)]
     public int Hit;
 }

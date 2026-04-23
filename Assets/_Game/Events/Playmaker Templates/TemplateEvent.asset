@@ -231,7 +231,7 @@ MonoBehaviour:
       categories:
       - 
       variableCategoryIDs: 
-    description: A template setup for an event
+    description: 
     docUrl: 
     showStateLabel: 0
     maxLoopCount: 0

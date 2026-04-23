@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Item", menuName = "Player/Item")]
+[CreateAssetMenu(fileName = "Item", menuName = "Inventory/Item")]
 public class SOInventoryItem : ScriptableObject
 {
     public string Id;
@@ -19,5 +19,9 @@ public class SOInventoryItem : ScriptableObject
     public virtual void ItemEffect()
     {
         Debug.Log("Item Effect " + Name);
+    }
+    public virtual bool IsItemUsable() 
+    {
+        return false;
     }
 }

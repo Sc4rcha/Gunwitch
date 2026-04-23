@@ -17,26 +17,44 @@ MonoBehaviour:
     dataVersion: 2
     usedInTemplate: {fileID: 11400000}
     name: FSM
-    startState: Dialogue
+    startState: Dialogue Branching
     states:
-    - name: Dialogue
+    - name: Dialogue Branching
       description: 
       colorIndex: 2
       position:
         serializedVersion: 2
-        x: 64
-        y: 112
-        width: 100
-        height: 32
+        x: 256
+        y: 64
+        width: 157.86
+        height: 64
       isBreakpoint: 0
-      isSequence: 0
+      isSequence: 1
       hideUnused: 0
       transitions:
       - fsmEvent:
-          name: FINISHED
-          isSystemEvent: 1
-          isGlobal: 0
-        toState: Dialogue Decision
+          name: DIALOGUE_OPTION_A
+          isSystemEvent: 0
+          isGlobal: 1
+        toState: Option A
+        linkStyle: 0
+        linkConstraint: 0
+        linkTarget: 0
+        colorIndex: 0
+      - fsmEvent:
+          name: DIALOGUE_OPTION_B
+          isSystemEvent: 0
+          isGlobal: 1
+        toState: Option C
+        linkStyle: 0
+        linkConstraint: 0
+        linkTarget: 0
+        colorIndex: 0
+      - fsmEvent:
+          name: DIALOGUE_OPTION_C
+          isSystemEvent: 0
+          isGlobal: 1
+        toState: Option B
         linkStyle: 0
         linkConstraint: 0
         linkTarget: 0
@@ -44,12 +62,14 @@ MonoBehaviour:
       actionData:
         actionNames:
         - HutongGames.PlayMaker.Actions.ActionDialogue
+        - HutongGames.PlayMaker.Actions.ActionDialogueDecision
         customNames:
         - 
-        actionEnabled: 01
-        actionIsOpen: 01
-        actionStartIndex: 00000000
-        actionHashCodes: 13f2b903
+        - 
+        actionEnabled: 0101
+        actionIsOpen: 0101
+        actionStartIndex: 0000000001000000
+        actionHashCodes: 13f2b9030744b301
         unityObjectParams:
         - {fileID: 0}
         fsmGameObjectParams: []
@@ -73,163 +93,30 @@ MonoBehaviour:
         fsmColorParams: []
         fsmRectParams: []
         fsmQuaternionParams: []
-        stringParams: []
+        stringParams:
+        - Option A
+        - Option B
+        - Option C
         byteData: 
         arrayParamSizes: 
         arrayParamTypes: []
         customTypeSizes: 
         customTypeNames: []
-        paramDataType: 05000000
+        paramDataType: 05000000030000000300000003000000
         paramName:
         - Dialogue
-        paramDataPos: 00000000
-        paramByteDataSize: 00000000
-    - name: Dialogue Decision
-      description: 
-      colorIndex: 1
-      position:
-        serializedVersion: 2
-        x: 224
-        y: 112
-        width: 157.86
-        height: 64
-      isBreakpoint: 0
-      isSequence: 0
-      hideUnused: 0
-      transitions:
-      - fsmEvent:
-          name: DIALOGUE_OPTION_A
-          isSystemEvent: 0
-          isGlobal: 1
-        toState: Option A
-        linkStyle: 0
-        linkConstraint: 0
-        linkTarget: 0
-        colorIndex: 0
-      - fsmEvent:
-          name: DIALOGUE_OPTION_B
-          isSystemEvent: 0
-          isGlobal: 1
-        toState: Option B
-        linkStyle: 0
-        linkConstraint: 0
-        linkTarget: 0
-        colorIndex: 0
-      - fsmEvent:
-          name: DIALOGUE_OPTION_C
-          isSystemEvent: 0
-          isGlobal: 1
-        toState: Option C
-        linkStyle: 0
-        linkConstraint: 0
-        linkTarget: 0
-        colorIndex: 0
-      actionData:
-        actionNames:
-        - HutongGames.PlayMaker.Actions.ActionDialogueDecision
-        customNames:
-        - 
-        actionEnabled: 01
-        actionIsOpen: 01
-        actionStartIndex: 00000000
-        actionHashCodes: 0744b301
-        unityObjectParams: []
-        fsmGameObjectParams: []
-        fsmOwnerDefaultParams: []
-        animationCurveParams: []
-        functionCallParams: []
-        fsmTemplateControlParams: []
-        fsmEventTargetParams: []
-        fsmPropertyParams: []
-        layoutOptionParams: []
-        fsmStringParams: []
-        fsmObjectParams: []
-        fsmVarParams: []
-        fsmArrayParams: []
-        fsmEnumParams: []
-        fsmFloatParams: []
-        fsmIntParams: []
-        fsmBoolParams: []
-        fsmVector2Params: []
-        fsmVector3Params: []
-        fsmColorParams: []
-        fsmRectParams: []
-        fsmQuaternionParams: []
-        stringParams:
-        - 
-        - 
-        - 
-        byteData: 
-        arrayParamSizes: 
-        arrayParamTypes: []
-        customTypeSizes: 
-        customTypeNames: []
-        paramDataType: 030000000300000003000000
-        paramName:
         - OptionA
         - OptionB
         - OptionC
-        paramDataPos: 000000000100000002000000
-        paramByteDataSize: 000000000000000000000000
+        paramDataPos: 00000000000000000100000002000000
+        paramByteDataSize: 00000000000000000000000000000000
     - name: Option A
       description: 
       colorIndex: 0
       position:
         serializedVersion: 2
-        x: 448
-        y: 96
-        width: 100
-        height: 16
-      isBreakpoint: 0
-      isSequence: 0
-      hideUnused: 0
-      transitions: []
-      actionData:
-        actionNames: []
-        customNames: []
-        actionEnabled: 
-        actionIsOpen: 
-        actionStartIndex: 
-        actionHashCodes: 
-        unityObjectParams: []
-        fsmGameObjectParams: []
-        fsmOwnerDefaultParams: []
-        animationCurveParams: []
-        functionCallParams: []
-        fsmTemplateControlParams: []
-        fsmEventTargetParams: []
-        fsmPropertyParams: []
-        layoutOptionParams: []
-        fsmStringParams: []
-        fsmObjectParams: []
-        fsmVarParams: []
-        fsmArrayParams: []
-        fsmEnumParams: []
-        fsmFloatParams: []
-        fsmIntParams: []
-        fsmBoolParams: []
-        fsmVector2Params: []
-        fsmVector3Params: []
-        fsmColorParams: []
-        fsmRectParams: []
-        fsmQuaternionParams: []
-        stringParams: []
-        byteData: 
-        arrayParamSizes: 
-        arrayParamTypes: []
-        customTypeSizes: 
-        customTypeNames: []
-        paramDataType: 
-        paramName: []
-        paramDataPos: 
-        paramByteDataSize: 
-    - name: Option B
-      description: 
-      colorIndex: 0
-      position:
-        serializedVersion: 2
-        x: 448
-        y: 144
+        x: 64
+        y: 160
         width: 100
         height: 16
       isBreakpoint: 0
@@ -280,8 +167,60 @@ MonoBehaviour:
       colorIndex: 0
       position:
         serializedVersion: 2
-        x: 448
-        y: 192
+        x: 512
+        y: 160
+        width: 100
+        height: 16
+      isBreakpoint: 0
+      isSequence: 0
+      hideUnused: 0
+      transitions: []
+      actionData:
+        actionNames: []
+        customNames: []
+        actionEnabled: 
+        actionIsOpen: 
+        actionStartIndex: 
+        actionHashCodes: 
+        unityObjectParams: []
+        fsmGameObjectParams: []
+        fsmOwnerDefaultParams: []
+        animationCurveParams: []
+        functionCallParams: []
+        fsmTemplateControlParams: []
+        fsmEventTargetParams: []
+        fsmPropertyParams: []
+        layoutOptionParams: []
+        fsmStringParams: []
+        fsmObjectParams: []
+        fsmVarParams: []
+        fsmArrayParams: []
+        fsmEnumParams: []
+        fsmFloatParams: []
+        fsmIntParams: []
+        fsmBoolParams: []
+        fsmVector2Params: []
+        fsmVector3Params: []
+        fsmColorParams: []
+        fsmRectParams: []
+        fsmQuaternionParams: []
+        stringParams: []
+        byteData: 
+        arrayParamSizes: 
+        arrayParamTypes: []
+        customTypeSizes: 
+        customTypeNames: []
+        paramDataType: 
+        paramName: []
+        paramDataPos: 
+        paramByteDataSize: 
+    - name: Option B
+      description: 
+      colorIndex: 0
+      position:
+        serializedVersion: 2
+        x: 256
+        y: 160
         width: 100
         height: 16
       isBreakpoint: 0
@@ -328,9 +267,6 @@ MonoBehaviour:
         paramDataPos: 
         paramByteDataSize: 
     events:
-    - name: FINISHED
-      isSystemEvent: 1
-      isGlobal: 0
     - name: DIALOGUE_OPTION_A
       isSystemEvent: 0
       isGlobal: 1
@@ -363,7 +299,7 @@ MonoBehaviour:
       categories:
       - 
       variableCategoryIDs: 
-    description: Decision
+    description: 
     docUrl: 
     showStateLabel: 0
     maxLoopCount: 0

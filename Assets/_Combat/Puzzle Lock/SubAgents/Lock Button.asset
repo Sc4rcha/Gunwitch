@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f69eedba67cfbf4683246dc761bfb72, type: 3}
+  m_Name: Lock Button
+  m_EditorClassIdentifier: Assembly-CSharp::SOCombatEnemy
+  Name: Lock Button
+  Id: enemy_lock_button
+  AttackSprite: {fileID: 0}
+  Health: 99
+  Mana: 1
+  Body: 0
+  Magic: 0
+  Dexterity: 0
+  Luck: 0
+  Charisma: 0
+  Attack: {fileID: 0}
+  Loot: []

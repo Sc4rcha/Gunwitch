@@ -1,0 +1,577 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &152735922416533513
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3398131409962978727}
+    m_Modifications:
+    - target: {fileID: 1147587933979969763, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_Name
+      value: Enemy Slime Explosive
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+--- !u!114 &6845983274207776118 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6710206244910517631, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+  m_PrefabInstance: {fileID: 152735922416533513}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2107d6428bfeb0440a62759935aa8675, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatAgentSlimeExplosive
+--- !u!4 &7817463316957081608 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+  m_PrefabInstance: {fileID: 152735922416533513}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1469277003988581894
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3398131409962978727}
+    m_Modifications:
+    - target: {fileID: 1147587933979969763, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_Name
+      value: Enemy Slime Explosive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1147587933979969763, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+--- !u!114 &5295277280411284345 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6710206244910517631, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+  m_PrefabInstance: {fileID: 1469277003988581894}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2107d6428bfeb0440a62759935aa8675, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatAgentSlimeExplosive
+--- !u!4 &8791165365303922183 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+  m_PrefabInstance: {fileID: 1469277003988581894}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4278952090293299428
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3398131409962978727}
+    m_Modifications:
+    - target: {fileID: 1147587933979969763, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_Name
+      value: Enemy Slime Explosive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1147587933979969763, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+--- !u!4 &6125583468250470629 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+  m_PrefabInstance: {fileID: 4278952090293299428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7385504568251458971 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6710206244910517631, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+  m_PrefabInstance: {fileID: 4278952090293299428}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2107d6428bfeb0440a62759935aa8675, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatAgentSlimeExplosive
+--- !u!1001 &5793835503181590908
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2661107687867455514, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: m_Name
+      value: Encounter Bandit Camp Fren
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764114205206381537, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: Enemies.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764114205206381537, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: Wincons.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764114205206381537, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: 'Enemies.Array.data[0]'
+      value: 
+      objectReference: {fileID: 4458126859269408378}
+    - target: {fileID: 6764114205206381537, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: 'Enemies.Array.data[1]'
+      value: 
+      objectReference: {fileID: 6845983274207776118}
+    - target: {fileID: 6764114205206381537, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: 'Enemies.Array.data[2]'
+      value: 
+      objectReference: {fileID: 7385504568251458971}
+    - target: {fileID: 6764114205206381537, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: 'Enemies.Array.data[3]'
+      value: 
+      objectReference: {fileID: 3258976811980365294}
+    - target: {fileID: 6764114205206381537, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: 'Enemies.Array.data[4]'
+      value: 
+      objectReference: {fileID: 2382822388609303470}
+    - target: {fileID: 6764114205206381537, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: 'Enemies.Array.data[5]'
+      value: 
+      objectReference: {fileID: 5295277280411284345}
+    - target: {fileID: 6764114205206381537, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: 'Wincons.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 67b7c113883f02a46980bfa1158f7747, type: 2}
+    - target: {fileID: 9173621549618412763, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173621549618412763, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173621549618412763, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173621549618412763, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173621549618412763, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173621549618412763, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173621549618412763, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173621549618412763, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173621549618412763, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173621549618412763, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 1677583168375452631, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 9173621549618412763, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8617713502015294454}
+    - targetCorrespondingSourceObject: {fileID: 9173621549618412763, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7817463316957081608}
+    - targetCorrespondingSourceObject: {fileID: 9173621549618412763, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6125583468250470629}
+    - targetCorrespondingSourceObject: {fileID: 9173621549618412763, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2181662891305279632}
+    - targetCorrespondingSourceObject: {fileID: 9173621549618412763, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1327885301952282320}
+    - targetCorrespondingSourceObject: {fileID: 9173621549618412763, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8791165365303922183}
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+--- !u!4 &3398131409962978727 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9173621549618412763, guid: 43f9981d4d488964aa38165df36e406e, type: 3}
+  m_PrefabInstance: {fileID: 5793835503181590908}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8080943325326921873
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3398131409962978727}
+    m_Modifications:
+    - target: {fileID: 1147587933979969763, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_Name
+      value: Enemy Slime Explosive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1147587933979969763, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+--- !u!4 &2181662891305279632 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+  m_PrefabInstance: {fileID: 8080943325326921873}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3258976811980365294 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6710206244910517631, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+  m_PrefabInstance: {fileID: 8080943325326921873}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2107d6428bfeb0440a62759935aa8675, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatAgentSlimeExplosive
+--- !u!1001 &8096739772408084528
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3398131409962978727}
+    m_Modifications:
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1251943353823522656, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: m_Name
+      value: Enemy Bandit
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585333451743608394, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+      propertyPath: EnemyStatsReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 4e23bb77d5aeea34096fcc2e34f3b76d, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+--- !u!114 &4458126859269408378 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5585333451743608394, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+  m_PrefabInstance: {fileID: 8096739772408084528}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f26f7707344bf647a87735b76fb9ef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatAgentBandit
+--- !u!4 &8617713502015294454 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 559890192054137798, guid: 866d79693c2d5d343bfd17e21aae3b12, type: 3}
+  m_PrefabInstance: {fileID: 8096739772408084528}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8939096954044419793
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3398131409962978727}
+    m_Modifications:
+    - target: {fileID: 1147587933979969763, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_Name
+      value: Enemy Slime Explosive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1147587933979969763, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+--- !u!4 &1327885301952282320 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7954366246161215489, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+  m_PrefabInstance: {fileID: 8939096954044419793}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2382822388609303470 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6710206244910517631, guid: 341ab8a80ab89e44394989607d62c606, type: 3}
+  m_PrefabInstance: {fileID: 8939096954044419793}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2107d6428bfeb0440a62759935aa8675, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatAgentSlimeExplosive

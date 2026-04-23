@@ -1,3 +1,4 @@
+using GameInfo;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -73,7 +74,7 @@ public class ManagerGameElements : MonoBehaviour
     }
 
     #region Combat
-    public event Action<bool> OnCombatFinish;
+    public event Action<CombatEndType> OnCombatFinish;
     private CombatEncounter encounterReference;
     public void CombatLoad(CombatEncounter encounterReference)
     {
@@ -88,13 +89,13 @@ public class ManagerGameElements : MonoBehaviour
         // start combat with stored variables
         combat.CombatStart(encounterReference);
     }
-    public void CombatEnd(bool isPlayerWin)
+    public void CombatEnd(CombatEndType endType)
     {
         // unload combat scene
         StartCoroutine(ExitCombat());
 
         // send event for player winning
-        OnCombatFinish?.Invoke(isPlayerWin);
+        OnCombatFinish?.Invoke(endType);
 
         // refresh PlayerHUD
     }

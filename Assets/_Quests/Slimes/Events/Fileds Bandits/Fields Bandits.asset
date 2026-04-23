@@ -15,8 +15,8 @@ MonoBehaviour:
   Name: Bandits
   EventLocation: {fileID: 11400000, guid: 3a3a78f2bd2a3704c8826b12daf2f784, type: 2}
   IsPersistent: 0
-  IsAutoplay: 0
+  IsAutoplay: 1
   UnlockFlags:
   - {fileID: 11400000, guid: 65f7ba54ebe62a649be50f20604c0ae0, type: 2}
   EventActions:
-  - {fileID: 11400000, guid: a900e75b9689d0549afff6e54f9742c6, type: 2}
+  - {fileID: 11400000, guid: 2366be14726255a46acf51bd41eb0c04, type: 2}

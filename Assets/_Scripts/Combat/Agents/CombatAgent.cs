@@ -42,10 +42,13 @@ public class CombatAgent : MonoBehaviour
         Actor = EnemyStatsReference.GetCombatActor();
         Actor.Startcombat();
 
-        // set renderer variables
-        Renderer.sortingOrder = Priority * 10;
-        Renderer.color = Color.white;
+        // setup main renderer
         Renderer.GetComponent<CombatAgentShake>().enabled = false;
+        Renderer.color = Color.white;
+        // set renderers order
+        SpriteRenderer[] renderers = Animator.GetComponentsInChildren<SpriteRenderer>();
+        for (int i = 0; i < renderers.Length; i++)
+            renderers[i].sortingOrder = Priority * 10 + i;
 
 
         IsHurt = false;
@@ -161,7 +164,7 @@ public class CombatAgent : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    IEnumerator HurtAnimation(bool isCrit) 
+    protected virtual IEnumerator HurtAnimation(bool isCrit) 
     {
         IsDoingStuff = true;
         IsHurt = true;
@@ -189,7 +192,7 @@ public class CombatAgent : MonoBehaviour
         IsDoingStuff = false;
         IsHurt = false;
     }
-    IEnumerator DeathAnimation()
+    protected virtual IEnumerator DeathAnimation()
     {
         IsDoingStuff = true;
         IsHurt = true;
@@ -211,7 +214,7 @@ public class CombatAgent : MonoBehaviour
         // Hide bullet stencil
         manager.Player.Gun.Visuals.HideStencil();
 
-        IsDoingStuff = true;
+        IsDoingStuff = false;
         IsHurt = false;
 
         Cleanup();

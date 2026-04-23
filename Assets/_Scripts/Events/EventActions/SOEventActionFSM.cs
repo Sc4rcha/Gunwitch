@@ -1,7 +1,7 @@
 using GameInfo;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "FSM", menuName = "Event/Actions/FSM", order = 4)]
+[CreateAssetMenu(fileName = "FSM", menuName = "Event/Actions/FSM", order = 24)]
 public class SOEventActionFSM : SOEventAction
 {
     public PlayMakerFSM FSM;

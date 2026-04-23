@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Item", menuName = "Player/Bullet")]
+[CreateAssetMenu(fileName = "Item", menuName = "Inventory/Bullet")]
 public class SOInventoryItemBullet : SOInventoryItem
 {
     public int ManaCost;

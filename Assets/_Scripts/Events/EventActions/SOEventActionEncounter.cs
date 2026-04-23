@@ -5,10 +5,10 @@ public abstract class SOEventActionEncounter : SOEventAction
 {
     public override void Execute(ManagerEvents manager)
     {
-        void CombatFinish(bool isWin) 
+        void CombatFinish(CombatEndType endType) 
         {
             ManagerGameElements.Instance.OnCombatFinish -= CombatFinish;
-            manager.EventFinish(isWin);
+            manager.EventFinish();
         }
 
         ManagerGameElements.Instance.CombatLoad(GetEncounter());

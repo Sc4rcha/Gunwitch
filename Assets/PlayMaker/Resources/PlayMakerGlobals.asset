@@ -38,3 +38,4 @@ MonoBehaviour:
   - EVENT_START
   - COMBAT_WIN
   - COMBAT_LOSE
+  - COMBAT_SPECIAL

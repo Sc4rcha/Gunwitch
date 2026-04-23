@@ -1,16 +1,10 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Item Heal", menuName = "Player/Item Heal")]
-public class SOInventoryItemHeal : SOInventoryItem
+[CreateAssetMenu(fileName = "Item Heal", menuName = "Inventory/Item Heal")]
+public class SOInventoryItemHeal : SOInventoryItemConsum
 {
     [Space]
     public int HealAmount;
-
-    private void OnValidate()
-    {
-        // force type to Consumable
-        Type = GameInfo.ItemType.CONSUMABLE;
-    }
 
     public override void ItemEffect()
     {

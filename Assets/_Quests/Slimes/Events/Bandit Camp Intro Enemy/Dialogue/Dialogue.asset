@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 227a819172f1b7040ab509841b30715c, type: 3}
+  m_Name: Dialogue
+  m_EditorClassIdentifier: Assembly-CSharp::SODialogue
+  Characters: []
+  Nodes:
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: You find the bandit camp with the help of the map.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: You find a strange crater at the entrance. There are slime and bandit fragments
+      all over the place.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: You ignore it and enter the camp. Noone is at the entrance to stop you.
