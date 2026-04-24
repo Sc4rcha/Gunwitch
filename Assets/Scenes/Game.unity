@@ -3147,10 +3147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6dd51d29d99284abc6c5871d8cfaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ManagerTesting
-  Events:
-  - {fileID: 11400000, guid: 47360a1926713fd4291b1c3ff0816965, type: 2}
+  Events: []
   Encounters:
-  - {fileID: 988857573395362461, guid: 30c9024e796ecfa44a24485377102594, type: 3}
+  - {fileID: 988857573395362461, guid: 6a37bd52e7a86e440a9cc8c6772060b0, type: 3}
   ButtonEvents:
   - {fileID: 1870488865}
   - {fileID: 1853893669}

@@ -4909,6 +4909,7 @@ MonoBehaviour:
   - {fileID: 5847711445463644522}
   - {fileID: 1730845818611598653}
   - {fileID: 8779377066969353359}
+  SkipButton: {fileID: 5633810149506916711}
   SFXBeep: {fileID: 3235177205519853526}
   OffsetCharacterRight: {x: 200, y: 0}
   OffsetCharacterCentre: {x: 0, y: 0}
@@ -7598,6 +7599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 809728568430598442}
   - component: {fileID: 1538599778114025860}
+  - component: {fileID: 6359008202774343405}
   m_Layer: 0
   m_Name: Game Elements
   m_TagString: Untagged
@@ -7639,12 +7641,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ManagerGameElements
   StartingPlayer: {fileID: 11400000, guid: bf9e3ef7979f8bc46afbce63288a35d0, type: 2}
+  Cursor: {fileID: 6359008202774343405}
   ManagerEvents: {fileID: 3286726144583169775}
   ManagerQuests: {fileID: 260007979346953504}
   ManagerMap: {fileID: 6534316900178530857}
   ManagerDialogue: {fileID: 300500553785474385}
   Player: {fileID: 4214005574706656452}
   ItemReferences: {fileID: 5805428650384680093}
+--- !u!114 &6359008202774343405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4390312264688347893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc36fa4a4536b6459005a614b879ed2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ManagerCursor
+  CursorDefault: {fileID: 2800000, guid: 11d16882c33ef9249a4f3dd4bc25a05a, type: 3}
+  CursorDefaultHotSpot: {x: 0.8, y: 0.8}
+  CursorHidden: {fileID: 2800000, guid: 85723b3e48692624ea567817c91987cc, type: 3}
 --- !u!1 &4393769264031752526
 GameObject:
   m_ObjectHideFlags: 0
@@ -11497,7 +11515,7 @@ GameObject:
   - component: {fileID: 7680066008431895606}
   - component: {fileID: 1607382915769531495}
   - component: {fileID: 2464802582362505095}
-  - component: {fileID: 6454526600802390191}
+  - component: {fileID: 5633810149506916711}
   m_Layer: 0
   m_Name: Button Skip
   m_TagString: Untagged
@@ -11563,7 +11581,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6454526600802390191
+--- !u!114 &5633810149506916711
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11572,9 +11590,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6573049619023709629}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 381c2c7d44bdd344ab6edcaedcec1369, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueSkipButton
   m_Navigation:
     m_Mode: 3
     m_WrapAround: 0
@@ -11830,6 +11848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocationScreen
   BackgroundImage: {fileID: 437798765883191107}
+  ExitButton: {fileID: 6828856615604028631}
   EventButtons:
   - {fileID: 7898096522676515483}
   - {fileID: 9159628914045281102}

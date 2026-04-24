@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class CombatGun : MonoBehaviour
@@ -52,12 +53,14 @@ public class CombatGun : MonoBehaviour
 
         // setup drum
         Drum.Setup(MagazineSize);
-    }
 
+        // hide crosshair at start
+        Visuals.CrosshairShow(false);
+    }
 
     public void CombatFinish ()
     {
-        Visuals.Show(false);
+        Visuals.CrosshairShow(false);
         DrumButtonsHolder.SetActive(false);
 
         enabled = false;
@@ -69,15 +72,19 @@ public class CombatGun : MonoBehaviour
         isCursorOnShootingAreaPrevious = IsCursorOnShootingArea;
         IsCursorOnShootingArea = RectTransformUtility.RectangleContainsScreenPoint(ShootingArea, Mouse.current.position.ReadValue(), CombatCamera);
 
-        // detect if cursoer entered or exited this turn
-        if (IsCursorOnShootingArea != isCursorOnShootingAreaPrevious && !isOnCooldown)
+        // detect if cursor entered or exited this frame
+        if (IsCursorOnShootingArea != isCursorOnShootingAreaPrevious)
         {
-            // change portrait state aim or not aim
-            player.AimOnOff();
+            // change portrait state to aim or not depending on cursor position in the screen, ONLY IF GUN IS NOT ON RECOIL
+            if (!isOnCooldown)
+                player.AimOnOff(IsCursorOnShootingArea);
+
+            // Show or hide crosshair depending on the cursor position on screen if player is shooting
+            if (player.State == CombatPlayer.PlayerState.Shooting)
+                Visuals.CrosshairShow(IsCursorOnShootingArea);
         }
 
-        // update cursor
-        Visuals.Show(IsCursorOnShootingArea && player.State == CombatPlayer.PlayerState.Shooting);
+
         Visuals.UpdatePosition(CombatCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
     }
 
@@ -158,6 +165,10 @@ public class CombatGun : MonoBehaviour
     #endregion
 
     #region Shoot
+    public void ShootStart() 
+    {
+        Visuals.CrosshairShow(IsCursorOnShootingArea);
+    }
     public void InputShoot(InputAction.CallbackContext context)
     {
         // stop if gun cannot shoot
@@ -193,9 +204,6 @@ public class CombatGun : MonoBehaviour
 
         if (agentColliders.Count != 0)
         {
-            // show bullet stendil
-            Visuals.ShowStencil(mousePosition);
-
             // priorize crits
             targetCollider = agentColliders[0];
             foreach (var col in agentColliders)
@@ -206,9 +214,9 @@ public class CombatGun : MonoBehaviour
 
             // do damage
             if (targetCollider.IsCrit)
-                targetCollider.Damage((int)(bullets[bulletIndex].Damage * CritMultiplier));
+                targetCollider.Shoot((int)(bullets[bulletIndex].Damage * CritMultiplier), mousePosition);
             else
-                targetCollider.Damage((bullets[bulletIndex].Damage));
+                targetCollider.Shoot((bullets[bulletIndex].Damage), mousePosition);
         }
 
         // once player has fired deactivate drum buttons, cannot unload anymore
@@ -230,13 +238,19 @@ public class CombatGun : MonoBehaviour
         // rotate drum
         Drum.RotateDrum(bulletIndex + 1);
 
-        // change portrait state aim or not aim
-        player.AimOnOff();
+        // change portrait state depending on cursor position on screen
+        player.AimOnOff(IsCursorOnShootingArea);
 
         // add bullet index and finish player turn if no more bullets on magazine
         bulletIndex++;
         if (bulletIndex == MagazineSize)
-            player.TurnFinish();
+            ShootFinish();
+    }
+
+    public void ShootFinish() 
+    {
+        player.TurnFinish();
+        Visuals.CrosshairShow(false);
     }
     #endregion
 }

@@ -44,6 +44,10 @@ public class CombatSlimeMovement : MonoBehaviour
     #region MOVEMENT ACTIONS
     public void Jump()
     {
+        // stop jump if already jumping
+        if (IsJumping)
+            return;
+
         ForceJumpState();
 
         if (Mathf.Abs(Body.position.x - bounds.center.x) > bounds.size.x / 4)

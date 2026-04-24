@@ -14,7 +14,7 @@ namespace GameInfo
         public Inventory Inventory;
 
         // create player from Initial State
-        public PlayerInfo (SOPlayerInitialState playerInitialState)
+        public PlayerInfo(SOPlayerInitialState playerInitialState)
         {
             Actor = new Actor(playerInitialState);
 
@@ -75,7 +75,7 @@ namespace GameInfo
             Charisma = player.Charisma;
         }
         // constructor for enemy
-        public Actor(SOCombatEnemy enemy) 
+        public Actor(SOCombatEnemy enemy)
         {
             Name = enemy.Name;
 
@@ -92,7 +92,7 @@ namespace GameInfo
         /// <summary>
         /// this is only for enemies, do not call on player.
         /// </summary>
-        public void Startcombat() 
+        public void Startcombat()
         {
             HealthCurrent = Health;
             ManaCurrent = Mana;
@@ -102,7 +102,7 @@ namespace GameInfo
         /// Change the current health of actor;
         /// </summary>
         /// <param name="value"></param>
-        public void HealthChange(int value) 
+        public void HealthChange(int value)
         {
             HealthCurrent = Mathf.Clamp(HealthCurrent + value, 0, Health);
         }
@@ -110,7 +110,7 @@ namespace GameInfo
         /// Change the current mana of actor
         /// </summary>
         /// <param name="value"></param>
-        public void ManaChange (int value)
+        public void ManaChange(int value)
         {
             ManaCurrent = Mathf.Clamp(ManaCurrent + value, 0, Mana);
         }
@@ -119,7 +119,7 @@ namespace GameInfo
         /// </summary>
         /// <param name="cost"></param>
         /// <returns></returns>
-        public bool CheckEnoughMana(int cost) 
+        public bool CheckEnoughMana(int cost)
         {
             return ManaCurrent >= cost;
         }
@@ -127,36 +127,24 @@ namespace GameInfo
     #endregion
 
     #region EVENTS
-    public enum FlagValueType { Bool, Int }
-
-    public class EventState
+    public class MapState 
     {
-        public bool IsLocked;
-        public bool IsActive;
-        public bool IsComplete;
+        public Flags Flags;
+        public SOLocation WorldLocation;
 
-        public bool IsAvailable => !IsLocked && IsActive && !IsComplete;
-
-        public EventState(bool isLocked) 
+        public MapState() 
         {
-            IsLocked = isLocked;
-            IsActive = true;
-            IsComplete = false;
+            Flags = new Flags();
+            WorldLocation = null;
         }
     }
-    public class FlagStateValue
-    {
-        public FlagValueType Type;
-        public bool BoolValue;
-        public int IntValue;
-    }
-    public class Flags 
+    public class Flags
     {
         private Dictionary<string, FlagStateValue> values = new();
 
         public void SetFlag(string key, bool value)
         {
-            if (!values.ContainsKey(key)) 
+            if (!values.ContainsKey(key))
             {
                 values[key] = new FlagStateValue
                 {
@@ -183,8 +171,32 @@ namespace GameInfo
 
         public bool GetBool(string key) => values.ContainsKey(key) && values[key].BoolValue;
         public int GetInt(string key) => values.ContainsKey(key) ? values[key].IntValue : 0;
+
+        public enum FlagValueType { Bool, Int }
+
+        public class FlagStateValue
+        {
+            public FlagValueType Type;
+            public bool BoolValue;
+            public int IntValue;
+        }
     }
 
+    public class EventState
+    {
+        public bool IsLocked;
+        public bool IsActive;
+        public bool IsComplete;
+
+        public bool IsAvailable => !IsLocked && IsActive && !IsComplete;
+
+        public EventState(bool isLocked) 
+        {
+            IsLocked = isLocked;
+            IsActive = true;
+            IsComplete = false;
+        }
+    }
     public enum CombatEndType {Win, Lose, Special }
     #endregion
 

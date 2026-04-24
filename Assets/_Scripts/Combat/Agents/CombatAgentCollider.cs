@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class CombatAgentCollider : MonoBehaviour
 {
@@ -21,5 +22,12 @@ public class CombatAgentCollider : MonoBehaviour
     {
         // send damage to agent
         Agent.Damage(value, IsCrit);
+    }
+
+    public void Shoot(int value, Vector2 mousePosition) 
+    {
+        // send damage to agent
+        Agent.Damage(value, IsCrit);
+        Agent.BulletHit(mousePosition);
     }
 }

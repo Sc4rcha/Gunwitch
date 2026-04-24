@@ -7,6 +7,12 @@ public class Map : MonoBehaviour
     public SOEventList MapEvents;
     public SOLocation InitialLocation;
 
-    [Header ("Scene References")]
-    public MapLocationButtonInfo[] Locations;
+    public MapLocationButtonInfo[] Locations { get; private set; }
+
+    public void Setup()
+    {
+        Locations = GetComponentsInChildren<MapLocationButtonInfo>();
+    }
+
+
 }

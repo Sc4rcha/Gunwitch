@@ -31,6 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1151074708870662255}
+  - {fileID: 5890657130025858343}
   - {fileID: 618516466007285376}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50,6 +51,7 @@ MonoBehaviour:
   Priority: 10
   Pivot: {fileID: 1151074708870662255}
   Renderer: {fileID: 7688325322983987869}
+  BulletHitEffect: {fileID: 3198276650843655006}
   Colliders:
   - {fileID: 7410926739945362294}
   Animator: {fileID: 1542770240457769523}
@@ -374,7 +376,7 @@ GameObject:
   m_Layer: 7
   m_Name: Pivot
   m_TagString: Untagged
-  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -393,3 +395,70 @@ Transform:
   m_Children: []
   m_Father: {fileID: 559890192054137798}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &6314671184487827511
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 559890192054137798}
+    m_Modifications:
+    - target: {fileID: 440761842421923088, guid: 06a643108e7ca094ab8f7c0637dfd9f9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440761842421923088, guid: 06a643108e7ca094ab8f7c0637dfd9f9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440761842421923088, guid: 06a643108e7ca094ab8f7c0637dfd9f9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440761842421923088, guid: 06a643108e7ca094ab8f7c0637dfd9f9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 440761842421923088, guid: 06a643108e7ca094ab8f7c0637dfd9f9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440761842421923088, guid: 06a643108e7ca094ab8f7c0637dfd9f9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440761842421923088, guid: 06a643108e7ca094ab8f7c0637dfd9f9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440761842421923088, guid: 06a643108e7ca094ab8f7c0637dfd9f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440761842421923088, guid: 06a643108e7ca094ab8f7c0637dfd9f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440761842421923088, guid: 06a643108e7ca094ab8f7c0637dfd9f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8446815898218265092, guid: 06a643108e7ca094ab8f7c0637dfd9f9, type: 3}
+      propertyPath: m_Name
+      value: Bullet Hit Effect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 06a643108e7ca094ab8f7c0637dfd9f9, type: 3}
+--- !u!198 &3198276650843655006 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8917329947777598313, guid: 06a643108e7ca094ab8f7c0637dfd9f9, type: 3}
+  m_PrefabInstance: {fileID: 6314671184487827511}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5890657130025858343 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 440761842421923088, guid: 06a643108e7ca094ab8f7c0637dfd9f9, type: 3}
+  m_PrefabInstance: {fileID: 6314671184487827511}
+  m_PrefabAsset: {fileID: 0}

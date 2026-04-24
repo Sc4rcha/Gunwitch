@@ -3,17 +3,22 @@ using UnityEngine;
 [RequireComponent (typeof (MapLocationButton))]
 public class MapLocationButtonInfo : MonoBehaviour
 {
+    [Header ("References Scene")]
     public GameObject LocationNameHolder;
     public TMPro.TMP_Text LocationNameText;
-    [Space]
+    [Header ("References Project")]
     public SOLocation LocationInfo;
 
+    public SOLocation.LocationVisibilityType LocationVisibility { get; private set; }
 
     private ManagerMap manager;
 
     public void Setup (ManagerMap manager)
     {
         this.manager = manager;
+
+        // set normal visibility by default
+        ChangeVisibility(LocationInfo.InitialVisibility);
     }
 
 
@@ -25,5 +30,10 @@ public class MapLocationButtonInfo : MonoBehaviour
     public void LocationInteract() 
     {
         manager.ButtonLocation(LocationInfo);
+    }
+
+    public void ChangeVisibility(SOLocation.LocationVisibilityType newVisiblity) 
+    {
+        LocationVisibility = newVisiblity;
     }
 }

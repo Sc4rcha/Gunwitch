@@ -12,9 +12,10 @@ public class CombatScreenAttack : MonoBehaviour
 
     public event Action OnAnimationFinish;
 
-    public void Attack(Sprite attackSprite) 
+    public void Attack(Sprite attackSprite, SOAbility ability) 
     {
         AttackImage.sprite = attackSprite;
+        AttackName.text = ability.Name;
 
         attackTimeCurrent = 0;
 

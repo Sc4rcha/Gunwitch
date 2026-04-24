@@ -26,7 +26,21 @@ MonoBehaviour:
     IndexCharacterFocus: 0
     IndexExpression: 0
     IndexEmotion: 0
-    Text: He wants you to join the team.
+    Text: He wants you to join the team. They are harvesting explosive slimes to
+      sell to the best buyer
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: He is looking for help on the upcomming trade.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: He has a nice reward if you accept. A spell develop out of the explosive
+      slimes. You could make a bullet out of it.
   - IndexCharacterRight: 0
     IndexCharacterLeft: 0
     IndexCharacterFocus: 0

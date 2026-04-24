@@ -9,7 +9,9 @@ public class SOEvent : ScriptableObject
     public bool IsPersistent;
     [Tooltip ("Does this event play the moment the player enters the location?")]
     public bool IsAutoplay;
-
+    [Space]
+    [Tooltip ("The action that has the event behaviour")]
+    public SOEventAction EventAction;
     [Space]
     [Tooltip ("Array of flags to check to unlock event")]
     public SOEventFlag[] UnlockFlags;

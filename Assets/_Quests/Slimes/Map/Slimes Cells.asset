@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOLocation
   Name: Village
   BackgroundSprite: {fileID: 21300000, guid: c853873dc84d6744f9b31f23b7237672, type: 3}
-  IsPersistent: 0
+  InitialVisibility: 1

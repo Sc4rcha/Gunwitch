@@ -1,6 +1,4 @@
-using HutongGames.PlayMaker.Actions;
 using UnityEngine;
-using UnityEngine.Timeline;
 
 public class CombatAgentBanditItem : CombatAgent
 {

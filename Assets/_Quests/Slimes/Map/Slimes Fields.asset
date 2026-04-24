@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOLocation
   Name: Fields
   BackgroundSprite: {fileID: 21300000, guid: 34584d25262fcb749bafb7d94683071a, type: 3}
-  IsPersistent: 1
+  InitialVisibility: 2

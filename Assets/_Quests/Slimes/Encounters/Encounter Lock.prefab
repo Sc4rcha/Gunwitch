@@ -21,6 +21,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4554775773708529991, guid: f4d110b94e995b042ad8402bc5b764fc, type: 3}
+      propertyPath: Stages.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4554775773708529991, guid: f4d110b94e995b042ad8402bc5b764fc, type: 3}
       propertyPath: Stages.Array.data[0].PositionCursor
       value: 2
       objectReference: {fileID: 0}

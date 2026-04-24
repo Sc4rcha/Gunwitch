@@ -3,6 +3,7 @@ using EasyTextEffects;
 using UnityEngine;
 using UnityEngine.UI;
 using GameInfo;
+using System.Collections;
 
 public class ManagerDialogue : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class ManagerDialogue : MonoBehaviour
     public TMPro.TMP_Text DialogueText;
     public TextEffect DialogueTextEffects;
     public DialogueDecisionButton[] DecisionButtons;
+    public DialogueSkipButton SkipButton;
     [Space]
     public DialogueSFXBeep SFXBeep;
 
@@ -41,6 +43,10 @@ public class ManagerDialogue : MonoBehaviour
     private Dialogue dialogueSelected;
     private int dialogueIndex;
 
+    private bool isSkipping;
+    private WaitForSeconds dialogueSkipStep;
+    private Coroutine dialogueSkipCoroutine;
+
     public void Setup()
     {
         // hide dialogue screen
@@ -49,6 +55,11 @@ public class ManagerDialogue : MonoBehaviour
         // setup dialogue options
         for (int i = 0; i < DecisionButtons.Length; i++)
             DecisionButtons[i].Setup((DecisionOption)i);
+
+        // setup dialogue skip
+        SkipButton.Setup(this);
+        isSkipping = false;
+        dialogueSkipStep = new WaitForSeconds(0.1f);
     }
 
 
@@ -73,6 +84,9 @@ public class ManagerDialogue : MonoBehaviour
     }
     public void DialogueEnd()
     {
+        // stop skipping
+        DialogueSkipFinish();
+
         // hide dialogue
         gameObject.SetActive(false);
 
@@ -218,5 +232,30 @@ public class ManagerDialogue : MonoBehaviour
             SFXBeep.BeepingStart(dialogueSelected.Characters[node.IndexCharacterFocus].Beep, node.Text.Length);
         else
             SFXBeep.BeepingStart(node.Text.Length);
+    }
+
+    public void DialogueSkipStart() 
+    {
+        if (dialogueSkipCoroutine == null)
+        {
+            isSkipping = true;
+            dialogueSkipCoroutine = StartCoroutine(SkipDialogue());
+        }
+    }
+    public void DialogueSkipFinish()
+    {
+        isSkipping = false;
+    }
+
+
+    private IEnumerator SkipDialogue() 
+    {
+        while (isSkipping)
+        {
+            yield return dialogueSkipStep;
+            DialogueNext();
+        }
+
+        dialogueSkipCoroutine = null;
     }
 }

@@ -27,6 +27,7 @@ public class ManagerGameElements : MonoBehaviour
 
     public SOPlayerInitialState StartingPlayer;
     [Space]
+    public ManagerCursor Cursor;
     public ManagerEvents ManagerEvents;
     public ManagerQuests ManagerQuests;
     public ManagerMap ManagerMap;
@@ -44,10 +45,10 @@ public class ManagerGameElements : MonoBehaviour
         ManagerDialogue.Setup();
 
         // setup event manager
-        ManagerEvents.Setup();
-
+        ManagerEvents.Setup(ManagerMap);
         // setup map manager
-        ManagerMap.Setup();
+        ManagerMap.Setup(ManagerEvents);
+
 
         // setup player
         Player.Info = StartingPlayer.GetPlayer();
@@ -56,18 +57,21 @@ public class ManagerGameElements : MonoBehaviour
         // setup quest manager
         ManagerQuests.Setup();
         ManagerQuests.Show(true);
+
+        // show cursor
+        Cursor.CursorShow(true);
     }
 
     public void QuestStart(SOQuest quest) 
     {
-        ManagerMap.MapOpen(quest.QuestMap);
+        ManagerMap.MapEnter(quest.QuestMap);
         ManagerEvents.EventStart(quest.InitialEvent);
 
         ManagerQuests.Show(false);
     }
     public void QuestFinish() 
     {
-        ManagerMap.MapClose();
+        ManagerMap.MapExit();
         ManagerEvents.EventsClear();
 
         ManagerQuests.Show(true);

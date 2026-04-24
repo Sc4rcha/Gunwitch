@@ -20,3 +20,9 @@ MonoBehaviour:
     IndexExpression: 0
     IndexEmotion: 0
     Text: The bandits lie dead on the floor, one of them has a map to their base...
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: You put it into your pocket for Key Items

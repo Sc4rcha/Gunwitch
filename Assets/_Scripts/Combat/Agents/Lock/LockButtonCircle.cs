@@ -66,8 +66,8 @@ public class LockButtonCircle : MonoBehaviour
     private void OnDrawGizmos()
     {
         Handles.color = Color.magenta;
-        Handles.DrawLine(transform.position + Vector3.up * Radius, transform.position + Vector3.up * Radius + Vector3.right * Direction);
-        Handles.DrawLine(transform.position + Vector3.up * Radius + Vector3.right * Direction, transform.position + Vector3.up * (Radius + 0.5f));
+        Handles.DrawLine(transform.position + Vector3.up * Radius, transform.position + Vector3.up * Radius + Vector3.right * -Direction);
+        Handles.DrawLine(transform.position + Vector3.up * Radius + Vector3.right * -Direction, transform.position + Vector3.up * (Radius + 0.5f));
         Handles.color = Color.white;
         Handles.DrawWireDisc(transform.position, Vector3.forward, Radius);
     }

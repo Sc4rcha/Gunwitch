@@ -47,10 +47,10 @@ public class CombatPlayer : MonoBehaviour
     }
 
     #region Shooting
-    public void AimOnOff() 
+    public void AimOnOff(bool isAim) 
     {
         if (State == PlayerState.Shooting)
-            PlayerHUDPortrait.Instance.GunAimOnOff(Gun.IsCursorOnShootingArea);
+            PlayerHUDPortrait.Instance.GunAimOnOff(isAim);
     }
     #endregion
 
@@ -136,6 +136,8 @@ public class CombatPlayer : MonoBehaviour
             case PlayerState.Shooting:
                 // player HUD aim or gun up
                 PlayerHUDPortrait.Instance.GunAimOnOff(Gun.IsCursorOnShootingArea);
+
+                Gun.ShootStart();
                 break;
             case PlayerState.Reloading:
                 // player HUD enter reload

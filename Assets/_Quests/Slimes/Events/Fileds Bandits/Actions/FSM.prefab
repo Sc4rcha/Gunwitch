@@ -449,18 +449,19 @@ MonoBehaviour:
         colorIndex: 0
       actionData:
         actionNames:
-        - HutongGames.PlayMaker.Actions.ActionDialogue
         - HutongGames.PlayMaker.Actions.ActionAddRemoveEvents
+        - HutongGames.PlayMaker.Actions.ActionDialogue
         customNames:
         - 
         - 
         actionEnabled: 0101
         actionIsOpen: 0101
-        actionStartIndex: 0000000001000000
-        actionHashCodes: 13f2b90313758701
+        actionStartIndex: 0000000004000000
+        actionHashCodes: 1375870113f2b903
         unityObjectParams:
+        - {fileID: 11400000, guid: 3d341c4f69cc1304cb485f10e331be1f, type: 2}
+        - {fileID: 11400000, guid: 47360a1926713fd4291b1c3ff0816965, type: 2}
         - {fileID: 11400000, guid: 2e3f679df83b98a4ebd9f19ff5cb83c9, type: 2}
-        - {fileID: 0}
         fsmGameObjectParams: []
         fsmOwnerDefaultParams: []
         animationCurveParams: []
@@ -484,20 +485,21 @@ MonoBehaviour:
         fsmQuaternionParams: []
         stringParams: []
         byteData: 
-        arrayParamSizes: 0100000000000000
+        arrayParamSizes: 0200000000000000
         arrayParamTypes:
         - SOEvent
         - SOEvent
         customTypeSizes: 
         customTypeNames: []
-        paramDataType: 050000000c000000050000000c000000
+        paramDataType: 0c00000005000000050000000c00000005000000
         paramName:
-        - Dialogue
         - Add
         - 
+        - 
         - Remove
-        paramDataPos: 00000000000000000100000001000000
-        paramByteDataSize: 00000000000000000000000000000000
+        - Dialogue
+        paramDataPos: 0000000000000000010000000100000002000000
+        paramByteDataSize: 0000000000000000000000000000000000000000
     - name: Combat
       description: 
       colorIndex: 5

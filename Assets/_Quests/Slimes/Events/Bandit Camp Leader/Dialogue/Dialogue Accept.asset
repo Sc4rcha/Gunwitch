@@ -19,4 +19,24 @@ MonoBehaviour:
     IndexCharacterFocus: 0
     IndexExpression: 0
     IndexEmotion: 0
-    Text: You are welcomed to the team
+    Text: You are welcomed to the team.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: First of all they need you to break a friend of theirs out of prison to
+      create some chaos.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: No need to kill any guards or anything... Just break their friend out and
+      get back to them.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: This will show your loyalty and skills.

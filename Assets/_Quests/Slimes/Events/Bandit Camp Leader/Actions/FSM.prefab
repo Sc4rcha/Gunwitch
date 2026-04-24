@@ -323,14 +323,17 @@ MonoBehaviour:
         colorIndex: 0
       actionData:
         actionNames:
+        - HutongGames.PlayMaker.Actions.ActionAddRemoveEvents
         - HutongGames.PlayMaker.Actions.ActionDialogue
         customNames:
         - 
-        actionEnabled: 01
-        actionIsOpen: 01
-        actionStartIndex: 00000000
-        actionHashCodes: 13f2b903
+        - 
+        actionEnabled: 0101
+        actionIsOpen: 0101
+        actionStartIndex: 0000000003000000
+        actionHashCodes: 1375870113f2b903
         unityObjectParams:
+        - {fileID: 11400000, guid: 9fc8814d3cd02fd4cb960d3989c25b40, type: 2}
         - {fileID: 11400000, guid: fe249eb3d3536554096f1749d1044f6c, type: 2}
         fsmGameObjectParams: []
         fsmOwnerDefaultParams: []
@@ -355,15 +358,20 @@ MonoBehaviour:
         fsmQuaternionParams: []
         stringParams: []
         byteData: 
-        arrayParamSizes: 
-        arrayParamTypes: []
+        arrayParamSizes: 0100000000000000
+        arrayParamTypes:
+        - SOEvent
+        - SOEvent
         customTypeSizes: 
         customTypeNames: []
-        paramDataType: 05000000
+        paramDataType: 0c000000050000000c00000005000000
         paramName:
+        - Add
+        - 
+        - Remove
         - Dialogue
-        paramDataPos: 00000000
-        paramByteDataSize: 00000000
+        paramDataPos: 00000000000000000100000001000000
+        paramByteDataSize: 00000000000000000000000000000000
     - name: Dialogue Refuse
       description: 
       colorIndex: 2
@@ -388,14 +396,17 @@ MonoBehaviour:
         colorIndex: 0
       actionData:
         actionNames:
+        - HutongGames.PlayMaker.Actions.ActionAddRemoveEvents
         - HutongGames.PlayMaker.Actions.ActionDialogue
         customNames:
         - 
-        actionEnabled: 01
-        actionIsOpen: 01
-        actionStartIndex: 00000000
-        actionHashCodes: 13f2b903
+        - 
+        actionEnabled: 0101
+        actionIsOpen: 0101
+        actionStartIndex: 0000000003000000
+        actionHashCodes: 1375870113f2b903
         unityObjectParams:
+        - {fileID: 11400000, guid: d40d62046ba25c944b963b537db9558a, type: 2}
         - {fileID: 11400000, guid: 2edf3f067ca8de349b16e3966ad2068e, type: 2}
         fsmGameObjectParams: []
         fsmOwnerDefaultParams: []
@@ -420,15 +431,20 @@ MonoBehaviour:
         fsmQuaternionParams: []
         stringParams: []
         byteData: 
-        arrayParamSizes: 
-        arrayParamTypes: []
+        arrayParamSizes: 0100000000000000
+        arrayParamTypes:
+        - SOEvent
+        - SOEvent
         customTypeSizes: 
         customTypeNames: []
-        paramDataType: 05000000
+        paramDataType: 0c000000050000000c00000005000000
         paramName:
+        - Add
+        - 
+        - Remove
         - Dialogue
-        paramDataPos: 00000000
-        paramByteDataSize: 00000000
+        paramDataPos: 00000000000000000100000001000000
+        paramByteDataSize: 00000000000000000000000000000000
     - name: Move To Cells
       description: 
       colorIndex: 0

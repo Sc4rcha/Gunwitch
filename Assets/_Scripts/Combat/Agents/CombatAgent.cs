@@ -13,6 +13,7 @@ public class CombatAgent : MonoBehaviour
     [Header("Scene References")]
     public Transform Pivot;
     public SpriteRenderer Renderer;
+    public ParticleSystem BulletHitEffect;
     public CombatAgentCollider[] Colliders;
     public Animator Animator;
 
@@ -97,7 +98,7 @@ public class CombatAgent : MonoBehaviour
     protected virtual void Act()
     {
         // visual feedback for acting
-        manager.ScreenAttack.Attack(EnemyStatsReference.AttackSprite);
+        manager.ScreenAttack.Attack(EnemyStatsReference.AttackSprite, EnemyStatsReference.Attack);
         manager.ScreenAttack.OnAnimationFinish += TurnFinish;
 
         // Do ability
@@ -164,6 +165,11 @@ public class CombatAgent : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void BulletHit(Vector2 mousePosition) 
+    {
+        BulletHitEffect.transform.position = new Vector3 (mousePosition.x, mousePosition.y, transform.position.z);
+        BulletHitEffect.Play();
+    }
     protected virtual IEnumerator HurtAnimation(bool isCrit) 
     {
         IsDoingStuff = true;
@@ -186,9 +192,6 @@ public class CombatAgent : MonoBehaviour
             yield return null;
         }
 
-        // Hide bullet stencil
-        manager.Player.Gun.Visuals.HideStencil();
-
         IsDoingStuff = false;
         IsHurt = false;
     }
@@ -210,9 +213,6 @@ public class CombatAgent : MonoBehaviour
             hurtDeathAnimationTimeCurrent += Time.deltaTime;
             yield return null;
         }
-
-        // Hide bullet stencil
-        manager.Player.Gun.Visuals.HideStencil();
 
         IsDoingStuff = false;
         IsHurt = false;

@@ -16,6 +16,7 @@ MonoBehaviour:
   EventLocation: {fileID: 11400000, guid: 3a3a78f2bd2a3704c8826b12daf2f784, type: 2}
   IsPersistent: 1
   IsAutoplay: 0
+  EventAction: {fileID: 11400000, guid: 4d9befa8aef383c4685035aecda02275, type: 2}
+  UnlockFlags: []
   EventActions:
-  - {fileID: 11400000, guid: 4d9befa8aef383c4685035aecda02275, type: 2}
   - {fileID: 11400000, guid: ced94b263e09077469e6bacf1fcb3e66, type: 2}

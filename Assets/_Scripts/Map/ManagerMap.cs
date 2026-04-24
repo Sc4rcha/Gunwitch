@@ -1,6 +1,6 @@
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using GameInfo;
 
 public class ManagerMap : MonoBehaviour
 {
@@ -12,25 +12,30 @@ public class ManagerMap : MonoBehaviour
     public LocationScreen LocationScreen;
     public GameObject ButtonFinishQuest;
 
+    public MapState MapState;
+
     private ManagerEvents managerEvents;
     private Map map;
 
 
-    public void Setup() 
+    public void Setup(ManagerEvents managerEvents) 
     {
-        // setup Screen
-        LocationScreen.Setup(this);
+        // Setup map state
+        MapState = new MapState();
+
+        // get event manager reference
+        this.managerEvents = managerEvents;
+
+        // setup 
+        LocationScreen.Setup(managerEvents, this);
         LocationScreen.Exit();
 
         // hide map screen
         gameObject.SetActive(false);
-
-        // get event manager reference
-        managerEvents = ManagerGameElements.Instance.ManagerEvents;
     }
 
     // Load a new map
-    public void MapOpen(Map newMap) 
+    public void MapEnter(Map newMap) 
     {
         // destroy previous map
         if (map != null)
@@ -38,6 +43,7 @@ public class ManagerMap : MonoBehaviour
 
         // instantiate map
         map = Instantiate(newMap, MapHolder).GetComponent<Map>();
+        map.Setup();
 
         // Set map movement scroll rect
         MapScrollRect.content = map.GetComponent<RectTransform>();
@@ -67,8 +73,11 @@ public class ManagerMap : MonoBehaviour
             LocationEnter();
         }
     }
-    public void MapClose() 
+    public void MapExit() 
     {
+        // Clear map state information on exit map
+        MapState = new MapState();
+
         // hide map screen
         gameObject.SetActive(false);
 
@@ -82,21 +91,31 @@ public class ManagerMap : MonoBehaviour
     {
         foreach (var location in map.Locations)
         {
-            // Activate location if is persistent, deactivate if not
-            location.gameObject.SetActive(location.LocationInfo.IsPersistent);
-
-            // activate location if any event is taking place there
-            if (managerEvents.GetLocationEvents(location.LocationInfo).Length > 0)
-                location.gameObject.SetActive(true);
+            switch (location.LocationVisibility)
+            {
+                case SOLocation.LocationVisibilityType.Normal:
+                    // activate location if any event is taking place there
+                    if (managerEvents.GetLocationEvents(location.LocationInfo).Length > 0)
+                        location.gameObject.SetActive(true);
+                    break;
+                case SOLocation.LocationVisibilityType.ForceHide:
+                    location.gameObject.SetActive(false);
+                    break;
+                case SOLocation.LocationVisibilityType.ForceShow:
+                    location.gameObject.SetActive(true);
+                    break;
+            }
         }
     }
 
 
-    #region Locations
+    #region Location Screen
     // Set location screen Information
     public void LocationSetInfo(SOLocation locationInfo) 
     {
-        LocationScreen.SetInfo(locationInfo);
+        MapState.WorldLocation = locationInfo;
+
+        LocationScreen.Refresh();
     }
     // enter location screen
     public void LocationEnter() 
@@ -106,6 +125,8 @@ public class ManagerMap : MonoBehaviour
     // exit location screen
     public void LocationExit()
     {
+        MapState.WorldLocation = null;
+
         LocationScreen.Exit();
 
         Refresh();
@@ -114,7 +135,6 @@ public class ManagerMap : MonoBehaviour
     {
         LocationScreen.ExitButton.SetActive(!isLocked);
     }
-
     // called by location button to open a new location in the overworld
     public void ButtonLocation(SOLocation locationInfo) 
     {
@@ -122,4 +142,14 @@ public class ManagerMap : MonoBehaviour
         LocationEnter();
     }
     #endregion
+
+    public void LocationChangeVisibility(SOLocation locationInfo, SOLocation.LocationVisibilityType newVisibility)
+    {
+        foreach (var locationButton in map.Locations)
+        {
+            if (locationButton.LocationInfo == locationInfo)
+                locationButton.ChangeVisibility(newVisibility);
+        }
+    }
 }
+

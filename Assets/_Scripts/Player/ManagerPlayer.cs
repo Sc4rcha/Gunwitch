@@ -15,9 +15,6 @@ public class ManagerPlayer : MonoBehaviour
         InventoryMenu.Setup(Info);
         Crafting.Setup(this);
         HUD.Setup();
-
-        // add event finish method to event finish action
-        ManagerGameElements.Instance.ManagerEvents.OnEnventFinish += EventFinish;
     }
 
     public void EventStart() 

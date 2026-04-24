@@ -6,6 +6,9 @@ public class SOLocation : ScriptableObject
     public string Name;
     public Sprite BackgroundSprite;
     [Space]
-    [Tooltip ("This location will show on the map even if no events are available")]
-    public bool IsPersistent;
+    [Tooltip ("Normal:show when event active, hide otherwise | ForceHide: always hidden | ForceShow: always visible")]
+    public LocationVisibilityType InitialVisibility;
+
+    public enum LocationVisibilityType { Normal, ForceHide, ForceShow }
+
 }

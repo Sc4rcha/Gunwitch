@@ -50,7 +50,7 @@ public class CombatEncounter : MonoBehaviour
     }
     #endregion
 
-    public void SpawnEnemy(CombatAgent enemy, Vector2 position, out CombatAgent spawnedEnemy) 
+    public void SpawnEnemy(CombatAgent enemy, Vector3 position, out CombatAgent spawnedEnemy) 
     {
         // instantiate new agent
         enemiesToAdd.Add(Instantiate(enemy, transform));
