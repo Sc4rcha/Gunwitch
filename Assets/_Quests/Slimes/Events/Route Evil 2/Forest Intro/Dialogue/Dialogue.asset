@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 227a819172f1b7040ab509841b30715c, type: 3}
+  m_Name: Dialogue
+  m_EditorClassIdentifier: Assembly-CSharp::SODialogue
+  Characters: []
+  Nodes:
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: The gunwitch makes sure you will stop this trade instead of just taking
+      part in it.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: The goblin tells her is just to see who these buyers are. You have an idea.
+      It will be a little surprise for the Gunwitch
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: The gunwitch doesn't like the Goblin's tone....
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: The clients are not there yet. The bandit captain asks you to sercure the
+      pertimetter.

@@ -89,14 +89,15 @@ public class ManagerMap : MonoBehaviour
     // refresh map (check location availability)
     public void Refresh() 
     {
+        Debug.Log("Refresh Map");
+
         foreach (var location in map.Locations)
         {
             switch (location.LocationVisibility)
             {
                 case SOLocation.LocationVisibilityType.Normal:
                     // activate location if any event is taking place there
-                    if (managerEvents.GetLocationEvents(location.LocationInfo).Length > 0)
-                        location.gameObject.SetActive(true);
+                    location.gameObject.SetActive(managerEvents.GetLocationEvents(location.LocationInfo).Length > 0);
                     break;
                 case SOLocation.LocationVisibilityType.ForceHide:
                     location.gameObject.SetActive(false);

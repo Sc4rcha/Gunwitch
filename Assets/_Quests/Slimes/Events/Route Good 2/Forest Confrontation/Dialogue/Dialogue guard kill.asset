@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 227a819172f1b7040ab509841b30715c, type: 3}
+  m_Name: Dialogue guard kill
+  m_EditorClassIdentifier: Assembly-CSharp::SODialogue
+  Characters: []
+  Nodes:
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: The goblin grins at the sight. She wants to see what this bandit leader
+      is made out of.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: This will be a good excuse to kill him afterwards.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: The gunwitch tells you that you have to stop him. She cannot let a young
+      guard die for nothing.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: The goblin is sad she doesn't get to see some tortuing but I guess the
+      guard beign alive would help.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: Maybe she can tell the rest of the village to give her a handsome reward
+      for dealing with the bandits!
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: Time to kill that fucker.

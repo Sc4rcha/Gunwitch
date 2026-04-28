@@ -9,7 +9,7 @@ public class LockButtonCircle : MonoBehaviour
     public float Speed;
     public int Direction;
     [Header("References")]
-    public CombatAgentLockButton[] Buttons;
+    public CirlceButton[] Buttons;
 
     private bool isMoving;
     private float angularSpeed;
@@ -20,8 +20,8 @@ public class LockButtonCircle : MonoBehaviour
         // stup buttons
         foreach (var button in Buttons)
         {
-            button.Setup(manager);
-            button.Circle = this;
+            button.Button.Setup(manager);
+            button.Button.Circle = this;
         }
 
         // set lock agent reference
@@ -62,14 +62,38 @@ public class LockButtonCircle : MonoBehaviour
     }
 
 
+    [System.Serializable]
+    public struct CirlceButton 
+    {
+        public CombatAgentLockButton Button;
+        [Range (0,11)]
+        public int ButtonPosition;
+    }
+
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Handles.color = Color.magenta;
-        Handles.DrawLine(transform.position + Vector3.up * Radius, transform.position + Vector3.up * Radius + Vector3.right * -Direction);
-        Handles.DrawLine(transform.position + Vector3.up * Radius + Vector3.right * -Direction, transform.position + Vector3.up * (Radius + 0.5f));
+        Handles.DrawLine(transform.position + GetPosition(0, Radius + 0.3f), transform.position + GetPosition(Direction, Radius));
+        Handles.DrawLine(transform.position + GetPosition(6, Radius + 0.3f), transform.position + GetPosition(Direction + 6, Radius));
         Handles.color = Color.white;
         Handles.DrawWireDisc(transform.position, Vector3.forward, Radius);
+    }
+    private void OnDrawGizmosSelected()
+    {
+        foreach (var button in Buttons)
+            button.Button.transform.position = transform.position + GetPosition(button.ButtonPosition, Radius);
+    }
+
+    private Vector3 GetPosition(int step, float radius)
+    {
+        float theta = ((step * 360 / 12) + 90) * Mathf.Deg2Rad;
+
+        float x = radius * Mathf.Cos(theta);
+        float y = radius * Mathf.Sin(theta);
+
+        return new Vector3(x, y, 0);
     }
 #endif
 }

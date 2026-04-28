@@ -8,6 +8,9 @@ public class CombatEncounter : MonoBehaviour
     [Space]
     public List <CombatAgent> Enemies;
 
+    public int TurnNumber { get; private set; }
+
+
     // list of spawned enemies, after spawned the list is cleared
     private List<CombatAgent> enemiesToAdd;
 
@@ -21,13 +24,16 @@ public class CombatEncounter : MonoBehaviour
         foreach (var enemy in Enemies)
             enemy.Setup(manager);
 
-
         enemiesToAdd = new List<CombatAgent>();
+
+        TurnNumber = 0;
     }
 
     #region Player turn
     public void PlayerTurnStart() 
     {
+        TurnNumber++;
+
         // add agents to add to enemies
         foreach (var enemy in enemiesToAdd)
             Enemies.Add(enemy);
@@ -50,24 +56,29 @@ public class CombatEncounter : MonoBehaviour
     }
     #endregion
 
-    public void SpawnEnemy(CombatAgent enemy, Vector3 position, out CombatAgent spawnedEnemy) 
+    public void SpawnEnemy (CombatAgent enemy, Vector3 position)
     {
         // instantiate new agent
         enemiesToAdd.Add(Instantiate(enemy, transform));
-        spawnedEnemy = enemiesToAdd[enemiesToAdd.Count - 1];
 
         // set enemy position
         position.x = Mathf.Clamp(position.x, manager.ArenaBounds.min.x, manager.ArenaBounds.max.x);
         position.y = Mathf.Clamp(position.y, manager.ArenaBounds.min.y, manager.ArenaBounds.max.y);
-        enemiesToAdd[enemiesToAdd.Count-1].transform.position = position;
+        enemiesToAdd[enemiesToAdd.Count - 1].transform.position = position;
 
         // setup and add to encounter list
         enemiesToAdd[enemiesToAdd.Count - 1].Setup(manager);
-        
+
         // enter player turn state if player acting
         if (manager.IsPlayerTurn)
             enemiesToAdd[enemiesToAdd.Count - 1].PlayerTurnStart();
 
+    }
+    public void SpawnEnemy(CombatAgent enemy, Vector3 position, out CombatAgent spawnedEnemy) 
+    {
+        SpawnEnemy(enemy, position);
+
+        spawnedEnemy = enemiesToAdd[enemiesToAdd.Count - 1];
     }
 
     public virtual bool CheckEncounterWincons() 
@@ -81,6 +92,23 @@ public class CombatEncounter : MonoBehaviour
         return Wincons.Length > 0;
     }
 
+    public CombatAgent CheckForEnemy(string id) 
+    {
+        // check for active encounter enemies
+        foreach (var enemy in Enemies)
+        {
+            if (enemy.EnemyStatsReference.Id == id && !enemy.Actor.IsDead)
+                return enemy;
+        }
+        // check enemies that have not been added to the active encoutner enemies
+        foreach (var enemy in enemiesToAdd)
+        {
+            if (enemy.EnemyStatsReference.Id == id && !enemy.Actor.IsDead)
+                return enemy;
+        }
+
+        return null;
+    }
     public bool CheckEncounterFinished() 
     {
         // check of all enemies are dead
@@ -99,7 +127,6 @@ public class CombatEncounter : MonoBehaviour
 
         return true;
     }
-    
     // True while enemies are in the middle of animations. The combat manager waits for this to be false to change phases
     public bool CheckEnemiesDoingStuff() 
     {

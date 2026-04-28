@@ -50,9 +50,10 @@ public class CombatAgentSlimeExplosive : CombatAgentSlime
     }
 
 #if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
+    protected override void DrawGizmos()
     {
-        Handles.DrawWireDisc(Pivot.position, Vector3.forward, ExplosionRadius);  
+        base.DrawGizmos();
+        Handles.DrawWireDisc(Pivot.position, Vector3.forward, ExplosionRadius);
     }
 #endif
 }

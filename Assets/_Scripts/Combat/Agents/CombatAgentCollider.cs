@@ -26,8 +26,8 @@ public class CombatAgentCollider : MonoBehaviour
 
     public void Shoot(int value, Vector2 mousePosition) 
     {
-        // send damage to agent
-        Agent.Damage(value, IsCrit);
+        // send damage to agent (order is important dont change)
         Agent.BulletHit(mousePosition);
+        Agent.Damage(value, IsCrit);
     }
 }

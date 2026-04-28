@@ -12,10 +12,12 @@ public class CombatAgent : MonoBehaviour
 
     [Header("Scene References")]
     public Transform Pivot;
-    public SpriteRenderer Renderer;
-    public ParticleSystem BulletHitEffect;
-    public CombatAgentCollider[] Colliders;
+    public Transform DamageMessagePosition;
     public Animator Animator;
+    public BulletHitEffect BulletHitEffect;
+    public SpriteRenderer Renderer;
+    public SpriteRenderer[] RenderersExtra;
+    public CombatAgentCollider[] Colliders;
 
 
     protected ManagerCombat manager;
@@ -27,7 +29,7 @@ public class CombatAgent : MonoBehaviour
     private const float turnCooldown = 0.5f;
 
     protected float hurtAnimationTime = 0.5f;
-    protected float deathAnimationTime = 0.5f;
+    protected float deathAnimationTime = 0.75f;
     private float hurtDeathAnimationTimeCurrent;
 
     public virtual void Setup(ManagerCombat manager)
@@ -46,11 +48,11 @@ public class CombatAgent : MonoBehaviour
         // setup main renderer
         Renderer.GetComponent<CombatAgentShake>().enabled = false;
         Renderer.color = Color.white;
-        // set renderers order
-        SpriteRenderer[] renderers = Animator.GetComponentsInChildren<SpriteRenderer>();
-        for (int i = 0; i < renderers.Length; i++)
-            renderers[i].sortingOrder = Priority * 10 + i;
-
+        Renderer.sortingOrder = Priority * 10;
+        // set extra sprite renderers order
+        for (int i = 0; i < RenderersExtra.Length; i++)
+            RenderersExtra[i].sortingOrder = Priority * 10 + i + 1;
+        BulletHitEffect.SetMaskRange(Renderer.sortingOrder);
 
         IsHurt = false;
         isPlayerTurn = false;
@@ -127,7 +129,7 @@ public class CombatAgent : MonoBehaviour
         {
             if (hitMessage.IsAvailable)
             {
-                hitMessage.transform.position = Pivot.position + Vector3.up;
+                hitMessage.transform.position = DamageMessagePosition.position;
                 hitMessage.ShowNumber(value);
                 break;
             }
@@ -140,14 +142,21 @@ public class CombatAgent : MonoBehaviour
             Die();
         else
             StartCoroutine(HurtAnimation(isCrit));
+
+        // show bullet hit effect
+        BulletHitEffect.Damage(Actor.IsDead);
     }
     protected virtual void Die() 
     {
         // delay death deactivate enemy
         StartCoroutine(DeathAnimation());
     }
+    public void ForceKill() 
+    {
+        Actor.HealthChange(int.MinValue);
+        gameObject.SetActive(false);
+    }
     #endregion
-
 
     protected virtual void Cleanup() 
     {
@@ -165,11 +174,11 @@ public class CombatAgent : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void BulletHit(Vector2 mousePosition) 
+    public virtual void BulletHit(Vector2 mousePosition) 
     {
-        BulletHitEffect.transform.position = new Vector3 (mousePosition.x, mousePosition.y, transform.position.z);
-        BulletHitEffect.Play();
+        BulletHitEffect.HitPlace(mousePosition);
     }
+
     protected virtual IEnumerator HurtAnimation(bool isCrit) 
     {
         IsDoingStuff = true;
@@ -220,4 +229,13 @@ public class CombatAgent : MonoBehaviour
         Cleanup();
     }
 
+#if UNITY_EDITOR
+    public void OnDrawGizmosSelected()
+    {
+        DrawGizmos();
+    }
+    protected virtual void DrawGizmos() 
+    {
+    }
+#endif
 }

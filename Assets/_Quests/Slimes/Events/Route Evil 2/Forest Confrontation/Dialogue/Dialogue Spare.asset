@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 227a819172f1b7040ab509841b30715c, type: 3}
+  m_Name: Dialogue Spare
+  m_EditorClassIdentifier: Assembly-CSharp::SODialogue
+  Characters: []
+  Nodes:
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: YOu take your gun out.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: When the Gunwitch is about to say something you turn towards the bandits,
+      your back towards the guard.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: The gunwitch is so hyped the goblin is acting like a hero.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: The goblin excuses her behaviour as wanting to take the side that will
+      let her kill more people... "It's not like I want to be a hero or anythign..."

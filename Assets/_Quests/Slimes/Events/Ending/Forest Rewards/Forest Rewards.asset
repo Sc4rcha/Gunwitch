@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa6900161caff9a44a806f3e89c38de9, type: 3}
+  m_Name: Forest Rewards
+  m_EditorClassIdentifier: Assembly-CSharp::SOEvent
+  Name: Look for rewards
+  EventLocation: {fileID: 11400000, guid: 141ee83cad7d1364abee4b3c709f9914, type: 2}
+  IsPersistent: 0
+  IsAutoplay: 0
+  EventAction: {fileID: 11400000, guid: 66dcb871a4795504b970272dadec6cc9, type: 2}
+  UnlockFlags: []
+  EventActions:
+  - {fileID: 11400000, guid: 93842354b080d7e42a0c15a077e9eb2f, type: 2}

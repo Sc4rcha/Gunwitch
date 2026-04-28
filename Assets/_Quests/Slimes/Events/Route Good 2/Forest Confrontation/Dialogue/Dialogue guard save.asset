@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 227a819172f1b7040ab509841b30715c, type: 3}
+  m_Name: Dialogue guard save
+  m_EditorClassIdentifier: Assembly-CSharp::SODialogue
+  Characters: []
+  Nodes:
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: You take your gun out and shoot the badnti leader.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: He uses on of his underlings as a meat shield. The bandit falls dead.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: You tell him ythe cell should have been a bit more hard to break out off.
+      Crossing her was a bad idea.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: The leader tells her he knew she was good. its a shame now he has to kill
+      her.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: The guard doesn't believe her eyes. A goblin has just save her from a certain
+      death.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: The gunwitch is so hyped the goblin is acting like a hero.
+  - IndexCharacterRight: 0
+    IndexCharacterLeft: 0
+    IndexCharacterFocus: 0
+    IndexExpression: 0
+    IndexEmotion: 0
+    Text: You tell the gunwitch this is not for saving the guard. You just want a
+      witness to what you are about to do.

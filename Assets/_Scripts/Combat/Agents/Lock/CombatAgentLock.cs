@@ -125,8 +125,10 @@ public class CombatAgentLock : CombatAgent
 
 
 #if UNITY_EDITOR
-    public void OnDrawGizmosSelected()
+    protected override void DrawGizmos()
     {
+        base.DrawGizmos();
+
         Handles.color = Color.magenta;
         Handles.DrawWireDisc(transform.position + (Vector3)GetPosition(CursorPosition, 0.2f + 1.4f), Vector3.forward, 0.1f);
 

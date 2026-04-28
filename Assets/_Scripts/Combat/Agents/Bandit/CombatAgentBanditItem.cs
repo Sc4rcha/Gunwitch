@@ -52,6 +52,9 @@ public class CombatAgentBanditItem : CombatAgent
             transform.position = handLeft.position;
         else
             transform.position = handRight.position;
+
+        // set time current to random
+        timeToChangeCurrent = Random.Range(0, TimeToChange);
     }
     public override void PlayerTurnFinish()
     {
@@ -59,6 +62,10 @@ public class CombatAgentBanditItem : CombatAgent
 
         // move to left hand when player turn finished
         transform.position = handLeft.transform.position;
+        enemyPosition = transform.position;
+
+        // hide item
+        gameObject.SetActive(false);
     }
     protected override void PlayerTurnUpdate()
     {
