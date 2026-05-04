@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOCombatEnemy
   Name: Bandit
   Id: enemy_bandit
-  Health: 20
-  Armor: 0
+  Health: 50
+  Armor: 15
   MagicResist: 0
-  Strength: 10
+  Strength: 50
   Magic: 0
   Accuracy: 80
-  Speed: 1
+  Speed: 2
   Actions: []
   Loot: []

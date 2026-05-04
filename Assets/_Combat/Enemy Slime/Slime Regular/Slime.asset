@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOCombatEnemy
   Name: Slime
   Id: enemy_slime
-  Health: 7
+  Health: 20
   Armor: 0
-  MagicResist: 0
-  Strength: 10
+  MagicResist: 10
+  Strength: 20
   Magic: 0
-  Accuracy: 70
+  Accuracy: 100
   Speed: 0
   Actions:
   - {fileID: 11400000, guid: f6882ac1f6fece640a7ddcf0f41a1f6e, type: 2}

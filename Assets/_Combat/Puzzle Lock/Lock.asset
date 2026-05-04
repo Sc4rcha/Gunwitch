@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOCombatEnemy
   Name: Lock
   Id: enemy_lock
-  Health: 99
-  Armor: 0
-  MagicResist: 0
+  Health: 100
+  Armor: 50
+  MagicResist: 25
   Strength: 0
-  Magic: 1
-  Accuracy: 0
+  Magic: 40
+  Accuracy: 200
   Speed: 0
   Actions:
   - {fileID: 11400000, guid: 2a33b94c93fcff74091dd284162d35c8, type: 2}

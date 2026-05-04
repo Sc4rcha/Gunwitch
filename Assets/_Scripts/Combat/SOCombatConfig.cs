@@ -13,6 +13,10 @@ public class SOCombatConfig : ScriptableObject
     public float mindBaseMana = 50f;
     [Range(0f, 1f)] public float mindDefenseWeight = 0.75f;
 
+    [Space]
+    [Tooltip ("multiply player's defense")]
+    public float defenseMultiplier = 10f;
+
     [Header("Dexterity")]
     [Tooltip ("Value at witch dodge chances becomes 50%")]
     public float dodgeConst = 50f;
@@ -39,4 +43,8 @@ public class SOCombatConfig : ScriptableObject
     [Header("Variance")]
     public float varianceMin = 0.8f;
     public float varianceMax = 1.2f;
+
+    [Header("Enemies")]
+    [Tooltip ("momentum at witch the enemy get an extra turn")]
+    public float momentumExtraTurn;
 }

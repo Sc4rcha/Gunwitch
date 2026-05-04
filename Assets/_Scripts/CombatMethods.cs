@@ -32,14 +32,14 @@ public static class CombatMethods
 
     public static float PhysicalDefense(ActorPlayer player, SOCombatConfig config)
     {
-        return player.Body * config.bodyDefenseWeight +
-               player.Mind * (1f - config.bodyDefenseWeight);
+        return player.Body * config.defenseMultiplier * config.bodyDefenseWeight +
+               player.Mind * config.defenseMultiplier * (1f - config.bodyDefenseWeight);
     }
 
     public static float MagicalDefense(ActorPlayer player, SOCombatConfig config)
     {
-        return player.Body * (1f - config.mindDefenseWeight) +
-               player.Mind * config.mindDefenseWeight;
+        return player.Body * config.defenseMultiplier * (1f - config.mindDefenseWeight) +
+               player.Mind * config.defenseMultiplier * config.mindDefenseWeight;
     }
 
     public static float Dodge(ActorPlayer player, SOCombatConfig config)
@@ -126,14 +126,9 @@ public static class CombatMethods
         return Random.Range(config.varianceMin, config.varianceMax);
     }
 
-    public static float DefenseReduction(float defense, float constant)
-    {
-        return defense / (defense + constant);
-    }
-
     public static float ApplyDefense(float damage, float defense, float constant)
     {
-        float reduction = DefenseReduction(defense, constant);
+        float reduction = Saturation(defense, constant);
         return damage * (1f - reduction);
     }
 

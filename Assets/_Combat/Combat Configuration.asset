@@ -18,14 +18,16 @@ MonoBehaviour:
   mindManaMultiplier: 10
   mindBaseMana: 50
   mindDefenseWeight: 0.75
+  defenseMultiplier: 10
   dodgeConst: 50
-  fullRevolverScore: 100
+  fullRevolverScore: 20
   defenseConstant: 100
   dropLuckConstant: 50
   luckyConstant: 50
   weightDodge: 0.4
   weightHit: 0.6
   weightCrit: 0.25
-  spellDamageConst: 100
+  spellDamageConst: 10
   varianceMin: 0.8
   varianceMax: 1.2
+  momentumExtraTurn: 0

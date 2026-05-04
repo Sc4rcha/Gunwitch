@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c702fbf4d79b84844b68012d005a4077, type: 3}
-  m_Name: Lock Attack Skill
-  m_EditorClassIdentifier: Assembly-CSharp::SOAbility
-  Name: Missfire
+  m_Name: Pseudopod skill
+  m_EditorClassIdentifier: Assembly-CSharp::SOEnemySkill
+  Name: Pseudopod
   Hit: 1
   Power: 1
   IsMagic: 1
