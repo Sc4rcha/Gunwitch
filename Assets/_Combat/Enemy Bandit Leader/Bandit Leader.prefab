@@ -434,7 +434,8 @@ MonoBehaviour:
   EnemyStatsReference: {fileID: 11400000, guid: 989a3bf7a11556247929d12785598d37, type: 2}
   Priority: 1
   Pivot: {fileID: 8305951777365575712}
-  DamageMessagePosition: {fileID: 6040223401995649780}
+  MarkerDamage: {fileID: 6040223401995649780}
+  MarkerSelect: {fileID: 7633644392523621014}
   Animator: {fileID: 6581468038406790596}
   BulletHitEffect: {fileID: 2970687477410068185}
   Renderer: {fileID: 2633897928909686122}
@@ -453,6 +454,11 @@ MonoBehaviour:
   MeatShieldBounds:
     m_Center: {x: 0, y: 2.5, z: 0}
     m_Extent: {x: 0.75, y: 0.75, z: 0}
+--- !u!4 &7633644392523621014 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2868564482711403873, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+  m_PrefabInstance: {fileID: 5638250631167041527}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8305951777365575712 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4430341581151868887, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}

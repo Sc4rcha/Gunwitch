@@ -1,34 +1,83 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System;
+using System.Collections;
 
 public class CombatScreenAttack : MonoBehaviour
 {
-    public Image AttackImage;
+    public GameObject SelectPrimary;
+    public GameObject[] SelectSecondary;
     public TMPro.TMP_Text AttackName;
 
-    public float AttackAnimationTime;
-    private float attackTimeCurrent;
 
     public event Action OnAnimationFinish;
 
-    public void Attack(Sprite attackSprite, SOAbility ability) 
+    private WaitForSeconds preActWait;
+    private WaitForSeconds postActWait;
+    private ManagerCombat manager;
+
+
+    public void Setup(ManagerCombat manager) 
     {
-        AttackImage.sprite = attackSprite;
-        AttackName.text = ability.Name;
+        this.manager = manager;
 
-        attackTimeCurrent = 0;
+        preActWait = new WaitForSeconds(0.5f);
+        postActWait = new WaitForSeconds(1);
 
-        gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 
-    private void Update()
+    public void Attack(CombatAgent enemyActing, SOEnemySkill ability) 
     {
-        attackTimeCurrent += Time.deltaTime;
-        if (attackTimeCurrent > AttackAnimationTime)
+        AttackName.text = ability.Name;
+        SelectPrimary.transform.position = enemyActing.MarkerSelect.position;
+
+        AttackName.gameObject.SetActive(false);
+        SelectPrimary.gameObject.SetActive(false);
+        gameObject.SetActive(true);
+
+        StartCoroutine(AnimationBehaviour(enemyActing, ability));
+    }
+    public void Attack(CombatAgent enemyActing, CombatAgent[] enemiesSelected, SOEnemySkill ability)
+    {
+        Attack(enemyActing, ability);
+
+        for (int i = 0; i < enemiesSelected.Length; i++)
         {
-            OnAnimationFinish?.Invoke();
-            gameObject.SetActive(false);
+            SelectSecondary[i].SetActive(true);
+            SelectSecondary[i].transform.position = enemiesSelected[i].MarkerSelect.position;
         }
+    }
+
+
+    private IEnumerator AnimationBehaviour(CombatAgent enemyActing, SOEnemySkill ability)
+    {
+        SelectPrimary.gameObject.SetActive(true);
+
+        // Select
+        enemyActing.Select(true);
+
+        yield return preActWait;
+
+        AttackName.gameObject.SetActive(true);
+
+        enemyActing.TakeAction();
+
+        // Do ability
+        manager.EnemyAttack(enemyActing.Actor, ability);
+
+        yield return postActWait;
+
+        enemyActing.Select(false);
+        SelectPrimary.gameObject.SetActive(false);
+
+        // send animation finish to actor
+        OnAnimationFinish?.Invoke();
+
+        // hide selectors secondary
+        foreach (var selectSecondary in SelectSecondary)
+            selectSecondary.SetActive(false);
+
+        // hide screen
+        gameObject.SetActive(false);
     }
 }

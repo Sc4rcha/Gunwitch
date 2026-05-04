@@ -32,6 +32,7 @@ Transform:
   m_Children:
   - {fileID: 4430341581151868887}
   - {fileID: 2156160160385899779}
+  - {fileID: 2868564482711403873}
   - {fileID: 618516466007285376}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50,7 +51,8 @@ MonoBehaviour:
   EnemyStatsReference: {fileID: 11400000, guid: 740be6154b07f984f96c68556ae2d1b9, type: 2}
   Priority: 0
   Pivot: {fileID: 4430341581151868887}
-  DamageMessagePosition: {fileID: 2156160160385899779}
+  MarkerDamage: {fileID: 2156160160385899779}
+  MarkerSelect: {fileID: 2868564482711403873}
   Animator: {fileID: 1542770240457769523}
   BulletHitEffect: {fileID: 7423365498046196014}
   Renderer: {fileID: 7688325322983987869}
@@ -394,6 +396,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 559890192054137798}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5191296557143981317
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2868564482711403873}
+  m_Layer: 7
+  m_Name: Marker Select
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2868564482711403873
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5191296557143981317}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.2, y: 0.15, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 559890192054137798}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5666967937976927620
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,7 +437,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2156160160385899779}
   m_Layer: 7
-  m_Name: Damage Message
+  m_Name: Marker Damage
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -419,7 +452,7 @@ Transform:
   m_GameObject: {fileID: 5666967937976927620}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.11, y: 3.7, z: 0}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

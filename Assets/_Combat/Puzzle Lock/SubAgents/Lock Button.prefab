@@ -1337,7 +1337,8 @@ MonoBehaviour:
   EnemyStatsReference: {fileID: 11400000, guid: 00410ffbc28f1a344929f3a4595be937, type: 2}
   Priority: 1
   Pivot: {fileID: 7423996618209308443}
-  DamageMessagePosition: {fileID: 5156852037501363663}
+  MarkerDamage: {fileID: 5156852037501363663}
+  MarkerSelect: {fileID: 9057822506180838829}
   Animator: {fileID: 5698721466030603007}
   BulletHitEffect: {fileID: 4429851190956462562}
   Renderer: {fileID: 3516891860226007633}
@@ -1389,5 +1390,10 @@ Transform:
 --- !u!4 &7423996618209308443 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4430341581151868887, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+  m_PrefabInstance: {fileID: 6520343263594035404}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &9057822506180838829 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2868564482711403873, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
   m_PrefabInstance: {fileID: 6520343263594035404}
   m_PrefabAsset: {fileID: 0}

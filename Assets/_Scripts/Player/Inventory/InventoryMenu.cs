@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class InventoryMenu : MonoBehaviour
 {
-    protected PlayerInfo player;
+    protected ActorPlayer player;
     protected InventorySlotButtonInfo[] inventorySlots;
     protected ItemType selectedSection;
 
-    public virtual void Setup(PlayerInfo player) 
+    public virtual void Setup(ActorPlayer player) 
     {
         this.player = player;
     }

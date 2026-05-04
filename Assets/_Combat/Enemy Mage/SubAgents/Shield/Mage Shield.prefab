@@ -201,6 +201,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4430341581151868887, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
   m_PrefabInstance: {fileID: 9116704041531961903}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &6434019026131865422 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2868564482711403873, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+  m_PrefabInstance: {fileID: 9116704041531961903}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7163311898598305580 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2156160160385899779, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
@@ -231,7 +236,8 @@ MonoBehaviour:
   EnemyStatsReference: {fileID: 11400000, guid: a8fb9ad69e0942643a38114284018d15, type: 2}
   Priority: 10
   Pivot: {fileID: 4899553779345679864}
-  DamageMessagePosition: {fileID: 7163311898598305580}
+  MarkerDamage: {fileID: 7163311898598305580}
+  MarkerSelect: {fileID: 6434019026131865422}
   Animator: {fileID: 7776607535337238556}
   BulletHitEffect: {fileID: 1837501165182278401}
   Renderer: {fileID: 1456739796423059634}

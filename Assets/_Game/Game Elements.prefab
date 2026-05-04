@@ -14631,6 +14631,7 @@ MonoBehaviour:
   ManaBar: {fileID: 1824668264051891632}
   CraftingButton: {fileID: 1110879119395752594}
   Portrait: {fileID: 2627008448172736847}
+  Shake: {fileID: 727752037271038279}
 --- !u!1 &8492863915696546571
 GameObject:
   m_ObjectHideFlags: 0
@@ -15026,6 +15027,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7845888511875949021}
   - component: {fileID: 2627008448172736847}
+  - component: {fileID: 727752037271038279}
   - component: {fileID: 757423564890916757}
   m_Layer: 0
   m_Name: Portrait
@@ -15079,6 +15081,18 @@ MonoBehaviour:
   PortraitAnimator: {fileID: 0}
   HitNumber: {fileID: 801977836491986393}
   FocusOffColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+--- !u!114 &727752037271038279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8593595850160877489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 993bb15d09df3f0488d1f94e75f71be2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPortraitShake
 --- !u!225 &757423564890916757
 CanvasGroup:
   m_ObjectHideFlags: 0

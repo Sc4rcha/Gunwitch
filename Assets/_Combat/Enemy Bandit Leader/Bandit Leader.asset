@@ -14,13 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOCombatEnemy
   Name: Bandit Leader
   Id: bandit_leader
-  AttackSprite: {fileID: 21300000, guid: 670003658a5db8b4eb45e57244d45406, type: 3}
   Health: 50
-  Mana: 0
-  Body: 1
-  Magic: 1
-  Dexterity: 1
-  Luck: 1
-  Charisma: 1
-  Attack: {fileID: 11400000, guid: 9746bb0c42e8abf4cb300344452a3f40, type: 2}
+  Armor: 0
+  MagicResist: 0
+  Strength: 15
+  Magic: 0
+  Accuracy: 100
+  Speed: 0
+  Actions: []
   Loot: []

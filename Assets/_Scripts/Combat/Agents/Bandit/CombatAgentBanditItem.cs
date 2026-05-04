@@ -11,6 +11,10 @@ public class CombatAgentBanditItem : CombatAgent
     [Space]
     public Transform handLeft;
     public Transform handRight;
+    [Space]
+    public SkillSlot[] Skills; 
+
+    public SOEnemyAction SelectedAction { get; private set; }
 
     // move variables
     private float timeToChangeCurrent;
@@ -34,6 +38,7 @@ public class CombatAgentBanditItem : CombatAgent
         jumpVelocity = Mathf.Abs(gravity) * TimeToJumpApex;
     }
 
+
     #region Player turn
     public override void PlayerTurnStart()
     {
@@ -55,6 +60,15 @@ public class CombatAgentBanditItem : CombatAgent
 
         // set time current to random
         timeToChangeCurrent = Random.Range(0, TimeToChange);
+
+        // pick action 
+        SelectedAction = SelectAction();
+        // set sprite
+        foreach (var skillSlot in Skills)
+        {
+            if (skillSlot.Skill == SelectedAction.Skill)
+                Renderer.sprite = skillSlot.Sprite;
+        }
     }
     public override void PlayerTurnFinish()
     {
@@ -120,5 +134,10 @@ public class CombatAgentBanditItem : CombatAgent
     }
     #endregion
 
-
+    [System.Serializable]
+    public struct SkillSlot 
+    {
+        public SOEnemySkill Skill;
+        public Sprite Sprite;
+    }
 }

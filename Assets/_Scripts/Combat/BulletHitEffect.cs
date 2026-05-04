@@ -2,22 +2,23 @@ using UnityEngine;
 
 public class BulletHitEffect : MonoBehaviour
 {
+    public Color ColorBlood;
     public ParticleSystem HitEffect;
     public SpriteMask DeadEffect;
 
-    private bool isHitPlaced;
-
-    public void SetMaskRange(int enemyOrderInLayer) 
+    public void Setup(int enemyOrderInLayer) 
     {
+        DeadEffect.gameObject.SetActive(false);
+
         DeadEffect.frontSortingOrder = enemyOrderInLayer + 1;
         DeadEffect.backSortingOrder = enemyOrderInLayer - 1;
-    }
 
+        var main = HitEffect.main;
+        main.startColor = ColorBlood;
+    }
 
     public void HitPlace(Vector2 position) 
     {
-        isHitPlaced = true;
-
         // move partice system to mouse position
         HitEffect.transform.position = new Vector3(position.x, position.y, transform.position.z);
         // move mask to mouse position
@@ -25,20 +26,16 @@ public class BulletHitEffect : MonoBehaviour
 
     }
 
-    public void Damage(bool isDead) 
+    public void Damage() 
     {
-        // do nothing if Hit placed was not called
-        if (!isHitPlaced)
-            return;
+        // play particles
+        HitEffect.Play();
+    }
 
-        if (!isDead)
-            // play particle system
-            HitEffect.Play();
-        else
-            // show mask
-            DeadEffect.gameObject.SetActive(true);
-
-        isHitPlaced = false;
+    public void Die() 
+    {
+        HitEffect.Clear();
+        DeadEffect.gameObject.SetActive(true);
     }
 
     private void OnDisable()

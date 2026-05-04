@@ -1,7 +1,6 @@
 using GameInfo;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class PlayerHUDPortrait : MonoBehaviour
 {

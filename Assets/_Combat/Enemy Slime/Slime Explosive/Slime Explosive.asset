@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOCombatEnemy
   Name: Slime
   Id: enemy_slime_explosive
-  AttackSprite: {fileID: 21300000, guid: 9c79281e09db0064f85f754081a6a02e, type: 3}
   Health: 7
-  Mana: 0
-  Body: 1
-  Magic: 1
-  Dexterity: 1
-  Luck: 1
-  Charisma: 1
-  Attack: {fileID: 11400000, guid: 52e485d8671fabf4882f7f1073d41feb, type: 2}
+  Armor: 0
+  MagicResist: 0
+  Strength: 15
+  Magic: 0
+  Accuracy: 70
+  Speed: 0
+  Actions:
+  - {fileID: 11400000, guid: f6882ac1f6fece640a7ddcf0f41a1f6e, type: 2}
   Loot:
   - Loot: {fileID: 11400000, guid: b7bfef551a91118458872e47625167e8, type: 2}
     Chances: 15

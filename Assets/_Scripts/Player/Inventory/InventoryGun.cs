@@ -16,9 +16,9 @@ public class InventoryGun : MonoBehaviour
 
     private bool isOpen;
 
-    private PlayerInfo player;
+    private ActorPlayer player;
 
-    public void Setup(PlayerInfo player) 
+    public void Setup(ActorPlayer player) 
     {
         this.player = player;
         drums = new List <SOInventoryItem>();

@@ -3,7 +3,7 @@ using GameInfo;
 
 public class ManagerPlayer : MonoBehaviour
 {
-    public PlayerInfo Info;
+    public ActorPlayer Info;
 
     public InventoryMenuOverworld InventoryMenu;
     public Crafting Crafting;
@@ -14,7 +14,7 @@ public class ManagerPlayer : MonoBehaviour
         // setup elements
         InventoryMenu.Setup(Info);
         Crafting.Setup(this);
-        HUD.Setup();
+        HUD.Setup(this);
     }
 
     public void EventStart() 
@@ -33,27 +33,29 @@ public class ManagerPlayer : MonoBehaviour
         Crafting.Lock(false);
     }
 
+    public void Miss() 
+    {
+        HUD.Damage("MISS");
+    }
     public void Damage(int value) 
     {
-        HUD.Portrait.HitNumber.ShowNumber(value);
-
-        Info.Actor.HealthChange(-value);
-        HUD.Refresh(Info.Actor);
+        Info.HealthChange(-value);
+        HUD.Damage(value.ToString());
     }
     public void Heal (int value)
     {
-        Info.Actor.HealthChange(value);
-        HUD.Refresh(Info.Actor);
+        Info.HealthChange(value);
+        HUD.Refresh();
     }
     public void ManaUse(int value) 
     {
-        Info.Actor.ManaChange(-value);
-        HUD.Refresh(Info.Actor);
+        Info.ManaChange(-value);
+        HUD.Refresh();
     }
     public void ManaRecover(int value)
     {
-        Info.Actor.ManaChange(value);
-        HUD.Refresh(Info.Actor);
+        Info.ManaChange(value);
+        HUD.Refresh();
     }
 }
 

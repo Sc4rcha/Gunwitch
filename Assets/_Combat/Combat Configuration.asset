@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74b4e434d4b79d047a919658108c0946, type: 3}
+  m_Name: Combat Configuration
+  m_EditorClassIdentifier: Assembly-CSharp::SOCombatStats
+  bodyHealthMultiplier: 20
+  bodyBaseHealth: 100
+  bodyDefenseWeight: 0.75
+  mindManaMultiplier: 10
+  mindBaseMana: 50
+  mindDefenseWeight: 0.75
+  dodgeConst: 50
+  fullRevolverScore: 100
+  defenseConstant: 100
+  dropLuckConstant: 50
+  luckyConstant: 50
+  weightDodge: 0.4
+  weightHit: 0.6
+  weightCrit: 0.25
+  spellDamageConst: 100
+  varianceMin: 0.8
+  varianceMax: 1.2

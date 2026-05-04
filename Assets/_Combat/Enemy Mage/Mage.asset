@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOCombatEnemy
   Name: Mage
   Id: enemy_bandit_mage
-  AttackSprite: {fileID: 21300000, guid: 6fde59f929ea1b14daac461e97a2f88c, type: 3}
   Health: 20
-  Mana: 0
-  Body: 1
-  Magic: 1
-  Dexterity: 1
-  Luck: 1
-  Charisma: 1
-  Attack: {fileID: 11400000, guid: 3d6e0689f83faf947b10d612f5bcaf3a, type: 2}
+  Armor: 0
+  MagicResist: 0
+  Strength: 0
+  Magic: 10
+  Accuracy: 100
+  Speed: 1
+  Actions:
+  - {fileID: 11400000, guid: d7abe66dc1d80f94d9311e74741c7145, type: 2}
   Loot: []

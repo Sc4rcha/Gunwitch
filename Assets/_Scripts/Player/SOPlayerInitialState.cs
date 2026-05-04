@@ -1,15 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Player Initial State", menuName = "Player Initial State")]
+[CreateAssetMenu(fileName = "Player Initial State", menuName = "Player/Player Initial State")]
 public class SOPlayerInitialState : ScriptableObject
 {
-    [Header("Combat Stats")]
-    public int Health;
-    public int Mana;
-
     [Header("Stat")]
     public int Body;
-    public int Magic;
+    public int Mind;
     public int Dexterity;
     public int Luck;
     public int Charisma;
@@ -20,8 +16,11 @@ public class SOPlayerInitialState : ScriptableObject
     public SOInventoryItemBullet[] StartingBullets;
     public SOCraftingRecipe[] StartingRecipes;
 
-    public GameInfo.PlayerInfo GetPlayer() 
+    [Header("Stats")]
+    public SOCombatConfig Stats;
+
+    public GameInfo.ActorPlayer GetPlayer() 
     {
-        return new GameInfo.PlayerInfo(this);
+        return new GameInfo.ActorPlayer(this);
     }
 }

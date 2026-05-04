@@ -21,7 +21,7 @@ public class InventoryMenuCombat : InventoryMenu
 
     private ManagerCombat combat;
 
-    public void Setup (PlayerInfo player, ManagerCombat combat)
+    public void Setup (ActorPlayer player, ManagerCombat combat)
     {
         this.combat = combat;
 
@@ -65,7 +65,7 @@ public class InventoryMenuCombat : InventoryMenu
                     inventorySlots[i].Show(true);
 
                     // set interactable only if player has enough mana
-                    inventorySlots[i].SlotButton.interactable = player.Actor.CheckEnoughMana(player.Inventory.Bullets.ElementAt(i).Value.ManaCost);
+                    inventorySlots[i].SlotButton.interactable = player.CheckEnoughMana(player.Inventory.Bullets.ElementAt(i).Value.ManaCost);
                 }
                 break;
             case ItemType.DRUM:

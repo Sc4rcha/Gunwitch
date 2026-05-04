@@ -50,6 +50,7 @@ public class CombatAgentBandit : CombatAgent
     }
     #endregion
 
+
     public override void TurnStart()
     {
         if (!Item.Actor.IsDead)
@@ -57,6 +58,11 @@ public class CombatAgentBandit : CombatAgent
         else
             TurnFinish();
     }
+    protected override SOEnemyAction SelectAction()
+    {
+        return Item.SelectedAction;
+    }
+
 
     protected override void Die()
     {

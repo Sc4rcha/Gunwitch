@@ -5661,7 +5661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6753649633307560714, guid: 665bf2fc3f507b745a43027b49d53f72, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00000035762787
+      value: 0.0000003496911
       objectReference: {fileID: 0}
     - target: {fileID: 6753649633307560714, guid: 665bf2fc3f507b745a43027b49d53f72, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5730,7 +5730,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6753649633307560714, guid: 665bf2fc3f507b745a43027b49d53f72, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.99999976
+      value: -0.9999998
       objectReference: {fileID: 0}
     - target: {fileID: 6753649633307560714, guid: 665bf2fc3f507b745a43027b49d53f72, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5921,6 +5921,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa9fe94b09726df40bd763fcf2d7e45c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletHitEffect
+--- !u!4 &5515059623363991577 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2868564482711403873, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+  m_PrefabInstance: {fileID: 7729968834796676472}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6214371012672647855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4430341581151868887, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
@@ -5961,7 +5966,8 @@ MonoBehaviour:
   EnemyStatsReference: {fileID: 11400000, guid: eb711894701a2f54b855575bed999b4f, type: 2}
   Priority: 0
   Pivot: {fileID: 6214371012672647855}
-  DamageMessagePosition: {fileID: 8550758506503075963}
+  MarkerDamage: {fileID: 8550758506503075963}
+  MarkerSelect: {fileID: 5515059623363991577}
   Animator: {fileID: 9092583956781655883}
   BulletHitEffect: {fileID: 883631477991558230}
   Renderer: {fileID: 140797509063458789}

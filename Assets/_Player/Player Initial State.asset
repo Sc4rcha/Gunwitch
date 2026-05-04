@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7306aee722662ea49a71e433ac4819e5, type: 3}
   m_Name: Player Initial State
   m_EditorClassIdentifier: Assembly-CSharp::SOPlayerInitialState
-  Health: 100
-  Mana: 100
   Body: 1
-  Magic: 1
+  Mind: 1
   Dexterity: 1
   Luck: 1
   Charisma: 1
@@ -28,3 +26,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cf398d804dc143042a02d5cb6f8ac887, type: 2}
   StartingRecipes:
   - {fileID: 11400000, guid: 343b0a64fea979b4fb98fd9d237396dc, type: 2}
+  Stats: {fileID: 11400000, guid: c64aa2f8b2dcb1d4298e7adb7b945c66, type: 2}

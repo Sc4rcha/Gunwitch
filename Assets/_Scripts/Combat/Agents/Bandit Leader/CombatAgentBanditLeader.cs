@@ -66,6 +66,7 @@ public class CombatAgentBanditLeader : CombatAgent
     }
     #endregion
 
+
     public override void TurnStart()
     {
         if (!Items[itemIndex].Actor.IsDead)
@@ -97,6 +98,10 @@ public class CombatAgentBanditLeader : CombatAgent
         if (Sword.Actor.IsDead)
             Sword.Revive();
     }
+    protected override SOEnemyAction SelectAction()
+    {
+        return Items[itemIndex].SelectedAction;
+    }
 
 
     #region Stat change
@@ -107,18 +112,6 @@ public class CombatAgentBanditLeader : CombatAgent
         else
             base.Damage(value, isCrit);
     }
-    protected override void Die()
-    {
-        base.Die();
-
-        // kill sword
-        Sword.ForceKill();
-
-        // kill meatshield
-        MeatShield.ForceKill();
-    }
-    #endregion
-
     public override void BulletHit(Vector2 mousePosition)
     {
         // Move meatshield
@@ -130,7 +123,7 @@ public class CombatAgentBanditLeader : CombatAgent
         }
 
         // Get new meatshield
-        if (manager.Encounter.CheckForEnemy (MeatShieldReference.Id) is CombatAgent meatShield)
+        if (manager.Encounter.CheckForEnemy(MeatShieldReference.Id) is CombatAgent meatShield)
         {
             Animator.Play("Guard");
 
@@ -150,6 +143,18 @@ public class CombatAgentBanditLeader : CombatAgent
         // otherwise normal bullet hit
         base.BulletHit(mousePosition);
     }
+
+    protected override void Die()
+    {
+        base.Die();
+
+        // kill sword
+        Sword.ForceKill();
+
+        // kill meatshield
+        MeatShield.ForceKill();
+    }
+    #endregion
 
 
     protected override void DrawGizmos()

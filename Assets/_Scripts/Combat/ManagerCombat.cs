@@ -18,6 +18,8 @@ public class ManagerCombat : MonoBehaviour
     public CombatHitMessage[] HitMessages;
     [Header ("Variables")]
     public Bounds ArenaBounds;
+    [Space]
+    public SOCombatConfig Configuration;
 
     public bool IsPlayerTurn { get; private set; }
     public CombatEncounter Encounter { get; private set; }
@@ -44,6 +46,7 @@ public class ManagerCombat : MonoBehaviour
         InventoryMenu.Setup(ManagerGameElements.Instance.Player.Info, this);
 
         // setup screens
+        ScreenAttack.Setup(this);
         ScreenWin.Setup();
 
         // start combat
@@ -139,20 +142,10 @@ public class ManagerCombat : MonoBehaviour
     }
     #endregion
 
-    public void EnemyAttack(SOAbility ability) 
-    {
-        float playerDexModifier = (float)(Player.PlayerReference.Info.Actor.Dexterity - 1) / ((float)(GameInfo.Actor.MaxAbilityScore - 1) * 2);
-        int abilityHitChance = Mathf.RoundToInt(ability.Hit * (1f - playerDexModifier));
 
-        if (Random.Range (0,100) < abilityHitChance)
-        {
-            Player.PlayerReference.Damage(ability.Damage);
-        }
-        else 
-        {
-            PlayerHUDPortrait.Instance.HitNumber.ShowMiss();
-            // Miss / dodge
-        }
+    public void EnemyAttack(ActorEnemy enemy, SOEnemySkill ability) 
+    {
+        Player.PlayerReference.Damage((int)CombatMethods.EnemyToPlayerDamage(Player.PlayerReference.Info, enemy, ability, Configuration));
     }
 
     public void CheckCombatOver() 
@@ -164,7 +157,7 @@ public class ManagerCombat : MonoBehaviour
         else if (Encounter.CheckEncounterFinished())
             CombatFinish(CombatEndType.Win);
         // check player lose player is dead
-        else if (Player.PlayerReference.Info.Actor.IsDead)
+        else if (Player.PlayerReference.Info.IsDead)
             CombatFinish(CombatEndType.Lose);
     }
 

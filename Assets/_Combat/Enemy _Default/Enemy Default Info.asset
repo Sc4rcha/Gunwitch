@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOCombatEnemy
   Name: Default Enemy
   Id: enemy_default
-  AttackSprite: {fileID: 21300000, guid: ea2e0f02d422f4f42bbbd2515e34b9b7, type: 3}
   Health: 20
-  Mana: 0
-  Body: 1
-  Magic: 1
-  Dexterity: 1
-  Luck: 1
-  Charisma: 1
-  Attack: {fileID: 11400000, guid: 04ac8f4c88a629f4a928120653656692, type: 2}
+  Armor: 0
+  MagicResist: 0
+  Strength: 0
+  Magic: 0
+  Accuracy: 100
+  Speed: 0
+  Actions:
+  - {fileID: 11400000, guid: 0303aab887195e84ba84f538c13b49d1, type: 2}
   Loot:
   - Loot: {fileID: 11400000, guid: cd8a234a7cc4b5042a86da400de9643a, type: 2}
     Chances: 25

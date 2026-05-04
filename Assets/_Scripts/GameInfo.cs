@@ -6,21 +6,83 @@ using UnityEngine.Audio;
 
 namespace GameInfo
 {
-
-    #region PLAYER
-    public class PlayerInfo
+    #region ACTORS
+    public class Actor
     {
-        public Actor Actor;
+        public string Name;
+
+        // combat stats
+        public int Health;
+        public int HealthCurrent;
+        public int Mana;
+        public int ManaCurrent;
+
+        public bool IsDead => HealthCurrent <= 0;
+        /// <summary>
+        /// Change the current health of actor;
+        /// </summary>
+        /// <param name="value"></param>
+        public void HealthChange(int value)
+        {
+            HealthCurrent = Mathf.Clamp(HealthCurrent + value, 0, Health);
+        }
+    }
+    public class ActorEnemy : Actor
+    {
+        // stats
+        public int Armor;
+        public int MagicResist;
+        public int Strength;
+        public int Magic;
+        public int Accuracy;
+        public int Speed;
+
+        // constructor
+        public ActorEnemy(SOCombatEnemy enemy)
+        {
+            Name = enemy.Name;
+
+            Health = enemy.Health;
+
+            // stats
+            Armor = enemy.Armor;
+            MagicResist = enemy.MagicResist;
+            Strength = enemy.Strength;
+            Magic = enemy.Magic;
+            Accuracy = enemy.Accuracy;
+            Speed = enemy.Speed;
+        }
+
+        /// <summary>
+        /// this is only for enemies, do not call on player.
+        /// </summary>
+        public void Startcombat()
+        {
+            HealthCurrent = Health;
+        }
+    }
+    public class ActorPlayer : Actor
+    {
+
+
+        // stats
+        public int Body;
+        public int Mind;
+        public int Dexterity;
+        public int Luck;
+        public int Charisma;
+
         public Inventory Inventory;
 
-        // create player from Initial State
-        public PlayerInfo(SOPlayerInitialState playerInitialState)
+        // constructor for player initial state
+        public ActorPlayer(SOPlayerInitialState playerInitialState)
         {
-            Actor = new Actor(playerInitialState);
+            Name = "Player";
 
-            // set combat stats
-            Actor.HealthCurrent = Actor.Health;
-            Actor.ManaCurrent = Actor.Mana;
+            Health = (int)CombatMethods.Health(this, playerInitialState.Stats);
+            Mana = (int)CombatMethods.Mana(this, playerInitialState.Stats);
+            HealthCurrent = Health;
+            ManaCurrent = Mana;
 
             // set inventory
             Inventory = new Inventory();
@@ -34,78 +96,7 @@ namespace GameInfo
             // set equipped drum
             Inventory.EquippedDrum = playerInitialState.EquippedDrum.Id;
         }
-    }
-    #endregion
 
-    #region ACTORS
-    public enum Ability { BODY, MAGIC, DEX, LUCK, CHAR }
-    public class Actor
-    {
-        public string Name;
-
-        // combat stats
-        public int Health;
-        public int Mana;
-        public int HealthCurrent;
-        public int ManaCurrent;
-
-        // stats
-        public int Body;
-        public int Magic;
-        public int Dexterity;
-        public int Luck;
-        public int Charisma;
-
-        public static readonly int MaxAbilityScore = 6;
-
-        public bool IsDead => HealthCurrent <= 0;
-
-        // constructor for player
-        public Actor(SOPlayerInitialState player)
-        {
-            Name = "Player";
-
-            Health = player.Health;
-            Mana = player.Mana;
-
-            Body = player.Body;
-            Magic = player.Magic;
-            Dexterity = player.Dexterity;
-            Luck = player.Luck;
-            Charisma = player.Charisma;
-        }
-        // constructor for enemy
-        public Actor(SOCombatEnemy enemy)
-        {
-            Name = enemy.Name;
-
-            Health = enemy.Health;
-            Mana = enemy.Mana;
-
-            Body = enemy.Body;
-            Magic = enemy.Magic;
-            Dexterity = enemy.Dexterity;
-            Luck = enemy.Luck;
-            Charisma = enemy.Charisma;
-        }
-
-        /// <summary>
-        /// this is only for enemies, do not call on player.
-        /// </summary>
-        public void Startcombat()
-        {
-            HealthCurrent = Health;
-            ManaCurrent = Mana;
-        }
-
-        /// <summary>
-        /// Change the current health of actor;
-        /// </summary>
-        /// <param name="value"></param>
-        public void HealthChange(int value)
-        {
-            HealthCurrent = Mathf.Clamp(HealthCurrent + value, 0, Health);
-        }
         /// <summary>
         /// Change the current mana of actor
         /// </summary>
@@ -124,7 +115,10 @@ namespace GameInfo
             return ManaCurrent >= cost;
         }
     }
+
+
     #endregion
+
 
     #region EVENTS
     public class MapState 

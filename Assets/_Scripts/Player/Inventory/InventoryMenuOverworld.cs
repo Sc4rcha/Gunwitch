@@ -36,7 +36,7 @@ public class InventoryMenuOverworld : InventoryMenu
 
     private ItemType lastSelectedSection;
 
-    public override void Setup(PlayerInfo player)
+    public override void Setup(ActorPlayer player)
     {
         base.Setup(player);
 

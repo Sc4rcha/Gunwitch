@@ -103,7 +103,8 @@ MonoBehaviour:
   EnemyStatsReference: {fileID: 11400000, guid: 97c2f5ee83cb2944899b46feb5c3981a, type: 2}
   Priority: 0
   Pivot: {fileID: 3509249441335738108}
-  DamageMessagePosition: {fileID: 1163300663243338792}
+  MarkerDamage: {fileID: 1163300663243338792}
+  MarkerSelect: {fileID: 3028626515646370890}
   Animator: {fileID: 1774948955478125336}
   BulletHitEffect: {fileID: 7696071638283042821}
   Renderer: {fileID: 7456426967897158582}
@@ -121,6 +122,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be44500c7ce3e684a86bc9cb003f5122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatAgentCollider
+--- !u!4 &3028626515646370890 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1275749110196672411, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
+  m_PrefabInstance: {fileID: 4301932476435350481}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3509249441335738108 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 792865588726250797, guid: 62207ea219927f24fae85e40f86c8393, type: 3}

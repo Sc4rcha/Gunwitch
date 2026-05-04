@@ -283,6 +283,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.376
       objectReference: {fileID: 0}
+    - target: {fileID: 7423365498046196014, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: ColorBlood.b
+      value: 0.3726415
+      objectReference: {fileID: 0}
+    - target: {fileID: 7423365498046196014, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: ColorBlood.g
+      value: 0.94532377
+      objectReference: {fileID: 0}
+    - target: {fileID: 7423365498046196014, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: ColorBlood.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7688325322983987869, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -323,6 +335,11 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 7688325322983987869, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
   m_PrefabInstance: {fileID: 7081796724578559616}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &5010440038972333025 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2868564482711403873, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+  m_PrefabInstance: {fileID: 7081796724578559616}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6862400238027845975 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4430341581151868887, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
@@ -358,7 +375,8 @@ MonoBehaviour:
   EnemyStatsReference: {fileID: 11400000, guid: 20843f6e515c09247abcab223cb259f8, type: 2}
   Priority: 2
   Pivot: {fileID: 6862400238027845975}
-  DamageMessagePosition: {fileID: 9199623291858402179}
+  MarkerDamage: {fileID: 9199623291858402179}
+  MarkerSelect: {fileID: 5010440038972333025}
   Animator: {fileID: 8587975011099223219}
   BulletHitEffect: {fileID: 379022614865678254}
   Renderer: {fileID: 645690110613814301}

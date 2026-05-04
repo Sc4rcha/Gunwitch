@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c702fbf4d79b84844b68012d005a4077, type: 3}
+  m_Script: {fileID: 11500000, guid: 750a50442e4c8fe409557383ae6b58c9, type: 3}
   m_Name: Mage Attack
-  m_EditorClassIdentifier: Assembly-CSharp::SOAbility
-  Name: Spell
-  Damage: 20
-  Hit: 90
+  m_EditorClassIdentifier: Assembly-CSharp::SOEnemyAction
+  Skill: {fileID: 11400000, guid: 3d6e0689f83faf947b10d612f5bcaf3a, type: 2}
+  Conditions:
+  - {fileID: 11400000, guid: cec3c434225cab040b7f7450d920b1db, type: 2}
+  Priority: 1

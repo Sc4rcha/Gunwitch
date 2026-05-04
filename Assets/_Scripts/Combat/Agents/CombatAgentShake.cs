@@ -1,4 +1,3 @@
-using HutongGames.PlayMaker.Actions;
 using UnityEngine;
 
 public class CombatAgentShake : MonoBehaviour
@@ -6,6 +5,9 @@ public class CombatAgentShake : MonoBehaviour
     public const float ShakeStrength = 0.3f;
     public const float ShakeScaleStrength = 0.05f;
     public const float ShakeStepTime = 0.1f;
+
+    private float shakeStrengthCurrent;
+    private float ShakeScaleStrengthCurrent;
 
     private Vector3 initialScale;
     private Vector3 initialPosition;
@@ -31,9 +33,22 @@ public class CombatAgentShake : MonoBehaviour
         shakeStepsCurrent = 0;
         shakeTimeCurrent = 0;
 
+        // set shake strengths
+        shakeStrengthCurrent = ShakeStrength;
+        ShakeScaleStrengthCurrent = ShakeScaleStrength;
+
         // enable component and start shake
         enabled = true;
     }
+    public void ShakeSelect()
+    {
+        ShakeStart(1);
+
+        // shake is only on scale, not position
+        shakeStrengthCurrent = 0;
+        ShakeScaleStrengthCurrent = -ShakeScaleStrength * 2;
+    }
+
     public void ShakeFinish() 
     {
         // reset state to initial state
@@ -43,6 +58,8 @@ public class CombatAgentShake : MonoBehaviour
         enabled = false;
     }
 
+
+
     private void Update()
     {
         shakeTimeCurrent += Time.deltaTime;
@@ -50,8 +67,8 @@ public class CombatAgentShake : MonoBehaviour
         // shake steps
         if (shakeTimeCurrent > (shakeTime / shakeSteps) * shakeStepsCurrent)
         {
-            transform.localScale = initialScale - Vector3.one * (1-(shakeTimeCurrent / shakeTime)) * ShakeScaleStrength;
-            transform.localPosition = initialPosition + (Vector3)Random.insideUnitCircle.normalized * (1 - (shakeTimeCurrent / shakeTime)) * ShakeStrength;
+            transform.localScale = initialScale - Vector3.one * (1-(shakeTimeCurrent / shakeTime)) * ShakeScaleStrengthCurrent;
+            transform.localPosition = initialPosition + (Vector3)Random.insideUnitCircle.normalized * (1 - (shakeTimeCurrent / shakeTime)) * shakeStrengthCurrent;
             shakeStepsCurrent++;
         }
 
