@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29920190a458efa4d8ae77d96a79587a, type: 3}
   m_Name: Slimes Fields
   m_EditorClassIdentifier: Assembly-CSharp::SOLocation
+  Id: slimes_fields
   Name: Fields
   BackgroundSprite: {fileID: 21300000, guid: 34584d25262fcb749bafb7d94683071a, type: 3}
   InitialVisibility: 2

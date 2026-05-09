@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6900161caff9a44a806f3e89c38de9, type: 3}
   m_Name: Quest Start
   m_EditorClassIdentifier: Assembly-CSharp::SOEvent
+  Id: 64515586-67aa-4307-9788-22f511fd681b
   Name: Tavern
   EventLocation: {fileID: 11400000, guid: 5a2933b1cba93d645af7d104de937dba, type: 2}
   IsPersistent: 0

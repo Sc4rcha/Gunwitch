@@ -1,4 +1,3 @@
-using GameInfo;
 using UnityEngine;
 using UnityEngine.UI;
 

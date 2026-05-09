@@ -1,8 +1,19 @@
+using System;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Event", menuName = "Event/Event", order = 1)]
 public class SOEvent : ScriptableObject
 {
+    public string Id;
+
+    [ContextMenu("Generate ID")]
+    private void GenerateID()
+    {
+        Id = Guid.NewGuid().ToString();
+        Debug.Log("Generated ID: " + Id);
+    }
+
     public string Name;
     public SOLocation EventLocation;
     [Tooltip ("Does this event stay after the player has finished?")]

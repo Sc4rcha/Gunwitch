@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6900161caff9a44a806f3e89c38de9, type: 3}
   m_Name: Fields Bandits
   m_EditorClassIdentifier: Assembly-CSharp::SOEvent
+  Id: 0571de0d-9cc1-479c-9d42-98b347e943f5
   Name: Bandits
   EventLocation: {fileID: 11400000, guid: 3a3a78f2bd2a3704c8826b12daf2f784, type: 2}
   IsPersistent: 0

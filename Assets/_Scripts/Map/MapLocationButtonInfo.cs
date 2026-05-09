@@ -7,9 +7,9 @@ public class MapLocationButtonInfo : MonoBehaviour
     public GameObject LocationNameHolder;
     public TMPro.TMP_Text LocationNameText;
     [Header ("References Project")]
-    public SOLocation LocationInfo;
+    public SOLocation LocationReference;
 
-    public SOLocation.LocationVisibilityType LocationVisibility { get; private set; }
+    public GameInfo.LocationVisibilityType Visibility;
 
     private ManagerMap manager;
 
@@ -18,22 +18,22 @@ public class MapLocationButtonInfo : MonoBehaviour
         this.manager = manager;
 
         // set normal visibility by default
-        ChangeVisibility(LocationInfo.InitialVisibility);
+        ChangeVisibility(LocationReference.InitialVisibility);
     }
 
 
     public void LocationNameShow(bool isShow) 
     {
         LocationNameHolder.SetActive (isShow);
-        LocationNameText.text = LocationInfo.Name;
+        LocationNameText.text = LocationReference.Name;
     }
     public void LocationInteract() 
     {
-        manager.ButtonLocation(LocationInfo);
+        manager.ButtonLocation(LocationReference);
     }
 
-    public void ChangeVisibility(SOLocation.LocationVisibilityType newVisiblity) 
+    public void ChangeVisibility(GameInfo.LocationVisibilityType newVisiblity) 
     {
-        LocationVisibility = newVisiblity;
+        Visibility = newVisiblity;
     }
 }

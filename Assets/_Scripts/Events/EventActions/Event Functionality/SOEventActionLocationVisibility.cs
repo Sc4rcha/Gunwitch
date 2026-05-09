@@ -4,7 +4,7 @@ using UnityEngine;
 public class SOEventActionLocationVisibility : SOEventAction
 {
     public SOLocation Location;
-    public SOLocation.LocationVisibilityType Visilibity;
+    public GameInfo.LocationVisibilityType Visilibity;
 
     public override void Execute(ManagerEvents manager)
     {

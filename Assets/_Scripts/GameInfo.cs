@@ -63,8 +63,6 @@ namespace GameInfo
     }
     public class ActorPlayer : Actor
     {
-
-
         // stats
         public int Body;
         public int Mind;
@@ -96,6 +94,35 @@ namespace GameInfo
             // set equipped drum
             Inventory.EquippedDrum = playerInitialState.EquippedDrum.Id;
         }
+        public ActorPlayer (SaveDataPlayer playerSave) 
+        {
+            Health = playerSave.Health;
+            HealthCurrent = playerSave.HealthCurrent;
+            Mana = playerSave.Mana;
+            ManaCurrent = playerSave.ManaCurrent;
+
+            Body = playerSave.Body;
+            Mind = playerSave.Mind;
+            Dexterity = playerSave.Dexterity;
+            Luck = playerSave.Luck;
+            Charisma = playerSave.Charisma;
+
+            // setup inventory
+            InventoryItemReferences itemReferences = ManagerGameElements.Instance.ItemReferences;
+            Inventory = new Inventory();
+
+            // add inventory
+            foreach (var item in playerSave.Items)
+                Inventory.AddItem(itemReferences.GetItemReference(item.Id).GetItem());
+
+            // add recipes
+            foreach (var recipe in playerSave.Recipes)
+                Inventory.AddRecipe(itemReferences.GetRecipeReference(recipe).GetRecipe());
+
+            // equipped drum
+            Inventory.EquippedDrum = playerSave.EquippedDrum;
+        }
+
 
         /// <summary>
         /// Change the current mana of actor
@@ -115,56 +142,162 @@ namespace GameInfo
             return ManaCurrent >= cost;
         }
     }
+    #endregion
+
+    #region GameSave
+    [Serializable]
+    public class SaveDataPlayer 
+    {
+        public int Health;
+        public int HealthCurrent;
+        public int Mana;
+        public int ManaCurrent;
+
+        public int Body;
+        public int Mind;
+        public int Dexterity;
+        public int Luck;
+        public int Charisma;
+
+        public List<SaveDataItem> Items;
+        public List<string> Recipes;
+        public string EquippedDrum;
+    }
+    [Serializable]
+    public class SaveDataItem
+    {
+        public string Id;
+        public int Quantity;
+
+        public SaveDataItem (InventoryItem item)
+        {
+            Id = item.Id;
+            Quantity = item.Quantity;
+        }
+    }
 
 
+    [Serializable]
+    public class SaveDataWorld
+    {
+        public string CurrentLocation;
+        public List<SaveDataFlag> Flags;
+
+        public List<SaveDataEvent> Events;
+        public List<SaveDateLocation> Locations;
+    }
+    [Serializable]
+    public class SaveDataEvent
+    {
+        public string Id;
+        public EventState State;
+
+        public SaveDataEvent (SOEvent eventReference, EventState state)
+        {
+            Id = eventReference.Id;
+            State = state;
+        }
+    }
+    [Serializable]
+    public class SaveDateLocation
+    {
+        public string Id;
+        public LocationVisibilityType Visibility;
+
+        public SaveDateLocation (MapLocationButtonInfo location)
+        {
+            Id = location.LocationReference.Id;
+            Visibility = location.Visibility;
+        }
+    }
+    [Serializable]
+    public class SaveDataFlag
+    {
+        public string Id;
+        public Flags.FlagStateValue FlagState;
+
+        public SaveDataFlag(string id, Flags.FlagStateValue state) 
+        {
+            Id = id;
+            FlagState = state;
+        }
+    }
     #endregion
 
 
-    #region EVENTS
-    public class MapState 
+    #region WORLD
+    public class MapState
     {
         public Flags Flags;
         public SOLocation WorldLocation;
 
-        public MapState() 
+        public MapState()
         {
             Flags = new Flags();
             WorldLocation = null;
         }
+
+        public MapState (List<SaveDataFlag> flags)
+        {
+            Flags = new Flags(flags);
+        }
     }
+    public enum LocationVisibilityType { Normal, ForceHide, ForceShow }
+    #endregion
+
+    #region EVENTS
     public class Flags
     {
-        private Dictionary<string, FlagStateValue> values = new();
+        public Dictionary<string, FlagStateValue> FlagList;
+
+
+        public Flags() 
+        {
+            FlagList = new Dictionary<string, FlagStateValue>();
+        }
+        public Flags (List<SaveDataFlag> saveData)
+        {
+            FlagList = new Dictionary<string, FlagStateValue>();
+
+            foreach (var flagSaveData in saveData)
+            {
+                if (flagSaveData.FlagState.Type == FlagValueType.Bool)
+                    SetFlag(flagSaveData.Id, flagSaveData.FlagState.BoolValue);
+                if (flagSaveData.FlagState.Type == FlagValueType.Int)
+                    AddProgress(flagSaveData.Id, flagSaveData.FlagState.IntValue);
+            }
+        }
+
 
         public void SetFlag(string key, bool value)
         {
-            if (!values.ContainsKey(key))
+            if (!FlagList.ContainsKey(key))
             {
-                values[key] = new FlagStateValue
+                FlagList[key] = new FlagStateValue
                 {
                     Type = FlagValueType.Bool,
                     BoolValue = value
                 };
             }
 
-            values[key].BoolValue = value;
+            FlagList[key].BoolValue = value;
         }
         public void AddProgress(string key, int amount = 1)
         {
-            if (!values.ContainsKey(key))
+            if (!FlagList.ContainsKey(key))
             {
-                values[key] = new FlagStateValue
+                FlagList[key] = new FlagStateValue
                 {
                     Type = FlagValueType.Int,
                     IntValue = 0
                 };
             }
 
-            values[key].IntValue += amount;
+            FlagList[key].IntValue += amount;
         }
 
-        public bool GetBool(string key) => values.ContainsKey(key) && values[key].BoolValue;
-        public int GetInt(string key) => values.ContainsKey(key) ? values[key].IntValue : 0;
+        public bool GetBool(string key) => FlagList.ContainsKey(key) && FlagList[key].BoolValue;
+        public int GetInt(string key) => FlagList.ContainsKey(key) ? FlagList[key].IntValue : 0;
 
         public enum FlagValueType { Bool, Int }
 
@@ -176,6 +309,7 @@ namespace GameInfo
         }
     }
 
+    [Serializable]
     public class EventState
     {
         public bool IsLocked;
@@ -226,15 +360,6 @@ namespace GameInfo
             BulletColor = bullet.BulletColor;
         }
     }
-
-    // class for saving the game
-    [Serializable]
-    public class ItemSaveData 
-    {
-        public string Id;
-        public int Quantity;
-    }
-
     [Serializable]
     public struct LootItem
     {

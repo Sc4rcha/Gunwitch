@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6900161caff9a44a806f3e89c38de9, type: 3}
   m_Name: Initial
   m_EditorClassIdentifier: Assembly-CSharp::SOEvent
+  Id: e1648613-bdef-4d24-8e54-0e5d67383b95
   Name: 
   EventLocation: {fileID: 0}
   IsPersistent: 0

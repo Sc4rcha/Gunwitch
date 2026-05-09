@@ -7,6 +7,12 @@ public class SOQuest : ScriptableObject
     [TextArea]
     public string QuestDescription;
     [Space]
+    public SOLocation InitialLocation;
+    public SOLocationList AllLocations;
+    [Space]
     public SOEvent InitialEvent;
+    public SOEventList ActiveEvents;
+    public SOEventList EventsAll;
+
     public Map QuestMap;
 }

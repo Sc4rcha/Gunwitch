@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6900161caff9a44a806f3e89c38de9, type: 3}
   m_Name: Forest Rewards
   m_EditorClassIdentifier: Assembly-CSharp::SOEvent
+  Id: cd8dcb55-7c61-4487-9dba-8de3a65e8131
   Name: Look for rewards
   EventLocation: {fileID: 11400000, guid: 141ee83cad7d1364abee4b3c709f9914, type: 2}
   IsPersistent: 0

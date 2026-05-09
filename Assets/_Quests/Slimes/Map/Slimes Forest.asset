@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29920190a458efa4d8ae77d96a79587a, type: 3}
   m_Name: Slimes Forest
   m_EditorClassIdentifier: Assembly-CSharp::SOLocation
+  Id: slimes_forest
   Name: Forest
   BackgroundSprite: {fileID: 21300000, guid: 638569388166188408a2c33a34f1d193, type: 3}
   InitialVisibility: 0

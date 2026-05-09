@@ -1,6 +1,7 @@
+using GameInfo;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using GameInfo;
 
 public class ManagerMap : MonoBehaviour
 {
@@ -12,10 +13,11 @@ public class ManagerMap : MonoBehaviour
     public LocationScreen LocationScreen;
     public GameObject ButtonFinishQuest;
 
-    public MapState MapState;
+    public MapState MapState { get; private set; }
+    public Map Map { get; private set; }
+
 
     private ManagerEvents managerEvents;
-    private Map map;
 
 
     public void Setup(ManagerEvents managerEvents) 
@@ -34,28 +36,45 @@ public class ManagerMap : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void LoadSaveData(SaveDataWorld worldSaveSave) 
+    {
+        // load map state flags
+        MapState = new MapState(worldSaveSave.Flags);
+        // load current world location
+        MapState.WorldLocation = ManagerGameElements.Instance.CurrentQuest.AllLocations.GetLocationReference(worldSaveSave.CurrentLocation);
+        LocationSetInfo(MapState.WorldLocation);
+        LocationEnter();
+
+        // set visibility of locations to match saved data
+        foreach (var locationSaveData in worldSaveSave.Locations)
+        {
+            foreach (var worldLocation in Map.Locations)
+            {
+                if (worldLocation.LocationReference.Id == locationSaveData.Id)
+                    worldLocation.ChangeVisibility(locationSaveData.Visibility);
+            }       
+        }
+    }
+
+
     // Load a new map
-    public void MapEnter(Map newMap) 
+    public void QuestStart(SOQuest quest) 
     {
         // destroy previous map
-        if (map != null)
-            Destroy(map.gameObject);
+        if (Map != null)
+            Destroy(Map.gameObject);
 
         // instantiate map
-        map = Instantiate(newMap, MapHolder).GetComponent<Map>();
-        map.Setup();
+        Map = Instantiate(quest.QuestMap, MapHolder).GetComponent<Map>();
+        Map.Setup();
 
         // Set map movement scroll rect
-        MapScrollRect.content = map.GetComponent<RectTransform>();
+        MapScrollRect.content = Map.GetComponent<RectTransform>();
         // set map name
-        MapName.text = map.Name;
-
-        // add map events
-        if (map.MapEvents != null)
-            managerEvents.EventAddList(map.MapEvents.Events);
+        MapName.text = Map.Name;
 
         // setup location buttons
-        foreach (var locationButton in map.Locations)
+        foreach (var locationButton in Map.Locations)
             locationButton.Setup(this);
 
         // show map screen
@@ -67,9 +86,9 @@ public class ManagerMap : MonoBehaviour
         Refresh();
 
         // enter starting location
-        if (map.InitialLocation != null)
+        if (quest.InitialLocation != null)
         {
-            LocationSetInfo(map.InitialLocation);
+            LocationSetInfo(quest.InitialLocation);
             LocationEnter();
         }
     }
@@ -82,7 +101,7 @@ public class ManagerMap : MonoBehaviour
         gameObject.SetActive(false);
 
         // destroy instanced map
-        Destroy(map.gameObject);
+        Destroy(Map.gameObject);
     }
 
 
@@ -91,18 +110,18 @@ public class ManagerMap : MonoBehaviour
     {
         Debug.Log("Refresh Map");
 
-        foreach (var location in map.Locations)
+        foreach (var location in Map.Locations)
         {
-            switch (location.LocationVisibility)
+            switch (location.Visibility)
             {
-                case SOLocation.LocationVisibilityType.Normal:
+                case LocationVisibilityType.Normal:
                     // activate location if any event is taking place there
-                    location.gameObject.SetActive(managerEvents.GetLocationEvents(location.LocationInfo).Length > 0);
+                    location.gameObject.SetActive(managerEvents.GetLocationEvents(location.LocationReference).Length > 0);
                     break;
-                case SOLocation.LocationVisibilityType.ForceHide:
+                case LocationVisibilityType.ForceHide:
                     location.gameObject.SetActive(false);
                     break;
-                case SOLocation.LocationVisibilityType.ForceShow:
+                case LocationVisibilityType.ForceShow:
                     location.gameObject.SetActive(true);
                     break;
             }
@@ -144,11 +163,11 @@ public class ManagerMap : MonoBehaviour
     }
     #endregion
 
-    public void LocationChangeVisibility(SOLocation locationInfo, SOLocation.LocationVisibilityType newVisibility)
+    public void LocationChangeVisibility(SOLocation locationInfo, LocationVisibilityType newVisibility)
     {
-        foreach (var locationButton in map.Locations)
+        foreach (var locationButton in Map.Locations)
         {
-            if (locationButton.LocationInfo == locationInfo)
+            if (locationButton.LocationReference == locationInfo)
                 locationButton.ChangeVisibility(newVisibility);
         }
     }

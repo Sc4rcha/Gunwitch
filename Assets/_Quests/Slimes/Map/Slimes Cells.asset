@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29920190a458efa4d8ae77d96a79587a, type: 3}
   m_Name: Slimes Cells
   m_EditorClassIdentifier: Assembly-CSharp::SOLocation
+  Id: slimes_cells
   Name: Village
   BackgroundSprite: {fileID: 21300000, guid: c853873dc84d6744f9b31f23b7237672, type: 3}
   InitialVisibility: 1

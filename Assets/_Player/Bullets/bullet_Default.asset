@@ -18,5 +18,5 @@ MonoBehaviour:
   Description: The default bullet for the revolver. It does 5 damage
   Sprite: {fileID: 21300000, guid: 3c4ac61d60f42444d9ec185ebbcf07e7, type: 3}
   ManaCost: 0
-  Damage: 5
+  Damage: 15
   BulletColor: {r: 1, g: 0.91764706, b: 0.49411765, a: 1}

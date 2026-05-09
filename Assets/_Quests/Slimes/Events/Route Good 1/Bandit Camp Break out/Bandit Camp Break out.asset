@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6900161caff9a44a806f3e89c38de9, type: 3}
   m_Name: Bandit Camp Break out
   m_EditorClassIdentifier: Assembly-CSharp::SOEvent
+  Id: 2b9d7e8a-f955-4403-9028-3ab354eca706
   Name: 
   EventLocation: {fileID: 11400000, guid: 8be028d42608c714686d8e7473a4aee0, type: 2}
   IsPersistent: 0

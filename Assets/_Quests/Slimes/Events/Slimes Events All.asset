@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42ef25dc9a7fbbb43946672cc9c47202, type: 3}
+  m_Name: Slimes Events All
+  m_EditorClassIdentifier: Assembly-CSharp::SOEventList
+  Events:
+  - {fileID: 11400000, guid: fe1c5557e6a38df43871f35b20165bad, type: 2}
+  - {fileID: 11400000, guid: b08fd2173b0041c48a3ac644d9973c55, type: 2}
+  - {fileID: 11400000, guid: 9cc8e906916f75148b8fb8f8d0bd2d65, type: 2}
+  - {fileID: 11400000, guid: d40d62046ba25c944b963b537db9558a, type: 2}
+  - {fileID: 11400000, guid: a3c3cedfd814c194591bf9cbc3b97376, type: 2}
+  - {fileID: 11400000, guid: 11ce6f9b84b98984283059f3f36d7d8f, type: 2}
+  - {fileID: 11400000, guid: 9fc8814d3cd02fd4cb960d3989c25b40, type: 2}
+  - {fileID: 11400000, guid: 6b1de17558a82564e82f6160874c97b3, type: 2}
+  - {fileID: 11400000, guid: 9c044feb59bd91b4c8f2c02e8b7593f5, type: 2}
+  - {fileID: 11400000, guid: c68758d47bef2c448b7256551a8df556, type: 2}
+  - {fileID: 11400000, guid: c4554c5ea9e04234cada58b082dbcd8d, type: 2}
+  - {fileID: 11400000, guid: b33fcf44475bf364aa550264c71ee781, type: 2}
+  - {fileID: 11400000, guid: 848688dd4cbbe1947b3a7904e1e3d6a7, type: 2}
+  - {fileID: 11400000, guid: 9b8b4e1390bfbc04ebea1ee5692046e9, type: 2}
+  - {fileID: 11400000, guid: c9b84bcb4747b914a891c189ad5aca9d, type: 2}
+  - {fileID: 11400000, guid: fc0279fe70be5f941b3f547bfddc9fb5, type: 2}
+  - {fileID: 11400000, guid: 3a893119f64b5c74a8e15e5ca46383cb, type: 2}
+  - {fileID: 11400000, guid: 234d7dd0a173b1147834c15185678bd7, type: 2}
+  - {fileID: 11400000, guid: d08020fd2dc5c8343a7b2e8c5005cd6c, type: 2}
+  - {fileID: 11400000, guid: 47360a1926713fd4291b1c3ff0816965, type: 2}
+  - {fileID: 11400000, guid: 3d341c4f69cc1304cb485f10e331be1f, type: 2}
+  - {fileID: 11400000, guid: 9e2969815c9a12343bc38490d6eea6fd, type: 2}
+  - {fileID: 11400000, guid: bfe1aef41a0d9774083f419bb3c7ced8, type: 2}
+  - {fileID: 11400000, guid: f4a76b2f4e6dd9f469fa5d25a111fe9a, type: 2}

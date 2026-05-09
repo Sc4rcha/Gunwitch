@@ -35,6 +35,11 @@ public class ManagerGameElements : MonoBehaviour
     [Space]
     public ManagerPlayer Player;
     public InventoryItemReferences ItemReferences;
+    [Space]
+    public GameSaveLoad SaveLoad;
+
+    public SOQuest CurrentQuest { get; private set; }
+
 
     private void Setup()
     {
@@ -62,10 +67,15 @@ public class ManagerGameElements : MonoBehaviour
         Cursor.CursorShow(true);
     }
 
+
     public void QuestStart(SOQuest quest) 
     {
-        ManagerMap.MapEnter(quest.QuestMap);
-        ManagerEvents.EventStart(quest.InitialEvent);
+        CurrentQuest = quest;
+
+        ManagerMap.QuestStart(CurrentQuest);
+        ManagerEvents.QuestStart(CurrentQuest);
+
+        ManagerEvents.EventStart(CurrentQuest.InitialEvent);
 
         ManagerQuests.Show(false);
     }
@@ -76,6 +86,7 @@ public class ManagerGameElements : MonoBehaviour
 
         ManagerQuests.Show(true);
     }
+
 
     #region Combat
     public event Action<CombatEndType> OnCombatFinish;

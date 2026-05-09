@@ -96,6 +96,10 @@ PrefabInstance:
       propertyPath: LocationInfo
       value: 
       objectReference: {fileID: 11400000, guid: 5a2933b1cba93d645af7d104de937dba, type: 2}
+    - target: {fileID: 4699210319109186110, guid: e2cd4e841dbbb1944953b4116a323bd5, type: 3}
+      propertyPath: LocationReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 5a2933b1cba93d645af7d104de937dba, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -358,6 +362,10 @@ PrefabInstance:
       propertyPath: LocationInfo
       value: 
       objectReference: {fileID: 11400000, guid: 3a3a78f2bd2a3704c8826b12daf2f784, type: 2}
+    - target: {fileID: 4699210319109186110, guid: e2cd4e841dbbb1944953b4116a323bd5, type: 3}
+      propertyPath: LocationReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 3a3a78f2bd2a3704c8826b12daf2f784, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -475,6 +483,10 @@ PrefabInstance:
       propertyPath: LocationInfo
       value: 
       objectReference: {fileID: 11400000, guid: 141ee83cad7d1364abee4b3c709f9914, type: 2}
+    - target: {fileID: 4699210319109186110, guid: e2cd4e841dbbb1944953b4116a323bd5, type: 3}
+      propertyPath: LocationReference
+      value: 
+      objectReference: {fileID: 11400000, guid: 141ee83cad7d1364abee4b3c709f9914, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -579,6 +591,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4699210319109186110, guid: e2cd4e841dbbb1944953b4116a323bd5, type: 3}
       propertyPath: LocationInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: 8be028d42608c714686d8e7473a4aee0, type: 2}
+    - target: {fileID: 4699210319109186110, guid: e2cd4e841dbbb1944953b4116a323bd5, type: 3}
+      propertyPath: LocationReference
       value: 
       objectReference: {fileID: 11400000, guid: 8be028d42608c714686d8e7473a4aee0, type: 2}
     m_RemovedComponents: []

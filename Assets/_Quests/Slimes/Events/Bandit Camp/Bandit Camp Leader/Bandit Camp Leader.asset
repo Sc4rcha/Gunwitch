@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6900161caff9a44a806f3e89c38de9, type: 3}
   m_Name: Bandit Camp Leader
   m_EditorClassIdentifier: Assembly-CSharp::SOEvent
+  Id: 68378072-4ffb-415f-b8da-9b8ff2ec8797
   Name: Make yourself known
   EventLocation: {fileID: 11400000, guid: 8be028d42608c714686d8e7473a4aee0, type: 2}
   IsPersistent: 0

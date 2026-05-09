@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6900161caff9a44a806f3e89c38de9, type: 3}
   m_Name: Village Cells Prisoner
   m_EditorClassIdentifier: Assembly-CSharp::SOEvent
+  Id: 1656de3c-7374-4c67-a961-ae1475809568
   Name: Open the Cell
   EventLocation: {fileID: 11400000, guid: 59aabfe2706b1d64aa3f9266277a7f31, type: 2}
   IsPersistent: 0

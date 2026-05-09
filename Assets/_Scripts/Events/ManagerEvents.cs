@@ -14,7 +14,8 @@ public class ManagerEvents : MonoBehaviour
     public event Action OnEnventFinish;
 
     // event lists
-    private Dictionary<SOEvent, EventState> allEvents;
+    public Dictionary<SOEvent, EventState> AddedEvents { get; private set; }
+
 
     private SOEvent eventSelected;
     private PlayMakerFSM eventFSMInstance;
@@ -26,12 +27,29 @@ public class ManagerEvents : MonoBehaviour
         this.map = map;
 
         // setup dictionary events
-        allEvents = new Dictionary<SOEvent, EventState>();
+        AddedEvents = new Dictionary<SOEvent, EventState>();
 
         // check to unlock events when event finishes
         OnEnventFinish += EventUnlockCheck;
     }
 
+    public void LoadSaveFile(SaveDataWorld worldSaveSave) 
+    {
+        // clear dictionary
+        AddedEvents = new Dictionary<SOEvent, EventState>();
+
+        // add saved events
+        foreach (var savedEvent in worldSaveSave.Events)
+            AddedEvents.Add(ManagerGameElements.Instance.CurrentQuest.EventsAll.GetEventReference(savedEvent.Id), savedEvent.State);
+    }
+
+
+    public void QuestStart(SOQuest quest) 
+    {
+        // add map events
+        if (quest.ActiveEvents != null)
+            EventAddList(quest.ActiveEvents.Events);
+    }
 
     #region Event States
     public void EventAddList(SOEvent[] list) 
@@ -41,8 +59,8 @@ public class ManagerEvents : MonoBehaviour
     }
     public void EventAdd(SOEvent eventToAdd) 
     {
-        if (!allEvents.ContainsKey(eventToAdd))
-            allEvents.Add(eventToAdd, new EventState(eventToAdd.CheckLocked(map.MapState.Flags)));
+        if (!AddedEvents.ContainsKey(eventToAdd))
+            AddedEvents.Add(eventToAdd, new EventState(eventToAdd.CheckLocked(map.MapState.Flags)));
 
         ManagerGameElements.Instance.ManagerMap.Refresh();
     }
@@ -53,21 +71,21 @@ public class ManagerEvents : MonoBehaviour
     }
     public void EventDeactivate(SOEvent eventToRemove) 
     {
-        if (allEvents.ContainsKey(eventToRemove))
-            allEvents[eventToRemove].IsActive = false;
+        if (AddedEvents.ContainsKey(eventToRemove))
+            AddedEvents[eventToRemove].IsActive = false;
     }
     public void EventComplete(SOEvent eventToComplete) 
     {
-        if (allEvents.ContainsKey(eventToComplete))
-            allEvents[eventToComplete].IsComplete = true;
+        if (AddedEvents.ContainsKey(eventToComplete))
+            AddedEvents[eventToComplete].IsComplete = true;
     }
     public void EventsClear() 
     {
-        allEvents.Clear();
+        AddedEvents.Clear();
     }
     public void EventUnlockCheck() 
     {
-        foreach (var eventToUnlock in allEvents)
+        foreach (var eventToUnlock in AddedEvents)
         {
             if (eventToUnlock.Value.IsLocked)
                 eventToUnlock.Value.IsLocked = eventToUnlock.Key.CheckLocked(map.MapState.Flags);
@@ -78,8 +96,8 @@ public class ManagerEvents : MonoBehaviour
 
     public EventState CheckEventState(SOEvent eventToCheck) 
     {
-        if (allEvents.ContainsKey (eventToCheck))
-            return allEvents[eventToCheck];
+        if (AddedEvents.ContainsKey (eventToCheck))
+            return AddedEvents[eventToCheck];
 
         return null;
     }
@@ -91,7 +109,7 @@ public class ManagerEvents : MonoBehaviour
     public SOEvent[] GetLocationEvents(SOLocation location) 
     {
         List <SOEvent> locationEvents = new List <SOEvent>();
-        foreach (var eventToCheck in allEvents)
+        foreach (var eventToCheck in AddedEvents)
         {
             if (eventToCheck.Value.IsAvailable && eventToCheck.Key.EventLocation == location)
                 locationEvents.Add(eventToCheck.Key);
@@ -158,7 +176,6 @@ public class ManagerEvents : MonoBehaviour
         // start autoplay event
         StartAutoplayEvent();
     }
-
     /// <summary>
     /// starts the first autoplay event in the location
     /// </summary>
@@ -179,6 +196,7 @@ public class ManagerEvents : MonoBehaviour
         }
     }
     #endregion
+
 
     public void InstantiateFSM(PlayMakerFSM fsm)
     {
