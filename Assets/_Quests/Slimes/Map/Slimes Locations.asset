@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd4b09ca3ab90c4183dbb0f4d838d79, type: 3}
+  m_Name: Slimes Locations
+  m_EditorClassIdentifier: Assembly-CSharp::SOLocationList
+  Locations:
+  - {fileID: 11400000, guid: 8be028d42608c714686d8e7473a4aee0, type: 2}
+  - {fileID: 11400000, guid: 59aabfe2706b1d64aa3f9266277a7f31, type: 2}
+  - {fileID: 11400000, guid: 3a3a78f2bd2a3704c8826b12daf2f784, type: 2}
+  - {fileID: 11400000, guid: 141ee83cad7d1364abee4b3c709f9914, type: 2}
+  - {fileID: 11400000, guid: 5a2933b1cba93d645af7d104de937dba, type: 2}

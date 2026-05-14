@@ -28,23 +28,16 @@ public class ManagerTesting : MonoBehaviour
             ButtonEncounters[i].gameObject.SetActive(true);
             ButtonEncounters[i].GetComponentInChildren<TMPro.TMP_Text>().text = Encounters[i].name;
         }
-
-        ManagerGameElements.Instance.ManagerEvents.OnEnventFinish += EventFinish;
     }
 
     public void StartEvent(int index)
     {
-        ManagerGameElements.Instance.ManagerEvents.EventStart(Events[index]);
+        ManagerGameElements.Instance.ManagerQuest.ManagerEvents.EventStart(Events[index]);
         gameObject.SetActive(false);
     }
     public void StartFight(int index)
     {
         ManagerGameElements.Instance.CombatLoad(Encounters[index]);
         gameObject.SetActive(false);
-    }
-
-    public void EventFinish()
-    {
-        gameObject.SetActive(true);
     }
 }

@@ -11,7 +11,7 @@ namespace HutongGames.PlayMaker.Actions
         {
             base.OnEnter();
 
-            ManagerGameElements.Instance.ManagerMap.ButtonFinishQuest.SetActive(true);
+            ManagerGameElements.Instance.ManagerQuest.ManagerMap.ButtonFinishQuest.SetActive(true);
         }
 
     }

@@ -24,7 +24,7 @@ public class SOCombatEnemy : ScriptableObject
     public SOEnemyAction[] Actions;
 
     [Header("Agent Loot")]
-    public LootItem[] Loot;
+    public ItemDrop[] Loot;
 
     public ActorEnemy GetCombatActor() 
     {

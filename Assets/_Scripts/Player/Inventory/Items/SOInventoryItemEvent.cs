@@ -18,10 +18,10 @@ public class SOInventoryItemEvent : SOInventoryItem
 
         AddEvent();
 
-        if (ManagerGameElements.Instance.ManagerEvents.CheckEventState(Event) is GameInfo.EventState state)
+        if (ManagerGameElements.Instance.ManagerQuest.CheckEventState(Event) is GameInfo.EventState state)
         {
             if (!state.IsComplete)
-                ManagerGameElements.Instance.ManagerEvents.EventStart(Event);
+                ManagerGameElements.Instance.ManagerQuest.EventStart(Event);
         }    
     }
 
@@ -29,11 +29,11 @@ public class SOInventoryItemEvent : SOInventoryItem
     {
         AddEvent();
 
-        return !ManagerGameElements.Instance.ManagerEvents.CheckEventState(Event).IsComplete;
+        return !ManagerGameElements.Instance.ManagerQuest.CheckEventState(Event).IsComplete;
     }
 
     private void AddEvent() 
     {
-        ManagerGameElements.Instance.ManagerEvents.EventAdd(Event);
+        ManagerGameElements.Instance.ManagerQuest.EventAdd(Event);
     }
 }

@@ -9,7 +9,7 @@ namespace HutongGames.PlayMaker.Actions
 
         public override void OnEnter()
         {
-            ManagerGameElements.Instance.ManagerMap.LocationLock(IsLocked);
+            ManagerGameElements.Instance.ManagerQuest.ManagerMap.LocationLock(IsLocked);
 
             Finish();
         }

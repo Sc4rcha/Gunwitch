@@ -10,8 +10,7 @@ namespace HutongGames.PlayMaker.Actions
 
         public override void OnEnter()
         {
-            ManagerGameElements.Instance.ManagerMap.LocationSetInfo(Location);
-            ManagerGameElements.Instance.ManagerMap.LocationEnter();
+            ManagerGameElements.Instance.ManagerQuest.LocationEnter(Location);
 
             Finish();
         }

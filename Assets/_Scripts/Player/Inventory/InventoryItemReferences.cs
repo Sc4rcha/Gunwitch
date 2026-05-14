@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryItemReferences : MonoBehaviour
+[CreateAssetMenu(fileName = "Item Reference List", menuName = "Inventory/Item Reference List")]
+public class InventoryItemReferences : ScriptableObject
 {
     public SOInventoryItem[] AllItems;
     public SOCraftingRecipe[] AllRecipes;

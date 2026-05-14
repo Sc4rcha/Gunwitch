@@ -15,8 +15,9 @@ MonoBehaviour:
   QuestName: Slimes
   QuestDescription: A village has trouble with some strange slimes that explode on
     death. They need someone to look into it, that someone is you!
-  InitialEvent: {fileID: 11400000, guid: b33fcf44475bf364aa550264c71ee781, type: 2}
   InitialLocation: {fileID: 11400000, guid: 5a2933b1cba93d645af7d104de937dba, type: 2}
-  InitialActiveEvents: {fileID: 11400000, guid: 1870a771b84274b4fa5877c4b5dc4d77, type: 2}
+  AllLocations: {fileID: 11400000, guid: 1174a63c56ff03042b65d3fd04047d5e, type: 2}
+  InitialEvent: {fileID: 11400000, guid: b33fcf44475bf364aa550264c71ee781, type: 2}
+  ActiveEvents: {fileID: 11400000, guid: 1870a771b84274b4fa5877c4b5dc4d77, type: 2}
   EventsAll: {fileID: 11400000, guid: 7b3391755e27d784a904bbceeb295ebe, type: 2}
   QuestMap: {fileID: 6839095951491151182, guid: 146fe14d2a488bd4896ffbbd1089e861, type: 3}

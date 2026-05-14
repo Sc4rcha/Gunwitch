@@ -6,7 +6,7 @@ public class CombatScreenWin : MonoBehaviour
 {
     public TMPro.TMP_Text[] LootDisplay;
 
-    private List<LootItem> lootTable;
+    private List<ItemDrop> lootTable;
     private Dictionary<SOInventoryItem,int> loot;
 
     private ManagerPlayer player;
@@ -15,7 +15,7 @@ public class CombatScreenWin : MonoBehaviour
     public void Setup() 
     {
         loot = new Dictionary<SOInventoryItem, int>();
-        lootTable = new List<LootItem>();
+        lootTable = new List<ItemDrop>();
 
         // get player info
         player = ManagerGameElements.Instance.Player;
@@ -25,7 +25,7 @@ public class CombatScreenWin : MonoBehaviour
         foreach (var itemDisplay in LootDisplay)
             itemDisplay.gameObject.SetActive(false);
     }
-    public void AddLootItem(LootItem item)
+    public void AddLootItem(ItemDrop item)
     {
         lootTable.Add(item);
     }

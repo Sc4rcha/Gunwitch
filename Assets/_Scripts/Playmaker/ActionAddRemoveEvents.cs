@@ -12,8 +12,8 @@ namespace HutongGames.PlayMaker.Actions
         {
             base.OnEnter();
 
-            ManagerGameElements.Instance.ManagerEvents.EventAddList(Add);
-            ManagerGameElements.Instance.ManagerEvents.EventDeactivateList(Remove);
+            ManagerGameElements.Instance.ManagerQuest.EventAddList(Add);
+            ManagerGameElements.Instance.ManagerQuest.EventDeactivateList(Remove);
 
             Finish();
         }
