@@ -264,6 +264,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6281868576240205641, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6293859610569279482, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: 'Colliders.Array.data[0]'
+      value: 
+      objectReference: {fileID: 3830202991312444506}
+    - target: {fileID: 6293859610569279482, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: 'Colliders.Array.data[1]'
+      value: 
+      objectReference: {fileID: 5338088015868989747}
     - target: {fileID: 7688325322983987869, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
       propertyPath: m_Sprite
       value: 

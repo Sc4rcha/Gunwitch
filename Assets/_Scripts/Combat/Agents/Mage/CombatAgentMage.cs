@@ -11,6 +11,7 @@ public class CombatAgentMage : CombatAgent
 
         Shield.Setup(manager);
         Shield.Mage = this;
+        manager.Encounter.AddSubEnemyToEncounter(Shield);
     }
 
 

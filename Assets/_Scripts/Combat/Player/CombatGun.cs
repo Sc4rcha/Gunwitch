@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class CombatGun : MonoBehaviour
@@ -13,6 +12,7 @@ public class CombatGun : MonoBehaviour
     public float ShootingCooldown;
     public LayerMask CollisionLayer;
     public float CritMultiplier;
+    public SOInventoryItemBullet BulletDefault;
 
     [Header ("References Scene")]
     public CombatDrum Drum;
@@ -25,6 +25,7 @@ public class CombatGun : MonoBehaviour
 
     // bullets in gun magazine
     private Bullet[] bullets;
+    private int extraBullets;
 
     // Gun states
     public bool IsCursorOnShootingArea { get; private set; }
@@ -33,9 +34,7 @@ public class CombatGun : MonoBehaviour
 
     // shooting detected colliders
     private List<CombatAgentCollider> agentColliders;
-    private CombatAgentCollider targetCollider;
     private int bulletIndex;
-
 
     private CombatPlayer player;
 
@@ -89,10 +88,9 @@ public class CombatGun : MonoBehaviour
     }
 
     #region Reload
-    public void ReloadStart() 
+    public void ReloadStart(int extraBullets) 
     {
-        // hide Crosshair
-
+        this.extraBullets = extraBullets;
 
         // activate Load and unload buttons
         DrumButtonsHolder.SetActive(true);
@@ -162,6 +160,21 @@ public class CombatGun : MonoBehaviour
         // send reload finish to Drum
         Drum.ReloadFinish();
     }
+
+    public void ReloadExtra()
+    {
+        for (int i = 0; i < extraBullets; i++)
+        {
+            bulletIndex--;
+
+            bullets[bulletIndex] = BulletDefault.GetBullet();
+            Drum.LoadBullet(bulletIndex, BulletDefault.GetBullet());
+        }
+
+        Drum.RotateDrum(bulletIndex);
+
+        extraBullets = 0;
+    }
     #endregion
 
     #region Shoot
@@ -199,25 +212,9 @@ public class CombatGun : MonoBehaviour
                 agentColliders.Add(agentCol);
         }
 
-        // sort colliders by prio
-        agentColliders.Sort((a, b) => b.Priority.CompareTo(a.Priority));
-
-        if (agentColliders.Count != 0)
-        {
-            // priorize crits
-            targetCollider = agentColliders[0];
-            foreach (var col in agentColliders)
-            {
-                if (col.IsCrit)
-                    targetCollider = col;
-            }
-
-            // do damage
-            if (targetCollider.IsCrit)
-                targetCollider.Shoot((int)(bullets[bulletIndex].Damage * CritMultiplier), mousePosition);
-            else
-                targetCollider.Shoot((bullets[bulletIndex].Damage), mousePosition);
-        }
+        // call bullet effect
+        SOInventoryItemBullet bullet = ManagerGameElements.Instance.ItemReferences.GetBullet(bullets[bulletIndex].Id);
+        bullet.BulletEffect(agentColliders, mousePosition);
 
         // once player has fired deactivate drum buttons, cannot unload anymore
         DrumButtonsHolder.SetActive(false);
@@ -244,8 +241,15 @@ public class CombatGun : MonoBehaviour
         // add bullet index and finish player turn if no more bullets on magazine
         bulletIndex++;
         if (bulletIndex == MagazineSize)
-            ShootFinish();
+        {
+            // Check for extra bullets because of speed
+            if (extraBullets > 0)
+                ReloadExtra();
+            else
+                ShootFinish();
+        }
     }
+
 
     public void ShootFinish() 
     {
@@ -253,4 +257,6 @@ public class CombatGun : MonoBehaviour
         Visuals.CrosshairShow(false);
     }
     #endregion
+
+
 }

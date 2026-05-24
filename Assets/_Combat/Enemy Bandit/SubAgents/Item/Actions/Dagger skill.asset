@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOEnemySkill
   Name: Throwing Dagger
   Hit: 1
-  Power: 1.2
+  Power: 0.7
   IsMagic: 0

@@ -194,19 +194,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 724453772190964461, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5000018
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 724453772190964461, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 724453772190964461, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 724453772190964461, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.86602443
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 724453772190964461, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -218,11 +218,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 724453772190964461, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 120
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2060163935905056331, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
       propertyPath: m_Name
       value: Bandit Leader Sword Sheath
+      objectReference: {fileID: 0}
+    - target: {fileID: 6549722425901356642, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1.896
+      objectReference: {fileID: 0}
+    - target: {fileID: 6549722425901356642, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.53200006
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -313,6 +321,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 2.812
       objectReference: {fileID: 0}
+    - target: {fileID: 6281868576240205641, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6293859610569279482, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: 'Colliders.Array.data[1]'
+      value: 
+      objectReference: {fileID: 4133338694078238583}
     - target: {fileID: 6413048192005725200, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
       propertyPath: m_Radius
       value: 0.4
@@ -362,33 +378,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3648670751071197380}
   m_SourcePrefab: {fileID: 100100000, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
---- !u!114 &1529877278432124849 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6558402506730635334, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 5638250631167041527}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be44500c7ce3e684a86bc9cb003f5122, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CombatAgentCollider
---- !u!212 &2633897928909686122 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 7688325322983987869, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 5638250631167041527}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2970687477410068185 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7423365498046196014, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 5638250631167041527}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa9fe94b09726df40bd763fcf2d7e45c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BulletHitEffect
 --- !u!4 &5092021285606474103 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 618516466007285376, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
@@ -402,16 +391,6 @@ Transform:
 --- !u!4 &5380046133543004572 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 330685164195559019, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 5638250631167041527}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6040223401995649780 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2156160160385899779, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 5638250631167041527}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &6581468038406790596 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1542770240457769523, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
   m_PrefabInstance: {fileID: 5638250631167041527}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6872735797596565655 stripped
@@ -433,16 +412,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatAgentBanditLeader
   EnemyStatsReference: {fileID: 11400000, guid: 989a3bf7a11556247929d12785598d37, type: 2}
   Priority: 1
-  Pivot: {fileID: 8305951777365575712}
-  MarkerDamage: {fileID: 6040223401995649780}
-  MarkerSelect: {fileID: 7633644392523621014}
-  Animator: {fileID: 6581468038406790596}
-  BulletHitEffect: {fileID: 2970687477410068185}
-  Renderer: {fileID: 2633897928909686122}
-  RenderersExtra: []
-  Colliders:
-  - {fileID: 1529877278432124849}
-  - {fileID: 4133338694078238583}
   Items:
   - {fileID: 9036860283690430772}
   - {fileID: 5720262958309998581}
@@ -454,16 +423,6 @@ MonoBehaviour:
   MeatShieldBounds:
     m_Center: {x: 0, y: 2.5, z: 0}
     m_Extent: {x: 0.75, y: 0.75, z: 0}
---- !u!4 &7633644392523621014 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2868564482711403873, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 5638250631167041527}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8305951777365575712 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4430341581151868887, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 5638250631167041527}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6246868262953481928
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -486,19 +445,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 724453772190964461, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5000018
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 724453772190964461, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 724453772190964461, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 724453772190964461, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.86602443
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 724453772190964461, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -510,11 +469,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 724453772190964461, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 120
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2060163935905056331, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
       propertyPath: m_Name
       value: Bandit Leader Sword Sheath
+      objectReference: {fileID: 0}
+    - target: {fileID: 6549722425901356642, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1.976
+      objectReference: {fileID: 0}
+    - target: {fileID: 6549722425901356642, guid: e30c62e5dc8544646913c03656ebeb23, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.587
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -644,19 +611,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3584388207179405628, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.24614319
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3584388207179405628, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3584388207179405628, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3584388207179405628, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.9692335
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3584388207179405628, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -668,7 +635,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3584388207179405628, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -151.501
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669795271040408721, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.2588191
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669795271040408721, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669795271040408721, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669795271040408721, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.9659258
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669795271040408721, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 6830958232051045111, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
       propertyPath: SheathedSwords.Array.size
@@ -682,6 +669,14 @@ PrefabInstance:
       propertyPath: 'SheathedSwords.Array.data[1]'
       value: 
       objectReference: {fileID: 2684950354393827957}
+    - target: {fileID: 7014005758583362995, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.586
+      objectReference: {fileID: 0}
+    - target: {fileID: 7014005758583362995, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.028
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

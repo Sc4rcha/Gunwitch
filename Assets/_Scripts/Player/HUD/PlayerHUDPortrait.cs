@@ -1,4 +1,3 @@
-using GameInfo;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,6 +44,29 @@ public class PlayerHUDPortrait : MonoBehaviour
     }
 
 
+    #region Portrait Base
+    public void WorldIdle() 
+    {
+        PortraitAnimator.Play("Idle World");
+    }
+    public void Dialogue() 
+    {
+        PortraitAnimator.Play("Dialogue");
+    }
+    public void CombatIdle() 
+    {
+        PortraitAnimator.Play("Idle Combat");
+    }
+    public void CombatDamage() 
+    {
+        PortraitAnimator.Play("Damage Combat");
+    }
+    public void CombatWin() 
+    {
+        PortraitAnimator.Play("Win");
+    }
+    #endregion
+
     #region Combat AIM
     public void GunAimStart() 
     {
@@ -68,7 +90,7 @@ public class PlayerHUDPortrait : MonoBehaviour
     public void GunShoot() 
     {
         PortraitShow(false);
-        PortraitAim.gameObject.SetActive(false);
+        PortraitAim.Shoot();
         PortraitShoot.SetActive(true);
     }
     #endregion

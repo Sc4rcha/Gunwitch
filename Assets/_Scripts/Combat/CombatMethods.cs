@@ -24,7 +24,6 @@ public static class CombatMethods
     {
         return player.Body * config.bodyHealthMultiplier + config.bodyBaseHealth;
     }
-
     public static float Mana(ActorPlayer player, SOCombatConfig config)
     {
         return player.Mind * config.mindManaMultiplier + config.mindBaseMana;
@@ -35,7 +34,6 @@ public static class CombatMethods
         return player.Body * config.defenseMultiplier * config.bodyDefenseWeight +
                player.Mind * config.defenseMultiplier * (1f - config.bodyDefenseWeight);
     }
-
     public static float MagicalDefense(ActorPlayer player, SOCombatConfig config)
     {
         return player.Body * config.defenseMultiplier * (1f - config.mindDefenseWeight) +
@@ -44,8 +42,9 @@ public static class CombatMethods
 
     public static float Dodge(ActorPlayer player, SOCombatConfig config)
     {
-        return Saturation(player.Dexterity, config.dodgeConst) * 100f;
+        return Saturation(player.Dexterity, config.dodgeConst);
     }
+
 
     // =========================
     // LUCK
@@ -58,19 +57,17 @@ public static class CombatMethods
 
     public static bool LuckyDodge(ActorPlayer player, SOCombatConfig config)
     {
-        float chance = LuckyMoment(player, config) * config.weightDodge * 100f;
+        float chance = LuckyMoment(player, config) * config.weightDodge;
         return RandomPercent() <= chance;
     }
-
     public static bool LuckyHit(ActorPlayer player, SOCombatConfig config)
     {
-        float chance = LuckyMoment(player, config) * config.weightHit * 100f;
+        float chance = LuckyMoment(player, config) * config.weightHit;
         return RandomPercent() <= chance;
     }
-
     public static bool LuckyCrit(ActorPlayer player, SOCombatConfig config)
     {
-        float chance = LuckyMoment(player, config) * config.weightCrit * 100f;
+        float chance = LuckyMoment(player, config) * config.weightCrit;
         return RandomPercent() <= chance;
     }
 
@@ -92,29 +89,13 @@ public static class CombatMethods
     // HIT / DODGE SYSTEM
     // =========================
 
-    public static bool CheckHit(ActorPlayer player, ActorEnemy enemy, SOEnemySkill ability, SOCombatConfig config)
+    public static bool CheckHit (float rn, ActorEnemy enemy, SOEnemySkill skill)
     {
-        float hitChance = enemy.Accuracy * ability.Hit;
-
-        float roll = RandomPercent();
-
-        if (roll > hitChance)
-        {
-            // MISS ? try lucky hit
-            return LuckyHit(player, config);
-        }
-
-        // Check dodge
-        float dodge = Dodge(player, config);
-        roll = RandomPercent();
-
-        if (roll <= dodge)
-        {
-            // DODGE ? try lucky dodge
-            return LuckyDodge(player, config) == false; // false = avoid damage
-        }
-
-        return true; // hit lands
+        return rn <= enemy.Accuracy * skill.Hit;
+    }
+    public static bool CheckDodge(float rn, ActorEnemy enemy, SOEnemySkill skill, ActorPlayer player, SOCombatConfig config)
+    {
+        return rn <= (enemy.Accuracy * skill.Hit) * Dodge(player, config);
     }
 
     // =========================
@@ -132,56 +113,58 @@ public static class CombatMethods
         return damage * (1f - reduction);
     }
 
-    public static float EnemyToPlayerDamage(
-        ActorPlayer player,
-        ActorEnemy enemy,
-        SOEnemySkill ability,
-        SOCombatConfig config)
+    public static float DamageEnemyToPlayer(ActorPlayer player, ActorEnemy enemy, SOEnemySkill ability, SOCombatConfig config)
     {
-        float baseDamage = ability.IsMagic
-            ? enemy.Magic * ability.Power
-            : enemy.Strength * ability.Power;
+        float baseDamage = ability.IsMagic ? enemy.Magic * ability.Power : enemy.Strength * ability.Power;
 
-        float variance = DamageVariance(config);
-        float damage = baseDamage * variance;
+        float damage = baseDamage * DamageVariance(config);
 
-        float defense = ability.IsMagic
-            ? MagicalDefense(player, config)
-            : PhysicalDefense(player, config);
+        float defense = ability.IsMagic ? MagicalDefense(player, config) : PhysicalDefense(player, config);
+
+        return ApplyDefense(damage, defense, config.defenseConstant);
+    }
+    public static float DamageEnemyToEnemy(ActorEnemy enemy, ActorEnemy target, SOEnemySkill ability, SOCombatConfig config) 
+    {
+        float baseDamage = ability.IsMagic ? enemy.Magic * ability.Power : enemy.Strength * ability.Power;
+        float damage = baseDamage * DamageVariance(config);
+
+        float defense = ability.IsMagic ? enemy.MagicResist : enemy.Armor;
 
         return ApplyDefense(damage, defense, config.defenseConstant);
     }
 
-    public static float PlayerDamageRegular(float bulletDamage, SOCombatConfig config)
+    public static float DamageBullet(ActorPlayer player, ActorEnemy enemy, Bullet bullet, float critMulti, bool isCrit, SOCombatConfig config)
     {
-        return bulletDamage * DamageVariance(config);
-    }
+        float baseDamage = bullet.IsMagic ? bullet.Damage * (1f + SpellDamageBonus(player, config)) : bullet.Damage;
 
-    public static float PlayerDamageMagic(ActorPlayer player, float baseDamage, SOCombatConfig config)
-    {
-        float bonus = SpellDamageBonus(player, config);
-        float damage = baseDamage * (1f + bonus);
-        return damage * DamageVariance(config);
+        // check CRIT
+        if (isCrit)
+            baseDamage *= critMulti;
+
+        // check VULNERABLE
+        if (enemy.StatusEffects.Contains(StatusEffect.Vulnerable))
+        {
+            baseDamage *= config.VulnerableMultiplier;
+            enemy.StatusEffects.Remove(StatusEffect.Vulnerable);
+        }
+
+        float damage = baseDamage * DamageVariance(config);
+        float defense = bullet.IsMagic ? enemy.MagicResist : enemy.Armor;
+
+        return ApplyDefense(damage, defense, config.defenseConstant);
     }
 
     // =========================
     // PLAYER MOMENTUM (EXTRA BULLETS)
     // =========================
 
-    public static int CalculateExtraBullets(
-        ref float momentum,
-        float dexterity,
-        float fullRevolverScore,
-        int magSize)
+    public static int CalculateExtraBullets(ref int momentum, int magSize, ActorPlayer player, SOCombatConfig config)
     {
-        // Gain momentum
-        momentum += dexterity;
-
-        float fraction = momentum / fullRevolverScore;
+        float fraction = momentum / config.fullRevolverScore;
         int extraBullets = Mathf.FloorToInt(fraction * magSize);
 
-        float spent = (extraBullets / (float)magSize) * fullRevolverScore;
-        momentum -= spent;
+        float spent = (extraBullets / (float)magSize) * config.fullRevolverScore;
+        momentum -= (int)spent;
 
         return extraBullets;
     }
@@ -190,13 +173,11 @@ public static class CombatMethods
     // ENEMY MOMENTUM (EXTRA TURNS)
     // =========================
 
-    public static bool EnemyExtraTurn(ref float momentum, float enemySpeed, float threshold)
+    public static bool EnemyExtraTurn(ref int momentum, ActorEnemy enemy, SOCombatConfig config)
     {
-        momentum += enemySpeed;
-
-        if (momentum >= threshold)
+        if (momentum >= config.momentumExtraTurn)
         {
-            momentum -= threshold;
+            momentum -= config.momentumExtraTurn;
             return true;
         }
 

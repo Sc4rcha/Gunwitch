@@ -1,3 +1,4 @@
+using GameInfo;
 using UnityEditor;
 using UnityEngine;
 
@@ -27,10 +28,12 @@ public class CombatAgentBanditLeader : CombatAgent
         // setup meat shield and deactivate it
         MeatShield.Setup(manager);
         MeatShield.gameObject.SetActive(false);
+        manager.Encounter.AddSubEnemyToEncounter(MeatShield);
 
         // set spawn bandit bool to NOT SPAWN
         previousTurnNoBandit = false;
     }
+
 
     #region Player Turn
     public override void PlayerTurnStart()
@@ -61,7 +64,7 @@ public class CombatAgentBanditLeader : CombatAgent
 
         // hide meatshield
         MeatShield.gameObject.SetActive(false);
-        Animator.Play("Idle");
+        References.Animator.Play("Idle");
 
     }
     #endregion
@@ -105,12 +108,12 @@ public class CombatAgentBanditLeader : CombatAgent
 
 
     #region Stat change
-    public override void Damage(int value, bool isCrit)
+    public override void Damage(Bullet bullet, bool isCrit, ref int damage)
     {
         if (MeatShield.isActiveAndEnabled)
-            MeatShield.Damage(value, false);
+            MeatShield.Damage(bullet, false, ref damage);
         else
-            base.Damage(value, isCrit);
+            base.Damage(bullet, isCrit, ref damage);
     }
     public override void BulletHit(Vector2 mousePosition)
     {
@@ -125,7 +128,7 @@ public class CombatAgentBanditLeader : CombatAgent
         // Get new meatshield
         if (manager.Encounter.CheckForEnemy(MeatShieldReference.Id) is CombatAgent meatShield)
         {
-            Animator.Play("Guard");
+            References.Animator.Play("Guard");
 
             meatShield.ForceKill();
             MeatShield.Setup(manager);

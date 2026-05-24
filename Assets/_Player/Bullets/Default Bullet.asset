@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4579851f4ca70b443abb24a865465510, type: 3}
+  m_Name: Default Bullet
+  m_EditorClassIdentifier: Assembly-CSharp::SOBullet
+  Id: bullet_Default
+  Name: Regular bullet
+  Type: 1
+  Description: The default bullet for the revolver. It does 20 damage
+  Sprite: {fileID: 21300000, guid: 3c4ac61d60f42444d9ec185ebbcf07e7, type: 3}
+  ManaCost: 0
+  Damage: 20
+  IsMagic: 0
+  BulletColor: {r: 1, g: 0.91764706, b: 0.49411765, a: 1}
+  StatusEffect: {fileID: 0}

@@ -22,7 +22,7 @@ public class Crafting : MonoBehaviour
     public void Setup(ManagerPlayer player) 
     {
         // get reference to inventory
-        inventory = player.Info.Inventory;
+        inventory = player.Actor.Inventory;
         inventoryMenu = player.InventoryMenu;
 
         // Close crafting

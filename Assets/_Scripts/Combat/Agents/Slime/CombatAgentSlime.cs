@@ -1,3 +1,4 @@
+using GameInfo;
 using UnityEngine;
 
 public class CombatAgentSlime : CombatAgent
@@ -49,9 +50,9 @@ public class CombatAgentSlime : CombatAgent
 
 
     #region Stat Change
-    public override void Damage(int value, bool isCrit)
+    public override void Damage(int damage, bool isCrit)
     {
-        base.Damage(value, isCrit);
+        base.Damage(damage, isCrit);
 
         // if hit while not moving and also didn't die from hit multiply
         if (!Movement.IsJumping)

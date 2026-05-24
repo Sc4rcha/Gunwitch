@@ -43,7 +43,7 @@ public class ManagerCombat : MonoBehaviour
         Player.CombatStart(this);
 
         // setup combat inventory
-        InventoryMenu.Setup(ManagerGameElements.Instance.Player.Info, this);
+        InventoryMenu.Setup(ManagerGameElements.Instance.Player.Actor, this);
 
         // setup screens
         ScreenAttack.Setup(this);
@@ -65,6 +65,10 @@ public class ManagerCombat : MonoBehaviour
 
     public void CombatExit() 
     {
+        // play world idle animation
+        ManagerGameElements.Instance.Player.HUD.Portrait.WorldIdle();
+
+        // COMBAT END
         ManagerGameElements.Instance.CombatEnd(combatEndType);
     }
 
@@ -94,9 +98,6 @@ public class ManagerCombat : MonoBehaviour
         InventoryMenu.InventoryClose();
         InventoryMenu.Lock(true);
 
-        // send player turn finish to encounter
-        Encounter.PlayerTurnFinish();
-
         StartCoroutine(PhaseChangeToEnemy());
     }
     #endregion
@@ -117,7 +118,7 @@ public class ManagerCombat : MonoBehaviour
     public void EnemyRoundFinish() 
     {
         // start enemy round
-        PlayerRoundStart();
+        StartCoroutine(PhaseChangeToPlayer());
     }
     public void EnemyTurnStart() 
     {
@@ -145,7 +146,29 @@ public class ManagerCombat : MonoBehaviour
 
     public void EnemyAttack(ActorEnemy enemy, SOEnemySkill ability) 
     {
-        Player.PlayerReference.Damage((int)CombatMethods.EnemyToPlayerDamage(Player.PlayerReference.Info, enemy, ability, Configuration));
+        float rn = CombatMethods.RandomPercent();
+
+        // check hit
+        if (!CombatMethods.CheckHit(rn, enemy, ability))
+        {
+            Player.PlayerReference.HUD.ShowHitMessage("MISS");
+            return;
+        }
+        // check dodge
+        if (CombatMethods.CheckDodge(rn, enemy, ability, Player.PlayerReference.Actor, Configuration))
+        {
+            Player.PlayerReference.HUD.ShowHitMessage("DODGE");
+            return;
+        }
+        // check luck
+        if (CombatMethods.LuckyDodge (Player.PlayerReference.Actor,Configuration))
+        {
+            Player.PlayerReference.HUD.ShowHitMessage("LUCKY DODGE");
+            return;
+        }
+
+        // damage
+        Player.PlayerReference.Damage((int)CombatMethods.DamageEnemyToPlayer(Player.PlayerReference.Actor, enemy, ability, Configuration));
     }
 
     public void CheckCombatOver() 
@@ -157,7 +180,7 @@ public class ManagerCombat : MonoBehaviour
         else if (Encounter.CheckEncounterFinished())
             CombatFinish(CombatEndType.Win);
         // check player lose player is dead
-        else if (Player.PlayerReference.Info.IsDead)
+        else if (Player.PlayerReference.Actor.IsDead)
             CombatFinish(CombatEndType.Lose);
     }
 
@@ -174,17 +197,30 @@ public class ManagerCombat : MonoBehaviour
         else
             CombatExit();
     }
-    private IEnumerator PhaseChangeToEnemy() 
+    private IEnumerator PhaseChangeToEnemy()
     {
-
         while (Encounter.CheckEnemiesDoingStuff())
             yield return null;
 
         yield return new WaitForSeconds(1);
 
+        // send player turn finish to encounter
+        Encounter.PlayerTurnFinish();
+
         // Start enemy round
         EnemyRoundStart();
     }
+    private IEnumerator PhaseChangeToPlayer()
+    {
+        while (Encounter.CheckEnemiesDoingStuff())
+            yield return null;
+
+        yield return new WaitForSeconds(2);
+
+        // Start enemy round
+        PlayerRoundStart();
+    }
+
 
 
 #if UNITY_EDITOR

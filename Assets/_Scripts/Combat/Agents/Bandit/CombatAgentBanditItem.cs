@@ -1,3 +1,4 @@
+using HutongGames.PlayMaker.Actions;
 using UnityEngine;
 
 public class CombatAgentBanditItem : CombatAgent
@@ -12,7 +13,10 @@ public class CombatAgentBanditItem : CombatAgent
     public Transform handLeft;
     public Transform handRight;
     [Space]
-    public SkillSlot[] Skills; 
+    public SkillSlot[] Skills;
+    public SOEnemySkill SkillGrenade;
+    public SOInventoryItemBullet Explosion;
+    public GameObject ExplosionEffect;
 
     public SOEnemyAction SelectedAction { get; private set; }
 
@@ -21,7 +25,6 @@ public class CombatAgentBanditItem : CombatAgent
     private float moveTimeCurrent;
     private float gravity;
     private float jumpVelocity;
-
     private float startingX;
     private Vector3 enemyVelocity;
     private Vector3 enemyPosition;
@@ -29,15 +32,18 @@ public class CombatAgentBanditItem : CombatAgent
     private enum MoveType {LeftToRight, RightToLeft}
     private MoveType moveType;
 
-    public override void Setup(ManagerCombat manager)
+    private CombatAgent bandit;
+
+    public void Setup(ManagerCombat manager, CombatAgent bandit) 
     {
         base.Setup(manager);
+
+        this.bandit = bandit;
 
         // calculate gravity and jump speed
         gravity = -(2 * JumpHeight) / Mathf.Pow(TimeToJumpApex, 2);
         jumpVelocity = Mathf.Abs(gravity) * TimeToJumpApex;
     }
-
 
     #region Player turn
     public override void PlayerTurnStart()
@@ -45,7 +51,7 @@ public class CombatAgentBanditItem : CombatAgent
         base.PlayerTurnStart();
 
         // activate colliders
-        foreach (var colider in Colliders)
+        foreach (var colider in References.Colliders)
             colider.gameObject.SetActive(true);
 
         // reset item
@@ -67,7 +73,7 @@ public class CombatAgentBanditItem : CombatAgent
         foreach (var skillSlot in Skills)
         {
             if (skillSlot.Skill == SelectedAction.Skill)
-                Renderer.sprite = skillSlot.Sprite;
+                References.Renderer.sprite = skillSlot.Sprite;
         }
     }
     public override void PlayerTurnFinish()
@@ -98,8 +104,8 @@ public class CombatAgentBanditItem : CombatAgent
                 if (enemyPosition.y > handRight.position.y)
                     transform.Rotate(0f, 0f, RotateSpeed * Time.deltaTime);
                 else
-                    Animator.Play("Hidden");
-                 break;
+                    References.Animator.Play("Hidden");
+                break;
             case MoveType.RightToLeft:
                 // Move right to left
                 moveTimeCurrent += Time.deltaTime;
@@ -108,7 +114,7 @@ public class CombatAgentBanditItem : CombatAgent
                 if (enemyPosition.y > handLeft.position.y)
                     transform.Rotate(0f, 0f, -RotateSpeed * Time.deltaTime);
                 else
-                    Animator.Play("Hidden");
+                    References.Animator.Play("Hidden");
                 break;
         }
 
@@ -127,12 +133,27 @@ public class CombatAgentBanditItem : CombatAgent
         enemyVelocity.y = jumpVelocity;
         startingX = transform.position.x;
 
-        Animator.Play("Idle");
+        References.Animator.Play("Idle");
 
         // set random move type
         moveType = (MoveType)Random.Range(0, 2);
     }
     #endregion
+
+
+    protected override void Cleanup()
+    {
+        base.Cleanup();
+
+        if (SelectedAction.Skill == SkillGrenade)
+        {
+            // show effect
+            Instantiate(ExplosionEffect, bandit.References.Pivot.position, Quaternion.identity, manager.Encounter.transform);
+            bandit.Damage(Explosion.Damage, false);
+        }
+
+    }
+
 
     [System.Serializable]
     public struct SkillSlot 

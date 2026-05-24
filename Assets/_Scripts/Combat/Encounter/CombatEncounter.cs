@@ -13,6 +13,8 @@ public class CombatEncounter : MonoBehaviour
 
     // list of spawned enemies, after spawned the list is cleared
     private List<CombatAgent> enemiesToAdd;
+    private List<CombatAgent> allEnemies;
+    private Dictionary<int, int> enemyPriorities;
 
     private ManagerCombat manager;
 
@@ -20,14 +22,39 @@ public class CombatEncounter : MonoBehaviour
     {
         this.manager = manager;
 
-        // setup encounter enemies
-        foreach (var enemy in Enemies)
-            enemy.Setup(manager);
-
+        // instantiate lists
         enemiesToAdd = new List<CombatAgent>();
+        allEnemies = new List<CombatAgent>();
+        enemyPriorities = new Dictionary<int, int>();
+
+        // setup encounter enemies and set priority
+        foreach (var enemy in Enemies)
+        {
+            allEnemies.Add(enemy);
+            enemy.Setup(manager);
+        }
+        UpdateSortingOrders();
 
         TurnNumber = 0;
     }
+
+
+    private void UpdateSortingOrders()
+    {
+        enemyPriorities = new Dictionary<int, int>();
+
+        foreach (var enemy in allEnemies)
+        {
+            if (enemyPriorities.ContainsKey(enemy.Priority))
+                enemyPriorities[enemy.Priority]++;
+            else
+                enemyPriorities.Add(enemy.Priority, 1);
+
+            enemy.SetOrderInLayer(enemy.Priority * 1000 + enemyPriorities[enemy.Priority] * 100);
+        }
+    }
+
+
 
     #region Player turn
     public void PlayerTurnStart() 
@@ -46,8 +73,8 @@ public class CombatEncounter : MonoBehaviour
     public void PlayerTurnFinish() 
     {
         // add agents to add to enemies
-        foreach (var agent in enemiesToAdd)
-            Enemies.Add(agent);
+        foreach (var enemy in enemiesToAdd)
+            Enemies.Add(enemy);
         enemiesToAdd.Clear();
 
         // send player end event to all enemies
@@ -55,6 +82,7 @@ public class CombatEncounter : MonoBehaviour
             enemy.PlayerTurnFinish();
     }
     #endregion
+
 
     public void SpawnEnemy (CombatAgent enemy, Vector3 position)
     {
@@ -69,6 +97,10 @@ public class CombatEncounter : MonoBehaviour
         // setup and add to encounter list
         enemiesToAdd[enemiesToAdd.Count - 1].Setup(manager);
 
+        // add to all enemies and update sorting order
+        allEnemies.Add(enemiesToAdd[enemiesToAdd.Count - 1]);
+        UpdateSortingOrders();
+
         // enter player turn state if player acting
         if (manager.IsPlayerTurn)
             enemiesToAdd[enemiesToAdd.Count - 1].PlayerTurnStart();
@@ -80,6 +112,18 @@ public class CombatEncounter : MonoBehaviour
 
         spawnedEnemy = enemiesToAdd[enemiesToAdd.Count - 1];
     }
+    public void SpawnEnemy(CombatAgent enemy) 
+    {
+        SpawnEnemy(enemy, manager.ArenaBounds.center);
+    }
+
+
+    public void AddSubEnemyToEncounter(CombatAgent agent) 
+    {
+        allEnemies.Add(agent);
+        UpdateSortingOrders();
+    }
+
 
     public virtual bool CheckEncounterWincons() 
     {
@@ -91,6 +135,7 @@ public class CombatEncounter : MonoBehaviour
         // otherwise return true if there are wincons, otherwise return false
         return Wincons.Length > 0;
     }
+
 
     public CombatAgent CheckForEnemy(string id) 
     {
@@ -127,6 +172,7 @@ public class CombatEncounter : MonoBehaviour
 
         return true;
     }
+
     // True while enemies are in the middle of animations. The combat manager waits for this to be false to change phases
     public bool CheckEnemiesDoingStuff() 
     {
@@ -136,6 +182,8 @@ public class CombatEncounter : MonoBehaviour
 
         return false;
     }
+
+
 
 #if UNITY_EDITOR
 

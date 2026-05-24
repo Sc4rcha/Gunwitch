@@ -60,12 +60,7 @@ public class CombatSlimeMovement : MonoBehaviour
         }
 
         enemyVelocity.y = Random.Range(jumpVelocityMin, jumpVelocityMax);
-        manager.Animator.Play("Jump");
-    }
-    public void Attack() 
-    {
-        enemyVelocity.y = Random.Range(jumpVelocityMin, jumpVelocityMax);
-        manager.Animator.Play("Jump");
+        manager.References.Animator.Play("Jump");
     }
     public void Spawn() 
     {
@@ -90,7 +85,7 @@ public class CombatSlimeMovement : MonoBehaviour
         CalculateMovement();
 
         // set animator varialbes
-        manager.Animator.SetBool("isJumping", IsJumping);
+        manager.References.Animator.SetBool("isJumping", IsJumping);
     }
     private void CalculateMovement() 
     {

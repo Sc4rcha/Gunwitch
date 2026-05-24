@@ -34,6 +34,16 @@ public class InventoryItemReferences : ScriptableObject
         }
     }
 
+    public SOInventoryItemBullet GetBullet(string itemId) 
+    {
+        // return item reference if found
+        if (itemDictionary.TryGetValue(itemId, out var item))
+            return item as SOInventoryItemBullet;
+
+        Debug.LogError("Bullet not found: " + itemId);
+        return null;
+    }
+
     public SOInventoryItem GetItemReference(string itemId) 
     {
         // return item reference if found

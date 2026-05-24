@@ -52,6 +52,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3669795271040408721, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.49999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669795271040408721, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669795271040408721, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669795271040408721, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.86602545
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669795271040408721, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 6685879628210532455, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
       propertyPath: m_Size.x
       value: 1.12
@@ -73,16 +93,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8355172956501245117}
   m_SourcePrefab: {fileID: 100100000, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
---- !u!4 &1163300663243338792 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3141074928501864441, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
-  m_PrefabInstance: {fileID: 4301932476435350481}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1774948955478125336 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2527199304412309705, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
-  m_PrefabInstance: {fileID: 4301932476435350481}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2060163935905056331 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2820560567059891610, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
@@ -102,49 +112,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatAgentBanditLeaderSheath
   EnemyStatsReference: {fileID: 11400000, guid: 97c2f5ee83cb2944899b46feb5c3981a, type: 2}
   Priority: 0
-  Pivot: {fileID: 3509249441335738108}
-  MarkerDamage: {fileID: 1163300663243338792}
-  MarkerSelect: {fileID: 3028626515646370890}
-  Animator: {fileID: 1774948955478125336}
-  BulletHitEffect: {fileID: 7696071638283042821}
-  Renderer: {fileID: 7456426967897158582}
-  RenderersExtra: []
-  Colliders:
-  - {fileID: 2376020083980177128}
---- !u!114 &2376020083980177128 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1966623219635998009, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
-  m_PrefabInstance: {fileID: 4301932476435350481}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be44500c7ce3e684a86bc9cb003f5122, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CombatAgentCollider
---- !u!4 &3028626515646370890 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1275749110196672411, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
-  m_PrefabInstance: {fileID: 4301932476435350481}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &3509249441335738108 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 792865588726250797, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
-  m_PrefabInstance: {fileID: 4301932476435350481}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &7456426967897158582 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 6685879628210532455, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
-  m_PrefabInstance: {fileID: 4301932476435350481}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7696071638283042821 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5872263637094400980, guid: 62207ea219927f24fae85e40f86c8393, type: 3}
-  m_PrefabInstance: {fileID: 4301932476435350481}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa9fe94b09726df40bd763fcf2d7e45c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BulletHitEffect

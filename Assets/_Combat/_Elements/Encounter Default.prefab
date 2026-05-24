@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e058336b2a8bfb142a32303098657bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatEnounter
+  Wincons: []
   Enemies:
   - {fileID: 2552013349292614608}
 --- !u!1001 &439156867025771703

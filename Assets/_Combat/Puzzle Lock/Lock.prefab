@@ -5851,7 +5851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2156160160385899779, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2698395352362041191, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
       propertyPath: 'Colliders.Array.data[0]'
@@ -5868,6 +5868,26 @@ PrefabInstance:
     - target: {fileID: 4430341581151868887, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6281868576240205641, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6281868576240205641, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6293859610569279482, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: Colliders.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6293859610569279482, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: 'Colliders.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8455183207939877356}
+    - target: {fileID: 7423365498046196014, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: IsObject
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7688325322983987869, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
       propertyPath: m_Sprite
@@ -5905,32 +5925,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6912238959304779212}
   m_SourcePrefab: {fileID: 100100000, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
---- !u!212 &140797509063458789 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 7688325322983987869, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 7729968834796676472}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &883631477991558230 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7423365498046196014, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 7729968834796676472}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa9fe94b09726df40bd763fcf2d7e45c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BulletHitEffect
---- !u!4 &5515059623363991577 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2868564482711403873, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 7729968834796676472}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6214371012672647855 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4430341581151868887, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 7729968834796676472}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7193151037115300856 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 618516466007285376, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
@@ -5939,11 +5933,6 @@ Transform:
 --- !u!4 &7819230382946637502 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 559890192054137798, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 7729968834796676472}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8550758506503075963 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2156160160385899779, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
   m_PrefabInstance: {fileID: 7729968834796676472}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8798228736998279704 stripped
@@ -5965,20 +5954,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatAgentLock
   EnemyStatsReference: {fileID: 11400000, guid: eb711894701a2f54b855575bed999b4f, type: 2}
   Priority: 0
-  Pivot: {fileID: 6214371012672647855}
-  MarkerDamage: {fileID: 8550758506503075963}
-  MarkerSelect: {fileID: 5515059623363991577}
-  Animator: {fileID: 9092583956781655883}
-  BulletHitEffect: {fileID: 883631477991558230}
-  Renderer: {fileID: 140797509063458789}
-  RenderersExtra:
-  - {fileID: 2317913294852734125}
-  - {fileID: 2253826363417557063}
-  - {fileID: 5789804391869821611}
-  - {fileID: 3576662024245081332}
-  - {fileID: 2455209262723516619}
-  Colliders:
-  - {fileID: 8455183207939877356}
   CursorPosition: 0
   Objectives: 06000000
   LockObjective: {fileID: 1964843963470448077}
@@ -5991,8 +5966,3 @@ MonoBehaviour:
   - {fileID: 3154199763748333374}
   - {fileID: 1796062553120657409}
   CircleBreakParticles: {fileID: 3253140069962856514}
---- !u!95 &9092583956781655883 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1542770240457769523, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 7729968834796676472}
-  m_PrefabAsset: {fileID: 0}

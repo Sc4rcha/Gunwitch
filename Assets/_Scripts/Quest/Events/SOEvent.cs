@@ -1,5 +1,4 @@
 using System;
-using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Event", menuName = "Event/Event", order = 1)]

@@ -335,6 +335,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 330685164195559019, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 559890192054137798, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -391,6 +395,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 3.554
       objectReference: {fileID: 0}
+    - target: {fileID: 6293859610569279482, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: Colliders.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6293859610569279482, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: 'Colliders.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1094084737701423636}
+    - target: {fileID: 6293859610569279482, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: 'Colliders.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8391825098465097023}
     - target: {fileID: 7688325322983987869, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -436,6 +452,17 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 7688325322983987869, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
   m_PrefabInstance: {fileID: 7229385128058690360}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2633084880951992667 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4672897785877920355, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+  m_PrefabInstance: {fileID: 7229385128058690360}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f85eeea7d1fc4334c889107137baa797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatAgentUI
 --- !u!114 &4564344537091677054 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6558402506730635334, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
@@ -447,11 +474,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be44500c7ce3e684a86bc9cb003f5122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatAgentCollider
---- !u!4 &4872014407057450585 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2868564482711403873, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 7229385128058690360}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6424476443125550319 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4430341581151868887, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
@@ -491,9 +513,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatAgentBandit
   EnemyStatsReference: {fileID: 11400000, guid: c8794b369663fa94d9cfd4d54d6814ec, type: 2}
   Priority: 1
+  References: {fileID: 0}
   Pivot: {fileID: 6424476443125550319}
   MarkerDamage: {fileID: 8772967292117485115}
-  MarkerSelect: {fileID: 4872014407057450585}
+  AgentUI: {fileID: 2633084880951992667}
   Animator: {fileID: 8159091117672470795}
   BulletHitEffect: {fileID: 240653332983656982}
   Renderer: {fileID: 1072283721332670885}

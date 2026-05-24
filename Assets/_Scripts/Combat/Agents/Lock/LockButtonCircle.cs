@@ -22,6 +22,7 @@ public class LockButtonCircle : MonoBehaviour
         {
             button.Button.Setup(manager);
             button.Button.Circle = this;
+            manager.Encounter.AddSubEnemyToEncounter(button.Button);
         }
 
         // set lock agent reference

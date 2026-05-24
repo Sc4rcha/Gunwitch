@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6281868576240205641, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6413048192005725200, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
       propertyPath: m_Radius
       value: 0.35435474

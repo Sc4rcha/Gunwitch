@@ -10,9 +10,10 @@ public class CombatPlayer : MonoBehaviour
     public enum PlayerState { None, Shooting, Reloading, Consumable }
     public PlayerState State { get; private set; }
 
-
     public ManagerPlayer PlayerReference { get; private set; }
 
+    // extra turn
+    private int momentum;
 
     private ManagerCombat manager;
 
@@ -23,17 +24,29 @@ public class CombatPlayer : MonoBehaviour
         this.manager = manager;
         PlayerReference = ManagerGameElements.Instance.Player;
 
+        momentum = 0;
+
         // setup elements
         Gun.Setup(this);
+
+        // play idle animation for combat
+        PlayerReference.HUD.Portrait.CombatIdle();
     }
     public void CombatFinish()
     {
         ChangeState(PlayerState.None);
         Gun.CombatFinish();
+
+        // play idle animation for world
+        PlayerReference.HUD.Portrait.CombatWin();
     }
+
 
     public void TurnStart()
     {
+        // add momentum
+        momentum += PlayerReference.Actor.Dexterity;
+
         // start turn by reloading gun
         ReloadStart();
     }
@@ -44,6 +57,7 @@ public class CombatPlayer : MonoBehaviour
         // finish player round
         manager.PlayerRoundFinish();
     }
+
 
     #region Shooting
     public void AimOnOff(bool isAim) 
@@ -58,7 +72,6 @@ public class CombatPlayer : MonoBehaviour
     {
         // change state to reaload
         ChangeState(PlayerState.Reloading);
-
 
         // set phase message
         manager.ScreenPhases.ShowPhase("Reloading...", Mathf.Infinity);
@@ -145,7 +158,7 @@ public class CombatPlayer : MonoBehaviour
                 // inventory enter reload
                 manager.InventoryMenu.ReloadStart();
 
-                Gun.ReloadStart();
+                Gun.ReloadStart(CombatMethods.CalculateExtraBullets(ref momentum, Gun.MagazineSize, PlayerReference.Actor, manager.Configuration));
                 break;
             case PlayerState.Consumable:
                 // player HUD exit reload

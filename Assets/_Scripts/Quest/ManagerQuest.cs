@@ -146,14 +146,14 @@ public class ManagerQuest : MonoBehaviour
     {
         ManagerEvents.EventFinish();
 
-        ManagerMap.LocationScreen.Refresh(MapState.WorldLocation, GetLocationEvents());
-
         // unlock events
         foreach (var eventToUnlock in QuestEvents)
         {
             if (eventToUnlock.Value.IsLocked)
                 eventToUnlock.Value.IsLocked = eventToUnlock.Key.CheckLocked(MapState.Flags);
         }
+
+        ManagerMap.LocationScreen.Refresh(MapState.WorldLocation, GetLocationEvents());
     }
 
     /// <summary>

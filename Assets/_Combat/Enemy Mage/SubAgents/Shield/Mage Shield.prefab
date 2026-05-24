@@ -154,6 +154,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6281868576240205641, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.13399982
+      objectReference: {fileID: 0}
+    - target: {fileID: 6293859610569279482, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: Colliders.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6293859610569279482, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: 'Colliders.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6516272793555847229}
+    - target: {fileID: 7423365498046196014, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
+      propertyPath: IsObject
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7688325322983987869, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -180,42 +196,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4744925591531227905}
   m_SourcePrefab: {fileID: 100100000, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
---- !u!212 &1456739796423059634 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 7688325322983987869, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 9116704041531961903}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1837501165182278401 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7423365498046196014, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 9116704041531961903}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa9fe94b09726df40bd763fcf2d7e45c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BulletHitEffect
---- !u!4 &4899553779345679864 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4430341581151868887, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 9116704041531961903}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6434019026131865422 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2868564482711403873, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 9116704041531961903}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &7163311898598305580 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2156160160385899779, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 9116704041531961903}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &7776607535337238556 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1542770240457769523, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
-  m_PrefabInstance: {fileID: 9116704041531961903}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8059967638575422799 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1251943353823522656, guid: d8c3550c15e0ab1479390512e05750f0, type: 3}
@@ -235,15 +215,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatAgentMageShield
   EnemyStatsReference: {fileID: 11400000, guid: a8fb9ad69e0942643a38114284018d15, type: 2}
   Priority: 10
-  Pivot: {fileID: 4899553779345679864}
-  MarkerDamage: {fileID: 7163311898598305580}
-  MarkerSelect: {fileID: 6434019026131865422}
-  Animator: {fileID: 7776607535337238556}
-  BulletHitEffect: {fileID: 1837501165182278401}
-  Renderer: {fileID: 1456739796423059634}
-  RenderersExtra: []
-  Colliders:
-  - {fileID: 6516272793555847229}
   ShieldSmoothTime: 0.5
 --- !u!4 &8507409059290901679 stripped
 Transform:

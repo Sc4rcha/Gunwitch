@@ -40,7 +40,7 @@ public class InventoryMenuCombat : InventoryMenu
         Setup(player);
     }
 
-
+    
     public override void ShowSection(ItemType section)
     {
         base.ShowSection(section);
@@ -94,6 +94,7 @@ public class InventoryMenuCombat : InventoryMenu
     #region Button actions
     public new void ButtonOpenConsums()
     {
+
         combat.Player.ConsumableStart();
 
         ShowSection(ItemType.CONSUMABLE);
@@ -113,6 +114,14 @@ public class InventoryMenuCombat : InventoryMenu
             ManagerGameElements.Instance.ItemReferences.GetItemReference(consumableSelected.Id).ItemEffect();
             // remove consumable from inventory
             player.Inventory.RemoveItem(consumableSelected.Type, consumableSelected.Id);
+
+            // close menu
+            ItemDelesect();
+            ButtonCloseConsums();
+        }
+        else
+        {
+            ButtonOpenConsums();
         }
 
         // deactivate item confirm popup
@@ -120,11 +129,8 @@ public class InventoryMenuCombat : InventoryMenu
         // clear selected consumable
         consumableSelected = null;
 
-        // player portrait return to item selection
-        PlayerHUDPortrait.Instance.ConsumsDeselect();
-
-        // refresh menu
-        Refresh();
+        // lock close menu
+        ButtonClose.interactable = false;
     }
     #endregion
 
@@ -150,7 +156,6 @@ public class InventoryMenuCombat : InventoryMenu
         if (item.Type == ItemType.CONSUMABLE)
             PlayerHUDPortrait.Instance.ConsumsFocus(item.Id);
 
-
         Information.InfoShow(ManagerGameElements.Instance.ItemReferences.GetItemReference(item.Id));
     }
     public override void ItemDelesect()
@@ -175,6 +180,9 @@ public class InventoryMenuCombat : InventoryMenu
 
             // player portrait take item
             PlayerHUDPortrait.Instance.ConsumsSelect(item.Id);
+
+            // lock close menu
+            ButtonClose.interactable = false;
         }
     }
     #endregion

@@ -22,7 +22,7 @@ public class CombatAgentMageShield : CombatAgent
         base.PlayerTurnStart();
 
         // activate colliders
-        foreach (var colider in Colliders)
+        foreach (var colider in References.Colliders)
             colider.gameObject.SetActive(true);
 
         // setup
@@ -36,7 +36,7 @@ public class CombatAgentMageShield : CombatAgent
         if (playerGun.IsCursorOnShootingArea)
             transform.position = Vector2.SmoothDamp(transform.position, playerGun.Visuals.Crosshair.position, ref smoothDampVelocity, ShieldSmoothTime);
         else
-            transform.position = Vector2.SmoothDamp(transform.position, Mage.Pivot.position, ref smoothDampVelocity, ShieldSmoothTime);
+            transform.position = Vector2.SmoothDamp(transform.position, Mage.References.Pivot.position, ref smoothDampVelocity, ShieldSmoothTime);
     }
     public override void PlayerTurnFinish()
     {

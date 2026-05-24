@@ -9,10 +9,9 @@ public class GameSaveLoad : MonoBehaviour
     private static string SavePathWorld => Path.Combine(Application.persistentDataPath, "saveWorld.json");
 
 
-    #region SAVE WORLD
     public void SaveGame(bool isQuestActive) 
     {
-        SavePlayer(ManagerGameElements.Instance.Player.Info);
+        SavePlayer(ManagerGameElements.Instance.Player.Actor);
 
         if (!isQuestActive)
             DeleteWorldSave();
@@ -40,6 +39,8 @@ public class GameSaveLoad : MonoBehaviour
         playerSave.Dexterity = player.Dexterity;
         playerSave.Luck = player.Luck;
         playerSave.Charisma = player.Charisma;
+
+        playerSave.StatusEffects = player.StatusEffects;
 
         // inventory
         playerSave.Items = new List<InventoryItemSaveData>();
@@ -107,7 +108,6 @@ public class GameSaveLoad : MonoBehaviour
 
         Debug.Log($"Game saved at: {SavePathWorld}");
     }
-    #endregion
 
 
     public void LoadGame() 
@@ -118,7 +118,7 @@ public class GameSaveLoad : MonoBehaviour
             string json = File.ReadAllText(SavePathPlayer);
             SaveDataPlayer playerSave = JsonUtility.FromJson<SaveDataPlayer>(json);
 
-            ManagerGameElements.Instance.Player.Info = new ActorPlayer(playerSave);
+            ManagerGameElements.Instance.Player.Actor = new ActorPlayer(playerSave);
         }
 
         // LOAD WORLD

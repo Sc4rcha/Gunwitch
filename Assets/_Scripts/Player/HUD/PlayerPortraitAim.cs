@@ -15,6 +15,9 @@ public class PlayerPortraitAim : MonoBehaviour
     public Vector2 MoveMultiArms;
     public Vector2 MoveMultiHands;
     public Vector2 MoveMultiGun;
+    [Space]
+    public ParticleSystem ShootEffect;
+    public Animation ShootFlash;
 
     private Vector2 initialPosBody;
     private Vector2 initialPosArms;
@@ -44,5 +47,12 @@ public class PlayerPortraitAim : MonoBehaviour
         RectArms.anchoredPosition = initialPosArms + mousePosition * MoveDistance * MoveMultiArms;
         RectHands.anchoredPosition = initialPosHands + mousePosition * MoveDistance * MoveMultiHands;
         RectGun.anchoredPosition = initialPosGun + mousePosition * MoveDistance * MoveMultiGun;
+    }
+
+    public void Shoot() 
+    {
+        ShootEffect.Play();
+        ShootFlash.Play();
+        gameObject.SetActive(false);
     }
 }

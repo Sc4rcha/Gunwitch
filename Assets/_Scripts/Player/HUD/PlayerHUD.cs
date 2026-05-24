@@ -2,7 +2,6 @@ using GameInfo;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using static CombatPlayer;
 
 public class PlayerHUD : MonoBehaviour
 {
@@ -32,10 +31,9 @@ public class PlayerHUD : MonoBehaviour
     public void Refresh()
     {
         
-        HealthBar.fillAmount = (float)player.Info.HealthCurrent / (float)player.Info.Health;
-        ManaBar.fillAmount = (float)player.Info.ManaCurrent / (float)player.Info.Mana;
+        HealthBar.fillAmount = (float)player.Actor.HealthCurrent / (float)player.Actor.Health;
+        ManaBar.fillAmount = (float)player.Actor.ManaCurrent / (float)player.Actor.Mana;
     }
-
 
     public void Damage(string value) 
     {
@@ -44,19 +42,31 @@ public class PlayerHUD : MonoBehaviour
 
         damageCoroutine = StartCoroutine(DamageAnimation(value));
     }
-
-
     private IEnumerator DamageAnimation(string value) 
     {
         yield return damageMessageDelay;
 
         if (value != "MISS")
+        {
             Shake.ShakeStart(3);
+            Portrait.CombatDamage();
+        }
 
-        Portrait.HitNumber.ShowNumber(value, 3);
+        Portrait.HitNumber.ShowNumber(value, 3, CombatHitMessage.MessageType.Damage);
         Refresh();
 
 
         damageCoroutine = null;
+    }
+
+    public void ShowHitMessage(string text)
+    {
+        Portrait.HitNumber.ShowNumber(text, 3, CombatHitMessage.MessageType.Text);
+    }
+
+    public void Heal(string value) 
+    {
+        Portrait.HitNumber.ShowNumber(value, 3, CombatHitMessage.MessageType.Heal);
+        Refresh();
     }
 }

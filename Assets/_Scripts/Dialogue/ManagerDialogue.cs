@@ -81,6 +81,9 @@ public class ManagerDialogue : MonoBehaviour
 
         // display first node
         RenderDialogueNode(dialogueSelected.Nodes[0]);
+
+        // player portrait dialogue animation
+        PlayerHUDPortrait.Instance.Dialogue();
     }
     public void DialogueEnd()
     {
@@ -92,6 +95,10 @@ public class ManagerDialogue : MonoBehaviour
 
         // call action
         OnDialogueFinish?.Invoke();
+
+        // player portrait world Idle
+        PlayerHUDPortrait.Instance.SetFocusPlayer(true);
+        PlayerHUDPortrait.Instance.WorldIdle();
     }
 
     public void DialogueNext()

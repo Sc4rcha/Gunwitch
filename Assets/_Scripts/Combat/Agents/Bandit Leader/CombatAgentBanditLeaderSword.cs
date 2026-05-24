@@ -9,11 +9,14 @@ public class CombatAgentBanditLeaderSword : CombatAgent
         base.Setup(manager);
 
         // play idle animatio on setup
-        Animator.Play("Idle");
+        References.Animator.Play("Idle");
 
         // setup sheathed swords
         foreach (var sword in SheathedSwords)
+        {
             sword.Setup(manager);
+            manager.Encounter.AddSubEnemyToEncounter(sword);
+        }
     }
 
     protected override void Cleanup()
@@ -22,7 +25,7 @@ public class CombatAgentBanditLeaderSword : CombatAgent
 
         // reactivate sword and play Dead animation instead
         gameObject.SetActive(true);
-        Animator.Play("Dead");
+        References.Animator.Play("Dead");
     }
 
     public void Revive()
@@ -34,7 +37,7 @@ public class CombatAgentBanditLeaderSword : CombatAgent
             {
                 // revive self
                 base.Setup(manager);
-                Animator.Play("Idle");
+                References.Animator.Play("Idle");
 
                 // kill sheathed sword
                 sword.ForceKill();

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4579851f4ca70b443abb24a865465510, type: 3}
+  m_Name: Bullet Witch
+  m_EditorClassIdentifier: Assembly-CSharp::SOBullet
+  Id: witch_bullet
+  Name: Witch Bullet
+  Type: 1
+  Description: The most basic spell bullet in a gunwitch arsenal. The bullet does
+    35 magic damage to the enemy.
+  Sprite: {fileID: 21300000, guid: 66db7c7f2fb9f6144b4fbb1a3e295271, type: 3}
+  ManaCost: 15
+  Damage: 35
+  IsMagic: 1
+  BulletColor: {r: 0.9716981, g: 0.2704254, b: 0.2704254, a: 1}

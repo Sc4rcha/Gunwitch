@@ -1,9 +1,8 @@
 using GameInfo;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using EasyTextEffects.Editor.MyBoxCopy.Extensions;
 
 public class CombatAgent : MonoBehaviour
 {
@@ -13,26 +12,18 @@ public class CombatAgent : MonoBehaviour
     public SOCombatEnemy EnemyStatsReference;
     public int Priority;
 
-    [Header("Scene References")]
-    public Transform Pivot;
-    public Transform MarkerDamage;
-    public Transform MarkerSelect;
-    [Space]
-    public Animator Animator;
-    public BulletHitEffect BulletHitEffect;
-    public SpriteRenderer Renderer;
-    public SpriteRenderer[] RenderersExtra;
-    [Space]
-    public CombatAgentCollider[] Colliders;
-
     protected ManagerCombat manager;
     protected CombatAgentShake shake;
+
+    public CombatAgentReferences References { get; protected set; }
 
     public bool IsHurt { get; protected set; }
     public bool IsDoingStuff { get; protected set; }
 
     private bool isPlayerTurn;
     private const float turnCooldown = 0.5f;
+
+    protected int momentum;
 
     protected float hurtAnimationTime = 0.5f;
     private float hurtAnimationTimeCurrent;
@@ -41,30 +32,28 @@ public class CombatAgent : MonoBehaviour
 
     public virtual void Setup(ManagerCombat manager)
     {
-        // set references
+        // set manager reference
         this.manager = manager;
 
+        // get references
+        References = GetComponent<CombatAgentReferences>();
+
         // Setup colliders
-        foreach (var collider in Colliders)
+        foreach (var collider in References.Colliders)
             collider.Setup(this);
 
         // setup agent stats
         Actor = EnemyStatsReference.GetCombatActor();
         Actor.Startcombat();
+        momentum = 0;
 
         // setup shaker
-        shake = Renderer.GetComponent<CombatAgentShake>();
+        shake = References.Renderer.GetComponent<CombatAgentShake>();
         shake.enabled = false;
 
-        // setup renderer
-        Renderer.color = Color.white;
-        Renderer.sortingOrder = Priority * 10;
-        // set extra sprite renderers order
-        for (int i = 0; i < RenderersExtra.Length; i++)
-            RenderersExtra[i].sortingOrder = Priority * 10 + i + 1;
+        SetOrderInLayer(Priority * 100);
 
         // setup damage varialbes
-        BulletHitEffect.Setup(Renderer.sortingOrder);
         deathEffectTime = new WaitForSeconds(0.75f);
         IsHurt = false;
 
@@ -80,6 +69,24 @@ public class CombatAgent : MonoBehaviour
     }
 
 
+    public void SetOrderInLayer(int enemyOrderInLayer) 
+    {
+        // setup renderer
+        References.Renderer.color = Color.white;
+        References.Renderer.sortingOrder = enemyOrderInLayer;
+        // set extra sprite renderers order
+        for (int i = 0; i < References.RenderersExtra.Length; i++)
+            References.RenderersExtra[i].sortingOrder = Priority + i + 1;
+
+        // set effects
+        References.BulletHitEffect.Setup(References.Renderer.sortingOrder);
+
+        // set renderer sprite mask order in layer
+        References.Renderer.GetComponent<SpriteMask>().frontSortingOrder = References.BulletHitEffect.HitHoleOrderInLayer + 1;
+        References.Renderer.GetComponent<SpriteMask>().backSortingOrder = References.BulletHitEffect.HitHoleOrderInLayer - 1;
+    }
+
+
     #region Enemy turn
     public virtual void TurnStart()
     {
@@ -90,6 +97,9 @@ public class CombatAgent : MonoBehaviour
             return;
         }
 
+        // add momentum
+        momentum += Actor.Speed;
+
         // start turn behaviour coroutine
         StartCoroutine(TurnBehaviour());
     }
@@ -98,8 +108,12 @@ public class CombatAgent : MonoBehaviour
         // clear attack screen finish event
         manager.ScreenAttack.OnAnimationFinish -= TurnFinish;
 
-        // send turn finish to manager for next enemy to act
-        manager.EnemyTurnFinish();
+        if (CombatMethods.EnemyExtraTurn(ref momentum, Actor, manager.Configuration))
+            // act again if extra turn, start turn behaviour coroutine
+            StartCoroutine(TurnBehaviour());
+        else
+            // send turn finish to manager for next enemy to act
+            manager.EnemyTurnFinish();
     }
     private IEnumerator TurnBehaviour()
     {
@@ -145,35 +159,63 @@ public class CombatAgent : MonoBehaviour
 
 
     #region HEALTH / DEATH
-    public virtual void Damage(int value, bool isCrit)
+    public virtual void Damage(int damage, bool isCrit)
     {
         foreach (var hitMessage in manager.HitMessages)
         {
             if (hitMessage.IsAvailable)
             {
-                hitMessage.transform.position = MarkerDamage.position;
+                hitMessage.transform.position = References.MarkerDamage.position;
 
                 if (!isCrit)
-                    hitMessage.ShowNumber(value.ToString(),1);
+                    hitMessage.ShowNumber(damage.ToString(), 1, CombatHitMessage.MessageType.Damage);
                 else
-                    hitMessage.ShowNumber(value.ToString(), 2);
+                    hitMessage.ShowNumber(damage.ToString(), 2, CombatHitMessage.MessageType.Damage);
 
                 break;
             }
         }
 
-        Actor.HealthChange(-value);
+        Actor.HealthChange(-damage);
 
         // kill enememy if it died otherwise play hurt animation
         if (Actor.IsDead)
             Die();
         else
             StartCoroutine(HurtAnimation(isCrit));
+
+
+        // refresh UI Status Effects
+        References.AgentUI.RefreshStatusEffects(Actor, manager.Configuration);
+    }
+    public virtual void Damage(Bullet bullet, bool isCrit)
+    {
+        int damage = (int)CombatMethods.DamageBullet(manager.Player.PlayerReference.Actor, Actor, bullet, manager.Player.Gun.CritMultiplier, isCrit, manager.Configuration);
+
+        Damage(damage, isCrit);
+    }
+    public virtual void Damage(Bullet bullet, bool isCrit, ref int damage)
+    {
+        damage = (int)CombatMethods.DamageBullet(manager.Player.PlayerReference.Actor, Actor, bullet, manager.Player.Gun.CritMultiplier, isCrit, manager.Configuration);
+
+        Damage(damage, isCrit);
+    }
+    public virtual void Damage(ActorEnemy enemy ,SOEnemySkill skill)
+    {
+        int damage = (int)CombatMethods.DamageEnemyToEnemy(enemy, Actor, skill, manager.Configuration);
+
+        Damage(damage, false);
     }
     public virtual void BulletHit(Vector2 mousePosition)
     {
         isActorShot = true;
-        BulletHitEffect.HitPlace(mousePosition);
+        References.BulletHitEffect.HitPlace(mousePosition);
+    }
+
+    public void AddStatusEffect(StatusEffect statusEffect) 
+    {
+        Actor.StatusEffects.Add(statusEffect);
+        References.AgentUI.RefreshStatusEffects(Actor, manager.Configuration);
     }
 
     protected virtual void Die() 
@@ -194,7 +236,7 @@ public class CombatAgent : MonoBehaviour
             manager.ScreenWin.AddLootItem(loot);
 
         // deactivate colliders
-        foreach (var colider in Colliders)
+        foreach (var colider in References.Colliders)
             colider.gameObject.SetActive(false);
 
         // send death to manager to check for combat over
@@ -207,7 +249,7 @@ public class CombatAgent : MonoBehaviour
     {
         // show bullet hit effect
         if (isActorShot)
-            BulletHitEffect.Damage();
+            References.BulletHitEffect.Damage();
 
         IsDoingStuff = true;
         IsHurt = true;
@@ -224,7 +266,7 @@ public class CombatAgent : MonoBehaviour
         hurtAnimationTimeCurrent = 0;
         while (hurtAnimationTimeCurrent < hurtAnimationTime)
         {
-            Renderer.color = Color.Lerp(Color.softRed, Color.white, hurtAnimationTimeCurrent / hurtAnimationTime);
+            References.Renderer.color = Color.Lerp(Color.softRed, Color.white, hurtAnimationTimeCurrent / hurtAnimationTime);
             hurtAnimationTimeCurrent += Time.deltaTime;
             yield return null;
         }
@@ -237,7 +279,7 @@ public class CombatAgent : MonoBehaviour
     {
         // show bullet hit effect
         if (isActorShot)
-            BulletHitEffect.Damage();
+            References.BulletHitEffect.Damage();
 
         IsDoingStuff = true;
         IsHurt = true;
@@ -245,24 +287,39 @@ public class CombatAgent : MonoBehaviour
         // start shake
         manager.Effects.HitStopStart();
 
-        // color lerp
-        hurtAnimationTimeCurrent = 0;
-        while (hurtAnimationTimeCurrent < hurtAnimationTime)
-        {
-            Renderer.color = Color.Lerp(Color.gray5, Color.white, hurtAnimationTimeCurrent / hurtAnimationTime);
-            hurtAnimationTimeCurrent += Time.deltaTime;
-            yield return null;
-        }
-
-        // show bullet hole effect
         if (isActorShot)
         {
-            BulletHitEffect.Die();
+            // color lerp
+            hurtAnimationTimeCurrent = 0;
+            while (hurtAnimationTimeCurrent < hurtAnimationTime)
+            {
+                References.Renderer.color = Color.Lerp(Color.gray5, Color.white, hurtAnimationTimeCurrent / hurtAnimationTime);
+                hurtAnimationTimeCurrent += Time.deltaTime;
+                yield return null;
+            }
+
+            // death effect
+            References.BulletHitEffect.Die();
 
             manager.Effects.HitStopStart();
             shake.ShakeStart(3);
 
             yield return deathEffectTime;
+        }
+        else
+        {
+            // death effect
+            manager.Effects.HitStopStart();
+            shake.ShakeStart(2);
+
+            // color lerp
+            hurtAnimationTimeCurrent = 0;
+            while (hurtAnimationTimeCurrent < hurtAnimationTime)
+            {
+                References.Renderer.color = Color.Lerp(Color.gray5, Color.white, hurtAnimationTimeCurrent / hurtAnimationTime);
+                hurtAnimationTimeCurrent += Time.deltaTime;
+                yield return null;
+            }
         }
 
         isActorShot = false;
@@ -273,18 +330,43 @@ public class CombatAgent : MonoBehaviour
     }
     #endregion
 
-
-    public void Select (bool isSelect)
+    public void SelectActing (bool isSelect)
     {
+        References.Renderer.material.SetFloat("_OutlineSize", 20);
+
         if (isSelect)
-            Animator.transform.localScale = Vector3.one * 1.1f;
+        {
+            References.Renderer.material.SetInt("_OutlineOn", 1);
+            References.Animator.transform.localScale = Vector3.one * 1.1f;
+        }
         else
-            Animator.transform.localScale = Vector3.one;
+        {
+            References.Renderer.material.SetInt("_OutlineOn", 0);
+            References.Animator.transform.localScale = Vector3.one;
+        }
     }
+    public void SelectTarget(bool isSelect)
+    {
+        References.Renderer.material.SetFloat("_OutlineSize", 10);
+
+        if (isSelect)
+        {
+            References.Renderer.material.SetInt("_OutlineOn", 1);
+            References.Animator.transform.localScale = Vector3.one * 1.1f;
+        }
+        else
+        {
+            References.Renderer.material.SetInt("_OutlineOn", 0);
+            References.Animator.transform.localScale = Vector3.one;
+        }
+    }
+
+
     public void TakeAction() 
     {
         shake.ShakeSelect();
     }
+
 
 #if UNITY_EDITOR
     public void OnDrawGizmosSelected()

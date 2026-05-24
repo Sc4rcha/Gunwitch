@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class CombatAgentCollider : MonoBehaviour
 {
@@ -18,16 +17,10 @@ public class CombatAgentCollider : MonoBehaviour
     /// called by GUN when shooting
     /// </summary>
     /// <param name="value"></param>
-    public void Damage(int value) 
-    {
-        // send damage to agent
-        Agent.Damage(value, IsCrit);
-    }
-
-    public void Shoot(int value, Vector2 mousePosition) 
+    public void Shoot(GameInfo.Bullet bullet, Vector2 mousePosition, ref int damage) 
     {
         // send damage to agent (order is important dont change)
         Agent.BulletHit(mousePosition);
-        Agent.Damage(value, IsCrit);
+        Agent.Damage(bullet, IsCrit, ref damage);
     }
 }

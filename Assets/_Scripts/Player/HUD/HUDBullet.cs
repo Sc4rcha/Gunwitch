@@ -1,5 +1,4 @@
 using GameInfo;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class HUDBullet : HUDItem

@@ -15,6 +15,8 @@ MonoBehaviour:
   Id: heal_potion
   Name: Healing Potion
   Type: 4
-  Description: Drink it to gain HP
+  Description: Drink it to gain HP. The potion heals 50 points of health
   Sprite: {fileID: 21300000, guid: d840b0094a7c421498656e6e8d7ef068, type: 3}
-  HealAmount: 20
+  ConsumableType: 0
+  HealthAmount: 50
+  ManaAmount: 0

@@ -7,7 +7,7 @@ public class CombatAgentSlimeExplosive : CombatAgentSlime
     [Header("SLIME Explosive")]
     public GameObject ExplosionEffect;
     public float ExplosionRadius;
-    public int ExplosionDamage;
+    public SOEnemySkill ExplosionSkill;
 
     private Collider2D[] detectedColliders;
     private List<CombatAgent> detectedAgents;
@@ -29,10 +29,10 @@ public class CombatAgentSlimeExplosive : CombatAgentSlime
     private void Explode() 
     {
         detectedAgents.Clear();
-        detectedColliders = Physics2D.OverlapCircleAll(Pivot.position, ExplosionRadius);
+        detectedColliders = Physics2D.OverlapCircleAll(References.Pivot.position, ExplosionRadius);
 
         // show effect
-        Instantiate(ExplosionEffect, Pivot.position, Quaternion.identity, manager.Encounter.transform);
+        Instantiate(ExplosionEffect, References.Pivot.position, Quaternion.identity, manager.Encounter.transform);
 
         // detect agents inside explosion
         foreach (var colider in detectedColliders)
@@ -46,14 +46,14 @@ public class CombatAgentSlimeExplosive : CombatAgentSlime
 
         // damage agents
         foreach (var agent in detectedAgents)
-            agent.Damage(ExplosionDamage, false);
+            agent.Damage(Actor, ExplosionSkill);
     }
 
 #if UNITY_EDITOR
     protected override void DrawGizmos()
     {
         base.DrawGizmos();
-        Handles.DrawWireDisc(Pivot.position, Vector3.forward, ExplosionRadius);
+        Handles.DrawWireDisc(GetComponent<CombatAgentReferences>().Pivot.position, Vector3.forward, ExplosionRadius);
     }
 #endif
 }

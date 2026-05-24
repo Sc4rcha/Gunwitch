@@ -8,6 +8,10 @@ namespace GameInfo
 {
 
     #region ACTORS
+    public enum StatusEffect
+    {
+        Vulnerable = 10
+    }
     public class Actor
     {
         public string Name;
@@ -17,6 +21,7 @@ namespace GameInfo
         public int HealthCurrent;
         public int Mana;
         public int ManaCurrent;
+        public List<StatusEffect> StatusEffects;
 
         public bool IsDead => HealthCurrent <= 0;
         /// <summary>
@@ -52,6 +57,8 @@ namespace GameInfo
             Magic = enemy.Magic;
             Accuracy = enemy.Accuracy;
             Speed = enemy.Speed;
+
+            StatusEffects = new List<StatusEffect>();
         }
 
         /// <summary>
@@ -83,6 +90,14 @@ namespace GameInfo
             HealthCurrent = Health;
             ManaCurrent = Mana;
 
+            Body = playerInitialState.Body;
+            Mind = playerInitialState.Mind;
+            Dexterity = playerInitialState.Dexterity;
+            Luck = playerInitialState.Luck;
+            Charisma = playerInitialState.Charisma;
+
+            StatusEffects = new List<StatusEffect>();
+
             // set inventory
             Inventory = new Inventory();
             foreach (var item in playerInitialState.StartingItems)
@@ -95,7 +110,7 @@ namespace GameInfo
             // set equipped drum
             Inventory.EquippedDrum = playerInitialState.EquippedDrum.Id;
         }
-        public ActorPlayer (SaveDataPlayer playerSave) 
+        public ActorPlayer(SaveDataPlayer playerSave)
         {
             Health = playerSave.Health;
             HealthCurrent = playerSave.HealthCurrent;
@@ -107,6 +122,8 @@ namespace GameInfo
             Dexterity = playerSave.Dexterity;
             Luck = playerSave.Luck;
             Charisma = playerSave.Charisma;
+
+            StatusEffects = playerSave.StatusEffects;
 
             // setup inventory
             InventoryItemReferences itemReferences = ManagerGameElements.Instance.ItemReferences;
@@ -153,6 +170,8 @@ namespace GameInfo
         public int HealthCurrent;
         public int Mana;
         public int ManaCurrent;
+
+        public List<StatusEffect> StatusEffects;
 
         public int Body;
         public int Mind;
@@ -317,6 +336,7 @@ namespace GameInfo
 
     #region INVENTORY
     public enum ItemType { INGREDIENT, BULLET, DRUM, KEY, CONSUMABLE }
+    public enum ConsumableType { Hybrid, Combat, World}
 
     [Serializable]
     public class InventoryItemSaveData
@@ -351,12 +371,14 @@ namespace GameInfo
     {
         public int ManaCost;
         public int Damage;
+        public bool IsMagic;
         public Color BulletColor;
 
         public Bullet(SOInventoryItemBullet bullet) : base(bullet)
         {
             ManaCost = bullet.ManaCost;
             Damage = bullet.Damage;
+            IsMagic = bullet.IsMagic;
             BulletColor = bullet.BulletColor;
         }
     }

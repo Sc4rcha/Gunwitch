@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f46b74b332658954cb314ccdf3b2aed3, type: 3}
+  m_Name: Bullet Vampire
+  m_EditorClassIdentifier: Assembly-CSharp::SOInventoryBulletVampire
+  Id: bullet_vampire
+  Name: Vampire Bullet
+  Type: 1
+  Description: The bullet heals the gunwitch for the amount of damage it deals
+  Sprite: {fileID: 21300000, guid: 056b92a2117b0ff4d8ddf7f995f555dd, type: 3}
+  ManaCost: 10
+  Damage: 20
+  IsMagic: 1
+  BulletColor: {r: 1, g: 0.3443396, b: 1, a: 1}

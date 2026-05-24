@@ -1,13 +1,11 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CombatScreenAttack : MonoBehaviour
 {
-    public GameObject SelectPrimary;
-    public GameObject[] SelectSecondary;
     public TMPro.TMP_Text AttackName;
-
 
     public event Action OnAnimationFinish;
 
@@ -16,9 +14,16 @@ public class CombatScreenAttack : MonoBehaviour
     private ManagerCombat manager;
 
 
+    private List<CombatAgent> enemiesSelected;
+
+
     public void Setup(ManagerCombat manager) 
     {
         this.manager = manager;
+
+
+        enemiesSelected = new List<CombatAgent>();
+
 
         preActWait = new WaitForSeconds(0.5f);
         postActWait = new WaitForSeconds(1);
@@ -28,33 +33,33 @@ public class CombatScreenAttack : MonoBehaviour
 
     public void Attack(CombatAgent enemyActing, SOEnemySkill ability) 
     {
+        enemiesSelected.Clear();
+
         AttackName.text = ability.Name;
-        SelectPrimary.transform.position = enemyActing.MarkerSelect.position;
 
         AttackName.gameObject.SetActive(false);
-        SelectPrimary.gameObject.SetActive(false);
         gameObject.SetActive(true);
 
         StartCoroutine(AnimationBehaviour(enemyActing, ability));
     }
-    public void Attack(CombatAgent enemyActing, CombatAgent[] enemiesSelected, SOEnemySkill ability)
+    public void Attack(CombatAgent enemyActing, List<CombatAgent> enemiesSelected, SOEnemySkill ability)
     {
         Attack(enemyActing, ability);
 
-        for (int i = 0; i < enemiesSelected.Length; i++)
-        {
-            SelectSecondary[i].SetActive(true);
-            SelectSecondary[i].transform.position = enemiesSelected[i].MarkerSelect.position;
-        }
+        this.enemiesSelected = enemiesSelected;
+
+        // hide selectors secondary
+        foreach (var selectSecondary in enemiesSelected)
+            selectSecondary.SelectTarget(true);
     }
 
 
     private IEnumerator AnimationBehaviour(CombatAgent enemyActing, SOEnemySkill ability)
     {
-        SelectPrimary.gameObject.SetActive(true);
+        //SelectPrimary.gameObject.SetActive(true);
 
         // Select
-        enemyActing.Select(true);
+        enemyActing.SelectActing(true);
 
         yield return preActWait;
 
@@ -67,15 +72,14 @@ public class CombatScreenAttack : MonoBehaviour
 
         yield return postActWait;
 
-        enemyActing.Select(false);
-        SelectPrimary.gameObject.SetActive(false);
+        enemyActing.SelectActing(false);
 
         // send animation finish to actor
         OnAnimationFinish?.Invoke();
 
         // hide selectors secondary
-        foreach (var selectSecondary in SelectSecondary)
-            selectSecondary.SetActive(false);
+        foreach (var selectSecondary in enemiesSelected)
+            selectSecondary.SelectTarget(false);
 
         // hide screen
         gameObject.SetActive(false);

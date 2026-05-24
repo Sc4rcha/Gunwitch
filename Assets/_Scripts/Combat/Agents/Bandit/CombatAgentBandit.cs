@@ -16,7 +16,8 @@ public class CombatAgentBandit : CombatAgent
         base.Setup(manager);
 
         // Setup bandit item
-        Item.Setup(manager);
+        Item.Setup(manager, this);
+        manager.Encounter.AddSubEnemyToEncounter(Item);
     }
 
     #region Player turn
@@ -74,11 +75,11 @@ public class CombatAgentBandit : CombatAgent
     private void ChangePosition() 
     {
         isStanding = !isStanding;
-        Animator.SetBool("Standing", isStanding);
+        References.Animator.SetBool("Standing", isStanding);
 
         if (isStanding)
-            Animator.Play("Stand");
+            References.Animator.Play("Stand-In");
         else
-            Animator.Play("Crouch");
+            References.Animator.Play("Crouch-In");
     }
 }

@@ -1,3 +1,4 @@
+using GameInfo;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,10 +36,9 @@ public class CombatAgentLockButton : CombatAgent
         }
     }
 
-
-    public override void Damage(int value, bool isCrit)
+    public override void Damage(int damage, bool isCrit)
     {
-        base.Damage(value, isCrit);
+        base.Damage(damage, isCrit);
 
         // send lock rotation event
         Circle.ButtonHit(Amount);

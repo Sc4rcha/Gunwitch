@@ -8,13 +8,13 @@ public class PlayerPortraitConsumable : PlayerPortraitItemSelection
         base.SelectionStart();
 
         // Get consumables count = consumables  in inventory
-        itemsCount = ManagerGameElements.Instance.Player.Info.Inventory.Consumables.Count;
+        itemsCount = ManagerGameElements.Instance.Player.Actor.Inventory.Consumables.Count;
 
         // show consums in inventory
         for (int i = 0; i < itemsCount; i++)
         {
             Items[i].gameObject.SetActive(true);
-            Items[i].SetItemInfo(ManagerGameElements.Instance.Player.Info.Inventory.Consumables.ElementAt(i));
+            Items[i].SetItemInfo(ManagerGameElements.Instance.Player.Actor.Inventory.Consumables.ElementAt(i));
         }
 
         // get angle step

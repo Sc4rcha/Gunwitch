@@ -46,5 +46,21 @@ public class SOCombatConfig : ScriptableObject
 
     [Header("Enemies")]
     [Tooltip ("momentum at witch the enemy get an extra turn")]
-    public float momentumExtraTurn;
+    public int momentumExtraTurn;
+
+
+    [Header("Status Effects")]
+    public SOStatusEffect[] StatusEffects;
+    public SOStatusEffect GetStatusEffectInfo(GameInfo.StatusEffect statusEffect) 
+    {
+        foreach (var statusInfo in StatusEffects)
+        {
+            if (statusInfo.StatusEffect == statusEffect)
+                return statusInfo;
+        }
+
+        return null;
+    }
+
+    public float VulnerableMultiplier = 3;
 }

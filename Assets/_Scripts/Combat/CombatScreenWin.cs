@@ -19,7 +19,7 @@ public class CombatScreenWin : MonoBehaviour
 
         // get player info
         player = ManagerGameElements.Instance.Player;
-        playerLuck = player.Info.Luck;
+        playerLuck = player.Actor.Luck;
 
         // hide all loot display items
         foreach (var itemDisplay in LootDisplay)
@@ -76,7 +76,7 @@ public class CombatScreenWin : MonoBehaviour
         foreach (var lootSlot in loot)
         {
             for (int i = 0; i < lootSlot.Value; i++)
-                player.Info.Inventory.AddItem(lootSlot.Key.GetItem());
+                player.Actor.Inventory.AddItem(lootSlot.Key.GetItem());
         }
     }
 }

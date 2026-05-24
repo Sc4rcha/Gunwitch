@@ -52,7 +52,7 @@ public class ManagerGameElements : MonoBehaviour
         ManagerQuest.Setup();
 
         // setup player
-        Player.Info = StartingPlayer.GetPlayer();
+        Player.Actor = StartingPlayer.GetPlayer();
         Player.Setup();
 
         // setup quest manager
@@ -79,6 +79,7 @@ public class ManagerGameElements : MonoBehaviour
 
 
     #region Combat
+    public ManagerCombat CombatReference { get; private set; }
     public event Action<CombatEndType> OnCombatFinish;
     private CombatEncounter encounterReference;
     public void CombatLoad(CombatEncounter encounterReference)
@@ -91,11 +92,15 @@ public class ManagerGameElements : MonoBehaviour
     }
     public void CombatRegister(ManagerCombat combat)
     {
+        CombatReference = combat;
+
         // start combat with stored variables
         combat.CombatStart(encounterReference);
     }
     public void CombatEnd(CombatEndType endType)
     {
+        CombatReference = null;
+
         // unload combat scene
         StartCoroutine(ExitCombat());
 
